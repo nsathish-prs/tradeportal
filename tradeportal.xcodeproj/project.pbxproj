@@ -1,0 +1,558 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EC03041F19F4B28A00868028 /* orderConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC03041E19F4B28A00868028 /* orderConfirmationViewController.m */; };
+		EC27EF7D19F90B0100464E27 /* OrderBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */; };
+		EC27EF8019FDE78600464E27 /* OrderBookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF7F19FDE78500464E27 /* OrderBookDetailsViewController.m */; };
+		EC43B26319E4F7EB0014DDA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26219E4F7EB0014DDA5 /* UIKit.framework */; };
+		EC43B26519E4F7EB0014DDA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26419E4F7EB0014DDA5 /* Foundation.framework */; };
+		EC43B26719E4F7EB0014DDA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26619E4F7EB0014DDA5 /* CoreGraphics.framework */; };
+		EC43B26D19E4F7EB0014DDA5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC43B26B19E4F7EB0014DDA5 /* InfoPlist.strings */; };
+		EC43B26F19E4F7EB0014DDA5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43B26E19E4F7EB0014DDA5 /* main.m */; };
+		EC43B27319E4F7EB0014DDA5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43B27219E4F7EB0014DDA5 /* AppDelegate.m */; };
+		EC43B27619E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */; };
+		EC43B27919E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC43B27719E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard */; };
+		EC43B27C19E4F7EB0014DDA5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43B27B19E4F7EB0014DDA5 /* LoginViewController.m */; };
+		EC43B28519E4F7EC0014DDA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26219E4F7EB0014DDA5 /* UIKit.framework */; };
+		EC43B28619E4F7EC0014DDA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26419E4F7EB0014DDA5 /* Foundation.framework */; };
+		EC43B28E19E4F7EC0014DDA5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC43B28C19E4F7EC0014DDA5 /* InfoPlist.strings */; };
+		EC43B29119E4F7EC0014DDA5 /* tradeportalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43B29019E4F7EC0014DDA5 /* tradeportalTests.m */; };
+		EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6B8F9919F669B800AA17B8 /* DataModel.m */; };
+		EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EC73C06519E635E000C45DB8 /* ThomsonReutersLogo.jpg */; };
+		EC73C08219E7B50000C45DB8 /* orderEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */; };
+		ECA718DE19E7E64E00B8539D /* order_book.png in Resources */ = {isa = PBXBuildFile; fileRef = ECA718DC19E7E64E00B8539D /* order_book.png */; };
+		ECD0669719EBD24E0070332A /* trade.png in Resources */ = {isa = PBXBuildFile; fileRef = ECD0669919EBD24E0070332A /* trade.png */; };
+		ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF46A6519EB6AAA00A053CB /* RadioButton.m */; };
+		ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */; };
+		ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6819EB6E5700A053CB /* RadioButton-Unselected.png */; };
+		ECF46A6C19EBBB2700A053CB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6B19EBBB2700A053CB /* Default-568h@2x.png */; };
+		ECF9F67119E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ECF9F67019E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EC43B28719E4F7EC0014DDA5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC43B25519E4F7EA0014DDA5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC43B25D19E4F7EB0014DDA5;
+			remoteInfo = tradeportal;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EC03041D19F4B28A00868028 /* orderConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderConfirmationViewController.h; sourceTree = "<group>"; };
+		EC03041E19F4B28A00868028 /* orderConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = orderConfirmationViewController.m; sourceTree = "<group>"; };
+		EC27EF7B19F90B0100464E27 /* OrderBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookViewController.h; sourceTree = "<group>"; };
+		EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderBookViewController.m; sourceTree = "<group>"; };
+		EC27EF7E19FDE78500464E27 /* OrderBookDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookDetailsViewController.h; sourceTree = "<group>"; };
+		EC27EF7F19FDE78500464E27 /* OrderBookDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderBookDetailsViewController.m; sourceTree = "<group>"; };
+		EC43B25E19E4F7EB0014DDA5 /* tradeportal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeportal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC43B26219E4F7EB0014DDA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EC43B26419E4F7EB0014DDA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EC43B26619E4F7EB0014DDA5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EC43B26A19E4F7EB0014DDA5 /* tradeportal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tradeportal-Info.plist"; sourceTree = "<group>"; };
+		EC43B26C19E4F7EB0014DDA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC43B26E19E4F7EB0014DDA5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EC43B27019E4F7EB0014DDA5 /* tradeportal-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "tradeportal-Prefix.pch"; sourceTree = "<group>"; };
+		EC43B27119E4F7EB0014DDA5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EC43B27219E4F7EB0014DDA5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		EC43B27519E4F7EB0014DDA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		EC43B27819E4F7EB0014DDA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		EC43B27A19E4F7EB0014DDA5 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		EC43B27B19E4F7EB0014DDA5 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		EC43B28219E4F7EB0014DDA5 /* tradeportalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tradeportalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC43B28B19E4F7EC0014DDA5 /* tradeportalTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tradeportalTests-Info.plist"; sourceTree = "<group>"; };
+		EC43B28D19E4F7EC0014DDA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC43B28F19E4F7EC0014DDA5 /* tradeportalTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tradeportalTests.h; sourceTree = "<group>"; };
+		EC43B29019E4F7EC0014DDA5 /* tradeportalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tradeportalTests.m; sourceTree = "<group>"; };
+		EC6B8F9819F669B800AA17B8 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
+		EC6B8F9919F669B800AA17B8 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
+		EC73C06519E635E000C45DB8 /* ThomsonReutersLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ThomsonReutersLogo.jpg; sourceTree = "<group>"; };
+		EC73C08019E7B4FF00C45DB8 /* orderEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderEntryViewController.h; sourceTree = "<group>"; };
+		EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = orderEntryViewController.m; sourceTree = "<group>"; };
+		ECA718DC19E7E64E00B8539D /* order_book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = order_book.png; sourceTree = "<group>"; };
+		ECD0669819EBD24E0070332A /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/trade.png; sourceTree = "<group>"; };
+		ECF46A6419EB6AAA00A053CB /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
+		ECF46A6519EB6AAA00A053CB /* RadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioButton.m; sourceTree = "<group>"; };
+		ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RadioButton-Selected.png"; sourceTree = "<group>"; };
+		ECF46A6819EB6E5700A053CB /* RadioButton-Unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RadioButton-Unselected.png"; sourceTree = "<group>"; };
+		ECF46A6B19EBBB2700A053CB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		ECF9F67019E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IFIS_Logo_2014_new.jpg; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC43B25B19E4F7EB0014DDA5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC43B26319E4F7EB0014DDA5 /* UIKit.framework in Frameworks */,
+				EC43B26519E4F7EB0014DDA5 /* Foundation.framework in Frameworks */,
+				EC43B26719E4F7EB0014DDA5 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC43B27E19E4F7EB0014DDA5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC43B28519E4F7EC0014DDA5 /* UIKit.framework in Frameworks */,
+				EC43B28619E4F7EC0014DDA5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EC43B25319E4F7EA0014DDA5 = {
+			isa = PBXGroup;
+			children = (
+				ECF46A6B19EBBB2700A053CB /* Default-568h@2x.png */,
+				ECF9F66F19E54C4D005B56A3 /* Images */,
+				EC43B26819E4F7EB0014DDA5 /* tradeportal */,
+				EC43B28919E4F7EC0014DDA5 /* tradeportalTests */,
+				EC43B26119E4F7EB0014DDA5 /* Frameworks */,
+				EC43B25F19E4F7EB0014DDA5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EC43B25F19E4F7EB0014DDA5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC43B25E19E4F7EB0014DDA5 /* tradeportal.app */,
+				EC43B28219E4F7EB0014DDA5 /* tradeportalTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EC43B26119E4F7EB0014DDA5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC43B26219E4F7EB0014DDA5 /* UIKit.framework */,
+				EC43B26419E4F7EB0014DDA5 /* Foundation.framework */,
+				EC43B26619E4F7EB0014DDA5 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC43B26819E4F7EB0014DDA5 /* tradeportal */ = {
+			isa = PBXGroup;
+			children = (
+				ECF46A6419EB6AAA00A053CB /* RadioButton.h */,
+				ECF46A6519EB6AAA00A053CB /* RadioButton.m */,
+				EC43B27119E4F7EB0014DDA5 /* AppDelegate.h */,
+				EC43B27219E4F7EB0014DDA5 /* AppDelegate.m */,
+				EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */,
+				EC43B27719E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard */,
+				EC43B27A19E4F7EB0014DDA5 /* LoginViewController.h */,
+				EC43B27B19E4F7EB0014DDA5 /* LoginViewController.m */,
+				EC43B26919E4F7EB0014DDA5 /* Supporting Files */,
+				EC73C08019E7B4FF00C45DB8 /* orderEntryViewController.h */,
+				EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */,
+				EC03041D19F4B28A00868028 /* orderConfirmationViewController.h */,
+				EC03041E19F4B28A00868028 /* orderConfirmationViewController.m */,
+				EC6B8F9819F669B800AA17B8 /* DataModel.h */,
+				EC6B8F9919F669B800AA17B8 /* DataModel.m */,
+				EC27EF7B19F90B0100464E27 /* OrderBookViewController.h */,
+				EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */,
+				EC27EF7E19FDE78500464E27 /* OrderBookDetailsViewController.h */,
+				EC27EF7F19FDE78500464E27 /* OrderBookDetailsViewController.m */,
+			);
+			path = tradeportal;
+			sourceTree = "<group>";
+		};
+		EC43B26919E4F7EB0014DDA5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EC43B26A19E4F7EB0014DDA5 /* tradeportal-Info.plist */,
+				EC43B26B19E4F7EB0014DDA5 /* InfoPlist.strings */,
+				EC43B26E19E4F7EB0014DDA5 /* main.m */,
+				EC43B27019E4F7EB0014DDA5 /* tradeportal-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EC43B28919E4F7EC0014DDA5 /* tradeportalTests */ = {
+			isa = PBXGroup;
+			children = (
+				EC43B28F19E4F7EC0014DDA5 /* tradeportalTests.h */,
+				EC43B29019E4F7EC0014DDA5 /* tradeportalTests.m */,
+				EC43B28A19E4F7EC0014DDA5 /* Supporting Files */,
+			);
+			path = tradeportalTests;
+			sourceTree = "<group>";
+		};
+		EC43B28A19E4F7EC0014DDA5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EC43B28B19E4F7EC0014DDA5 /* tradeportalTests-Info.plist */,
+				EC43B28C19E4F7EC0014DDA5 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ECF9F66F19E54C4D005B56A3 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */,
+				ECF46A6819EB6E5700A053CB /* RadioButton-Unselected.png */,
+				EC73C06519E635E000C45DB8 /* ThomsonReutersLogo.jpg */,
+				ECD0669919EBD24E0070332A /* trade.png */,
+				ECA718DC19E7E64E00B8539D /* order_book.png */,
+				ECF9F67019E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EC43B25D19E4F7EB0014DDA5 /* tradeportal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC43B29419E4F7EC0014DDA5 /* Build configuration list for PBXNativeTarget "tradeportal" */;
+			buildPhases = (
+				EC43B25A19E4F7EB0014DDA5 /* Sources */,
+				EC43B25B19E4F7EB0014DDA5 /* Frameworks */,
+				EC43B25C19E4F7EB0014DDA5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tradeportal;
+			productName = tradeportal;
+			productReference = EC43B25E19E4F7EB0014DDA5 /* tradeportal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EC43B28119E4F7EB0014DDA5 /* tradeportalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC43B29719E4F7EC0014DDA5 /* Build configuration list for PBXNativeTarget "tradeportalTests" */;
+			buildPhases = (
+				EC43B27D19E4F7EB0014DDA5 /* Sources */,
+				EC43B27E19E4F7EB0014DDA5 /* Frameworks */,
+				EC43B27F19E4F7EB0014DDA5 /* Resources */,
+				EC43B28019E4F7EB0014DDA5 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EC43B28819E4F7EC0014DDA5 /* PBXTargetDependency */,
+			);
+			name = tradeportalTests;
+			productName = tradeportalTests;
+			productReference = EC43B28219E4F7EB0014DDA5 /* tradeportalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EC43B25519E4F7EA0014DDA5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastTestingUpgradeCheck = 0600;
+				LastUpgradeCheck = 0600;
+			};
+			buildConfigurationList = EC43B25819E4F7EA0014DDA5 /* Build configuration list for PBXProject "tradeportal" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EC43B25319E4F7EA0014DDA5;
+			productRefGroup = EC43B25F19E4F7EB0014DDA5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EC43B25D19E4F7EB0014DDA5 /* tradeportal */,
+				EC43B28119E4F7EB0014DDA5 /* tradeportalTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EC43B25C19E4F7EB0014DDA5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */,
+				ECA718DE19E7E64E00B8539D /* order_book.png in Resources */,
+				EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */,
+				ECF46A6C19EBBB2700A053CB /* Default-568h@2x.png in Resources */,
+				EC43B26D19E4F7EB0014DDA5 /* InfoPlist.strings in Resources */,
+				ECD0669719EBD24E0070332A /* trade.png in Resources */,
+				ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */,
+				EC43B27619E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard in Resources */,
+				EC43B27919E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard in Resources */,
+				ECF9F67119E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC43B27F19E4F7EB0014DDA5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC43B28E19E4F7EC0014DDA5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EC43B28019E4F7EB0014DDA5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EC43B25A19E4F7EB0014DDA5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC73C08219E7B50000C45DB8 /* orderEntryViewController.m in Sources */,
+				EC43B26F19E4F7EB0014DDA5 /* main.m in Sources */,
+				EC27EF8019FDE78600464E27 /* OrderBookDetailsViewController.m in Sources */,
+				EC27EF7D19F90B0100464E27 /* OrderBookViewController.m in Sources */,
+				EC43B27319E4F7EB0014DDA5 /* AppDelegate.m in Sources */,
+				EC43B27C19E4F7EB0014DDA5 /* LoginViewController.m in Sources */,
+				EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */,
+				EC03041F19F4B28A00868028 /* orderConfirmationViewController.m in Sources */,
+				ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC43B27D19E4F7EB0014DDA5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC43B29119E4F7EC0014DDA5 /* tradeportalTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EC43B28819E4F7EC0014DDA5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC43B25D19E4F7EB0014DDA5 /* tradeportal */;
+			targetProxy = EC43B28719E4F7EC0014DDA5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EC43B26B19E4F7EB0014DDA5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC43B26C19E4F7EB0014DDA5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC43B27519E4F7EB0014DDA5 /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		EC43B27719E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC43B27819E4F7EB0014DDA5 /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		EC43B28C19E4F7EC0014DDA5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC43B28D19E4F7EC0014DDA5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		ECD0669919EBD24E0070332A /* trade.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ECD0669819EBD24E0070332A /* en */,
+			);
+			name = trade.png;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EC43B29219E4F7EC0014DDA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EC43B29319E4F7EC0014DDA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EC43B29519E4F7EC0014DDA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
+				INFOPLIST_FILE = "tradeportal/tradeportal-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EC43B29619E4F7EC0014DDA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
+				INFOPLIST_FILE = "tradeportal/tradeportal-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		EC43B29819E4F7EC0014DDA5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/tradeportal.app/tradeportal";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
+				INFOPLIST_FILE = "tradeportalTests/tradeportalTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		EC43B29919E4F7EC0014DDA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/tradeportal.app/tradeportal";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
+				INFOPLIST_FILE = "tradeportalTests/tradeportalTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EC43B25819E4F7EA0014DDA5 /* Build configuration list for PBXProject "tradeportal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC43B29219E4F7EC0014DDA5 /* Debug */,
+				EC43B29319E4F7EC0014DDA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC43B29419E4F7EC0014DDA5 /* Build configuration list for PBXNativeTarget "tradeportal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC43B29519E4F7EC0014DDA5 /* Debug */,
+				EC43B29619E4F7EC0014DDA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC43B29719E4F7EC0014DDA5 /* Build configuration list for PBXNativeTarget "tradeportalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC43B29819E4F7EC0014DDA5 /* Debug */,
+				EC43B29919E4F7EC0014DDA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EC43B25519E4F7EA0014DDA5 /* Project object */;
+}
