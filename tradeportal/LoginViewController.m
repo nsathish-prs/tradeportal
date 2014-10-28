@@ -69,7 +69,7 @@ DataModel *dm;
     name = uname.text;
     password = pwd.text;
     sessionID = @"string";
-    NSLog(@"%@ , %@",name,password);
+    //NSLog(@"%@ , %@",name,password);
     BOOL flag=TRUE;
     if([name isEqualToString:@""]){
         uname.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Username" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:200.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]}];
@@ -92,7 +92,7 @@ DataModel *dm;
                                  "</AuthenticateUser>"
                                  "</soap:Body>"
                                  "</soap:Envelope>", name,password,sessionID];
-        NSLog(@"SoapRequest is %@" , soapRequest);
+        //NSLog(@"SoapRequest is %@" , soapRequest);
         NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=AuthenticateUser"];
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
         [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -120,7 +120,7 @@ DataModel *dm;
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
-    NSLog(@"\n\nDone with bytes %lu", (unsigned long)[buffer length]);
+    //NSLog(@"\n\nDone with bytes %lu", (unsigned long)[buffer length]);
     NSMutableString *theXML =
     [[NSMutableString alloc] initWithBytes:[buffer mutableBytes]
                                     length:[buffer length]
@@ -131,7 +131,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    NSLog(@"\n\nSoap Response is %@",theXML);
+    //NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -143,12 +143,12 @@ DataModel *dm;
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
     
     if([elementName isEqualToString:@"AuthenticateUserResult"]){
-        //NSLog(@"%@",[attributeDict description]);
+        ////NSLog(@"%@",[attributeDict description]);
         resultFound=NO;
     }
     if ([elementName isEqualToString:@"z:row"]) {
         //        NSString* result = [attributeDict objectForKey:@"RESULT"];
-        //        NSLog(@"%@",result);
+        //        //NSLog(@"%@",result);
         resultFound=YES;
         dm.userID=name;
         dm.password=password;
@@ -164,12 +164,12 @@ DataModel *dm;
     BOOL flag=FALSE;
     if(!resultFound){
         if([[string substringToIndex:1] isEqualToString:@"R"]){
-            NSLog(@"R error");
+            //NSLog(@"R error");
             msg = @"Invalid Username or Password";
             flag=TRUE;
         }
         else if([[string substringToIndex:1] isEqualToString:@"E"]){
-            NSLog(@"E error");
+            //NSLog(@"E error");
             msg = @"Connection Error";
                         flag=TRUE;
         }

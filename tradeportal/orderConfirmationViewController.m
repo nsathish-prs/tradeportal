@@ -79,7 +79,7 @@ NSString *userID;
                              "</CheckUserPwd>"
                              "</soap:Body>"
                              "</soap:Envelope>",userID,password];
-    NSLog(@"SoapRequest is %@" , soapRequest);
+    //NSLog(@"SoapRequest is %@" , soapRequest);
     NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=CheckUserPwd"];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -114,7 +114,7 @@ NSString *userID;
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
     
-    NSLog(@"\n\nDone with bytes %lu", (unsigned long)[buffer length]);
+    //NSLog(@"\n\nDone with bytes %lu", (unsigned long)[buffer length]);
     NSMutableString *theXML =
     [[NSMutableString alloc] initWithBytes:[buffer mutableBytes]
                                     length:[buffer length]
@@ -125,7 +125,7 @@ NSString *userID;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    NSLog(@"\n\nSoap Response is %@",theXML);
+    //NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -148,7 +148,7 @@ NSString *userID;
             //Invalid password
         }
         else{
-            NSLog(@"default error msg");
+            //NSLog(@"default error msg");
         }
     }
     if ([elementName isEqualToString:@"CheckUserPwdResult"]) {
@@ -161,7 +161,7 @@ NSString *userID;
 
 - (void) parser:(NSXMLParser *) parser foundCharacters:(NSString *) string {
     NSString *msg=@"";
-    NSLog(@"%@",string);
+    //NSLog(@"%@",string);
     if([_dataFound isEqualToString:@"newOrder"]){
         
         if ([string isEqualToString:@"S"]) {
@@ -241,7 +241,7 @@ NSString *userID;
                              "</NewOrder>"
                              "</soap:Body>"
                              "</soap:Envelope>",clientAccountValue,stockCodeValue,[qtyValue intValue],[orderPriceValue floatValue],side,orderType,userID,exchange,timeInForce,currencyCode,userID,exchangeRate,currencyCode,exchange,1,0.0,0.0];
-    NSLog(@"SoapRequest is %@" , soapRequest);
+    //NSLog(@"SoapRequest is %@" , soapRequest);
     NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms_portal/ws_rsoms.asmx?op=NewOrder"];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];

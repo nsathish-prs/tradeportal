@@ -167,7 +167,7 @@ RadioButton *rb1, *rb2;
                              "</GetTradeAccount>"
                              "</soap:Body>"
                              "</soap:Envelope>", session,user];
-    NSLog(@"SoapRequest is %@" , soapRequest);
+    //NSLog(@"SoapRequest is %@" , soapRequest);
     NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=GetTradeAccount"];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -208,7 +208,7 @@ RadioButton *rb1, *rb2;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         NSString *searchText = [self.searchStockList objectAtIndex:indexPath.row];
         [self.searchDisplayController setActive:NO animated:YES];
-        NSLog(@"Selected Row Index Path : %@",searchText);
+        //NSLog(@"Selected Row Index Path : %@",searchText);
         parseURL = @"";
         self.stockCode = searchText;
         NSString *soapRequest = [NSString stringWithFormat:
@@ -220,7 +220,7 @@ RadioButton *rb1, *rb2;
                                  "</GetRicInfoFromDatabase>"
                                  "</soap:Body>"
                                  "</soap:Envelope>", searchText];
-        NSLog(@"SoapRequest is %@" , soapRequest);
+        //NSLog(@"SoapRequest is %@" , soapRequest);
         NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=GetRicInfoFromDatabase"];
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
         [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -266,7 +266,7 @@ RadioButton *rb1, *rb2;
                              "</SearchCounterByName>"
                              "</soap:Body>"
                              "</soap:Envelope>", searchText,marketEx];
-    NSLog(@"SoapRequest is %@" , soapRequest);
+    //NSLog(@"SoapRequest is %@" , soapRequest);
     NSURL *url =[NSURL URLWithString:@"http://ifis.com.sg/CodeDbWS/Service.asmx?op=SearchCounterByName"];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -298,7 +298,7 @@ RadioButton *rb1, *rb2;
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
     
-    NSLog(@"\n\nDone with bytes %lu", (unsigned long)[buffer length]);
+    //NSLog(@"\n\nDone with bytes %lu", (unsigned long)[buffer length]);
     NSMutableString *theXML =
     [[NSMutableString alloc] initWithBytes:[buffer mutableBytes]
                                     length:[buffer length]
@@ -309,7 +309,7 @@ RadioButton *rb1, *rb2;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    NSLog(@"\n\nSoap Response is %@",theXML);
+    //NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -382,7 +382,7 @@ RadioButton *rb1, *rb2;
         self.side =@"2";
     }
     
-    NSLog(@"changed to %lu in %@",(unsigned long)index,groupId);
+    //NSLog(@"changed to %lu in %@",(unsigned long)index,groupId);
 }
 
 
