@@ -2,7 +2,7 @@
 //  orderEntryViewController.h
 //  tradeportal
 //
-//  Created by intern on 10/10/14.
+//  Created by Nagarajan Sathish on 10/10/14.
 //
 //
 
@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSMutableData *buffer;
 @property (strong, nonatomic) NSXMLParser *parser;
 @property (strong, nonatomic) NSString *parseURL;
+@property (strong, nonatomic) NSURLConnection *conn;
 @property(strong,nonatomic)NSString *stockCode;
 @property(strong,nonatomic)NSString *currency;
 @property(strong,nonatomic)NSString *exchangeRate;
@@ -24,7 +25,7 @@
 @property(strong,nonatomic)NSString *route;
 @property(strong,nonatomic)NSString *side;
 
-@property (strong, nonatomic) NSURLConnection *conn;
+
 
 @property(strong, nonatomic) NSMutableArray *searchStockNameList;
 @property(strong, nonatomic) NSMutableArray *searchStockList;
@@ -33,7 +34,7 @@
 
 @implementation orderEntryViewController
 
-@synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange, accountNumber,buffer,conn,parser,parseURL,submit,marketEx;
+@synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange, accountNumber,buffer,conn,parser,parseURL,submit,marketEx,spinner;
 UIView *container;
 DataModel *dm;
 UILabel *label1, *label2;
@@ -41,9 +42,10 @@ RadioButton *rb1, *rb2;
 
 
 - (void)viewDidLoad {
+    self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     [super viewDidLoad];
     [self reloadData];
-    self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
+    
 
     [self.tabBarController setDelegate:self];
     //Picker View
@@ -110,6 +112,7 @@ RadioButton *rb1, *rb2;
     
 }
 
+
 -(void)reloadData{
     self.searchStockNameList = [[NSMutableArray alloc]init];
     self.searchStockList = [[NSMutableArray alloc]init];
@@ -127,6 +130,7 @@ RadioButton *rb1, *rb2;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     [self.view setNeedsDisplay];
 }
 
@@ -166,7 +170,7 @@ RadioButton *rb1, *rb2;
                              "<UserID>%@</UserID>"
                              "</GetTradeAccount>"
                              "</soap:Body>"
-                             "</soap:Envelope>", session,user];
+                             "</soap:Envelope>",session,user];
     //NSLog(@"SoapRequest is %@" , soapRequest);
     NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=GetTradeAccount"];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -181,9 +185,8 @@ RadioButton *rb1, *rb2;
     
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     if (conn) {
-        self.buffer = [NSMutableData data];
-    }
-    
+            buffer = [NSMutableData data];
+        }
 }
 
 #pragma mark -  TableView
@@ -233,9 +236,11 @@ RadioButton *rb1, *rb2;
         [self.searchStockNameList removeAllObjects];
         
         conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-        if (conn) {
-            self.buffer = [NSMutableData data];
-        }
+        spinner.hidesWhenStopped=YES;
+        [spinner startAnimating];
+            if (conn) {
+                buffer = [NSMutableData data];
+            }
     }
 }
 
@@ -280,10 +285,8 @@ RadioButton *rb1, *rb2;
     
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     if (conn) {
-        self.buffer = [NSMutableData data];
-    }
-    
-    
+            buffer = [NSMutableData data];
+        }
 }
 
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
@@ -314,6 +317,7 @@ RadioButton *rb1, *rb2;
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
     [parser parse];
+        [spinner stopAnimating];
 }
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
@@ -373,12 +377,12 @@ RadioButton *rb1, *rb2;
 -(void)radioButtonSelectedAtIndex:(NSUInteger)index inGroup:(NSString *)groupId{
     if (index == 0) {
         [submit setTitle:@"BUY" forState:UIControlStateNormal];
-        submit.backgroundColor = [UIColor colorWithRed:64.0f/255.0f green:177.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
+        submit.backgroundColor = iGREEN;
         self.side = @"1";
     }
     else if (index == 1){
         [submit setTitle:@"SELL" forState:UIControlStateNormal];
-        submit.backgroundColor = [UIColor colorWithRed:255.0f/255.0f green:110.0f/255.0f blue:118.0f/255.0f alpha:1.0f];
+        submit.backgroundColor = iRED;
         self.side =@"2";
     }
     

@@ -2,7 +2,7 @@
 //  orderEntryViewController.h
 //  tradeportal
 //
-//  Created by intern on 10/10/14.
+//  Created by Nagarajan Sathish on 10/10/14.
 //
 //
 
@@ -31,6 +31,7 @@
 //-(IBAction)accounts:(id)sender;
 //-(void)rel;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (weak, nonatomic) IBOutlet UIView *pickerViewContainer;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBtn;

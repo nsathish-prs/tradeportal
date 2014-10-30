@@ -11,6 +11,11 @@
 		EC27EF7D19F90B0100464E27 /* OrderBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */; };
 		EC27EF8019FDE78600464E27 /* OrderBookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF7F19FDE78500464E27 /* OrderBookDetailsViewController.m */; };
 		EC27EF8319FE438000464E27 /* OrderBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF8219FE438000464E27 /* OrderBookTableViewCell.m */; };
+		EC27EF8A19FF3A8900464E27 /* OrderBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF8919FF3A8900464E27 /* OrderBookModel.m */; };
+		EC27EF9A1A01E21200464E27 /* order_book.png in Resources */ = {isa = PBXBuildFile; fileRef = EC27EF981A01E21200464E27 /* order_book.png */; };
+		EC27EF9B1A01E21800464E27 /* icon-company-documents-large.png in Resources */ = {isa = PBXBuildFile; fileRef = EC27EF9D1A01E21800464E27 /* icon-company-documents-large.png */; };
+		EC27EFA01A02083E00464E27 /* btn_cancel.gif in Resources */ = {isa = PBXBuildFile; fileRef = EC27EF9E1A02083E00464E27 /* btn_cancel.gif */; };
+		EC27EFA11A02083E00464E27 /* btn_reduce.gif in Resources */ = {isa = PBXBuildFile; fileRef = EC27EF9F1A02083E00464E27 /* btn_reduce.gif */; };
 		EC43B26319E4F7EB0014DDA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26219E4F7EB0014DDA5 /* UIKit.framework */; };
 		EC43B26519E4F7EB0014DDA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26419E4F7EB0014DDA5 /* Foundation.framework */; };
 		EC43B26719E4F7EB0014DDA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26619E4F7EB0014DDA5 /* CoreGraphics.framework */; };
@@ -27,7 +32,6 @@
 		EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6B8F9919F669B800AA17B8 /* DataModel.m */; };
 		EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EC73C06519E635E000C45DB8 /* ThomsonReutersLogo.jpg */; };
 		EC73C08219E7B50000C45DB8 /* orderEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */; };
-		ECA718DE19E7E64E00B8539D /* order_book.png in Resources */ = {isa = PBXBuildFile; fileRef = ECA718DC19E7E64E00B8539D /* order_book.png */; };
 		ECD0669719EBD24E0070332A /* trade.png in Resources */ = {isa = PBXBuildFile; fileRef = ECD0669919EBD24E0070332A /* trade.png */; };
 		ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF46A6519EB6AAA00A053CB /* RadioButton.m */; };
 		ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */; };
@@ -49,12 +53,18 @@
 /* Begin PBXFileReference section */
 		EC03041D19F4B28A00868028 /* orderConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderConfirmationViewController.h; sourceTree = "<group>"; };
 		EC03041E19F4B28A00868028 /* orderConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = orderConfirmationViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		EC27EF7B19F90B0100464E27 /* OrderBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookViewController.h; sourceTree = "<group>"; };
-		EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderBookViewController.m; sourceTree = "<group>"; };
+		EC27EF7B19F90B0100464E27 /* OrderBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OrderBookViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OrderBookViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EC27EF7E19FDE78500464E27 /* OrderBookDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookDetailsViewController.h; sourceTree = "<group>"; };
 		EC27EF7F19FDE78500464E27 /* OrderBookDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderBookDetailsViewController.m; sourceTree = "<group>"; };
 		EC27EF8119FE438000464E27 /* OrderBookTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookTableViewCell.h; sourceTree = "<group>"; };
 		EC27EF8219FE438000464E27 /* OrderBookTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderBookTableViewCell.m; sourceTree = "<group>"; };
+		EC27EF8819FF3A8900464E27 /* OrderBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookModel.h; sourceTree = "<group>"; };
+		EC27EF8919FF3A8900464E27 /* OrderBookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderBookModel.m; sourceTree = "<group>"; };
+		EC27EF981A01E21200464E27 /* order_book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = order_book.png; sourceTree = "<group>"; };
+		EC27EF9C1A01E21800464E27 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/icon-company-documents-large.png"; sourceTree = "<group>"; };
+		EC27EF9E1A02083E00464E27 /* btn_cancel.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = btn_cancel.gif; sourceTree = "<group>"; };
+		EC27EF9F1A02083E00464E27 /* btn_reduce.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = btn_reduce.gif; sourceTree = "<group>"; };
 		EC43B25E19E4F7EB0014DDA5 /* tradeportal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeportal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC43B26219E4F7EB0014DDA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EC43B26419E4F7EB0014DDA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -77,9 +87,8 @@
 		EC6B8F9819F669B800AA17B8 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		EC6B8F9919F669B800AA17B8 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
 		EC73C06519E635E000C45DB8 /* ThomsonReutersLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ThomsonReutersLogo.jpg; sourceTree = "<group>"; };
-		EC73C08019E7B4FF00C45DB8 /* orderEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderEntryViewController.h; sourceTree = "<group>"; };
+		EC73C08019E7B4FF00C45DB8 /* orderEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = orderEntryViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = orderEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		ECA718DC19E7E64E00B8539D /* order_book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = order_book.png; sourceTree = "<group>"; };
 		ECD0669819EBD24E0070332A /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/trade.png; sourceTree = "<group>"; };
 		ECF46A6419EB6AAA00A053CB /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
 		ECF46A6519EB6AAA00A053CB /* RadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioButton.m; sourceTree = "<group>"; };
@@ -132,8 +141,6 @@
 				EC43B27219E4F7EB0014DDA5 /* AppDelegate.m */,
 				EC6B8F9819F669B800AA17B8 /* DataModel.h */,
 				EC6B8F9919F669B800AA17B8 /* DataModel.m */,
-				EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */,
-				EC43B27719E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -147,6 +154,8 @@
 				EC27EF7F19FDE78500464E27 /* OrderBookDetailsViewController.m */,
 				EC27EF8119FE438000464E27 /* OrderBookTableViewCell.h */,
 				EC27EF8219FE438000464E27 /* OrderBookTableViewCell.m */,
+				EC27EF8819FF3A8900464E27 /* OrderBookModel.h */,
+				EC27EF8919FF3A8900464E27 /* OrderBookModel.m */,
 			);
 			name = OrderBook;
 			sourceTree = "<group>";
@@ -194,6 +203,8 @@
 		EC43B26819E4F7EB0014DDA5 /* tradeportal */ = {
 			isa = PBXGroup;
 			children = (
+				EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */,
+				EC43B27719E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard */,
 				EC27EF8419FF324D00464E27 /* Trade */,
 				EC27EF8519FF328500464E27 /* Common */,
 				EC27EF8719FF331F00464E27 /* Login */,
@@ -236,11 +247,14 @@
 		ECF9F66F19E54C4D005B56A3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EC27EF9E1A02083E00464E27 /* btn_cancel.gif */,
+				EC27EF9F1A02083E00464E27 /* btn_reduce.gif */,
+				EC27EF9D1A01E21800464E27 /* icon-company-documents-large.png */,
+				EC27EF981A01E21200464E27 /* order_book.png */,
 				ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */,
 				ECF46A6819EB6E5700A053CB /* RadioButton-Unselected.png */,
 				EC73C06519E635E000C45DB8 /* ThomsonReutersLogo.jpg */,
 				ECD0669919EBD24E0070332A /* trade.png */,
-				ECA718DC19E7E64E00B8539D /* order_book.png */,
 				ECF9F67019E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg */,
 			);
 			name = Images;
@@ -318,11 +332,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */,
-				ECA718DE19E7E64E00B8539D /* order_book.png in Resources */,
 				EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */,
 				ECF46A6C19EBBB2700A053CB /* Default-568h@2x.png in Resources */,
+				EC27EFA01A02083E00464E27 /* btn_cancel.gif in Resources */,
 				EC43B26D19E4F7EB0014DDA5 /* InfoPlist.strings in Resources */,
+				EC27EF9B1A01E21800464E27 /* icon-company-documents-large.png in Resources */,
+				EC27EF9A1A01E21200464E27 /* order_book.png in Resources */,
 				ECD0669719EBD24E0070332A /* trade.png in Resources */,
+				EC27EFA11A02083E00464E27 /* btn_reduce.gif in Resources */,
 				ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */,
 				EC43B27619E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard in Resources */,
 				EC43B27919E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard in Resources */,
@@ -370,6 +387,7 @@
 				EC43B27C19E4F7EB0014DDA5 /* LoginViewController.m in Sources */,
 				EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */,
 				EC03041F19F4B28A00868028 /* orderConfirmationViewController.m in Sources */,
+				EC27EF8A19FF3A8900464E27 /* OrderBookModel.m in Sources */,
 				ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,6 +411,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		EC27EF9D1A01E21800464E27 /* icon-company-documents-large.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC27EF9C1A01E21800464E27 /* en */,
+			);
+			name = "icon-company-documents-large.png";
+			sourceTree = "<group>";
+		};
 		EC43B26B19E4F7EB0014DDA5 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -512,6 +538,7 @@
 				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
 				INFOPLIST_FILE = "tradeportal/tradeportal-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -524,6 +551,7 @@
 				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
 				INFOPLIST_FILE = "tradeportal/tradeportal-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

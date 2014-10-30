@@ -2,13 +2,14 @@
 //  orderConfirmationViewController.m
 //  tradeportal
 //
-//  Created by intern on 20/10/14.
+//  Created by Nagarajan Sathish on 20/10/14.
 //
 //
 
 #import "orderConfirmationViewController.h"
 #import "orderEntryViewController.h"
 #import "DataModel.h"
+#import "OrderBookViewController.h"
 
 @interface orderConfirmationViewController ()
 @property (strong, nonatomic) NSURLConnection *conn;
@@ -26,7 +27,7 @@
 
 
 @synthesize orderPrice,clientAccount,shortName,stockCode,qty,totalAmount,currency,type,routeDest;
-@synthesize orderPriceValue,clientAccountValue,shortNameValue,stockCodeValue,qtyValue,totalAmountValue,currencyValue,typeValue,routeDestValue,side,exchange,orderType,exchangeRate,timeInForce,currencyCode;
+@synthesize orderPriceValue,clientAccountValue,shortNameValue,stockCodeValue,qtyValue,totalAmountValue,currencyValue,typeValue,routeDestValue,side,exchange,orderType,exchangeRate,timeInForce,currencyCode,spinner;
 DataModel *dm;
 NSString *userID;
 
@@ -54,12 +55,26 @@ NSString *userID;
     [fmt setMaximumFractionDigits:2];
     totalAmount.text = [fmt stringFromNumber:[NSNumber numberWithFloat:_amt]];
     if ([typeValue isEqualToString:@"BUY"]) {
-        type.textColor =[UIColor colorWithRed:64.0f/255.0f green:177.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
+        type.textColor = iGREEN;
     }else if ([typeValue isEqualToString:@"SELL"]){
-        type.textColor = [UIColor colorWithRed:255.0f/255.0f green:110.0f/255.0f blue:118.0f/255.0f alpha:1.0f];
+        type.textColor = iRED;
     }
-    
+    //[self initBackBtn];
 }
+
+
+-(void)initBackBtn
+{
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backBtnPressed)];
+    self.navigationItem.leftBarButtonItem = backBtn;
+}
+
+-(void)backBtnPressed
+{
+    //write your code to prepare popview
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -91,10 +106,12 @@ NSString *userID;
     
     
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-    if (conn) {
-        self.buffer = [NSMutableData data];
-    }
+    spinner.hidesWhenStopped=YES;
+    [spinner startAnimating];
     
+    if (conn) {
+        buffer = [NSMutableData data];
+    }
 }
 
 - (IBAction)cancelOrder:(id)sender {
@@ -130,6 +147,7 @@ NSString *userID;
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
     [parser parse];
+    [spinner stopAnimating];
 }
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
@@ -172,7 +190,7 @@ NSString *userID;
         {
             msg = @"Something went wrong. \n Try again!";
         }
-        orderEntryViewController *vc = (orderEntryViewController *)[[self.tabBarController viewControllers]objectAtIndex:1];
+        OrderBookViewController *vc = (OrderBookViewController *)[[self.tabBarController viewControllers]objectAtIndex:1];
         [vc.view setNeedsDisplay];
         [orderEntry reloadData];
         [self.tabBarController setSelectedViewController:vc];
@@ -195,12 +213,6 @@ NSString *userID;
             [toast dismissWithClickedButtonIndex:0 animated:YES];
         });
     }
-}
-
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    orderEntryViewController *vc = (orderEntryViewController *)[[self.tabBarController viewControllers]objectAtIndex:0];
-    [self.tabBarController setSelectedViewController:vc];
 }
 
 -(void)newOrder{
@@ -253,10 +265,12 @@ NSString *userID;
     
     
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-    if (conn) {
-        self.buffer = [NSMutableData data];
-    }
+    spinner.hidesWhenStopped=YES;
+    [spinner startAnimating];
     
+    if (conn) {
+        buffer = [NSMutableData data];
+    }
 }
 
 @end

@@ -2,17 +2,18 @@
 //  OrderBookTableViewCell.h
 //  tradeportal
 //
-//  Created by intern on 27/10/14.
+//  Created by Nagarajan Sathish on 27/10/14.
 //
 //
 
 #import <UIKit/UIKit.h>
 
 @interface OrderBookTableViewCell : UITableViewCell
-
-@property (weak, nonatomic) IBOutlet UILabel *ShortName;
-@property (weak, nonatomic) IBOutlet UILabel *side;
+@property (strong, nonatomic) IBOutlet UILabel *stockCode;
+@property (weak, nonatomic) IBOutlet UILabel *orderType;
 @property (weak, nonatomic) IBOutlet UILabel *quantity;
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UILabel *status;
+@property (strong, nonatomic) IBOutlet UILabel *qtyFilled;
+
 @end

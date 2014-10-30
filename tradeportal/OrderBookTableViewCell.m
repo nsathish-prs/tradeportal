@@ -2,13 +2,15 @@
 //  OrderBookTableViewCell.m
 //  tradeportal
 //
-//  Created by intern on 27/10/14.
+//  Created by Nagarajan Sathish on 27/10/14.
 //
 //
 
 #import "OrderBookTableViewCell.h"
 
 @implementation OrderBookTableViewCell
+
+@synthesize stockCode=_stockCode;
 
 - (void)awakeFromNib {
     // Initialization code

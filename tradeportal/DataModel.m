@@ -2,7 +2,7 @@
 //  DataModel.m
 //  tradeportal
 //
-//  Created by intern on 21/10/14.
+//  Created by Nagarajan Sathish on 21/10/14.
 //
 //
 

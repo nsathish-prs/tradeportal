@@ -2,7 +2,7 @@
 //  orderConfirmationViewController.h
 //  tradeportal
 //
-//  Created by intern on 20/10/14.
+//  Created by Nagarajan Sathish on 20/10/14.
 //
 //
 
@@ -23,6 +23,7 @@
 @property(nonatomic,strong)IBOutlet UITextField *password;
 @property(nonatomic,strong)IBOutlet UIButton *confirm;
 @property(nonatomic,strong)IBOutlet UIButton *cancel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 
 @property(nonatomic,strong)IBOutlet NSString *clientAccountValue;

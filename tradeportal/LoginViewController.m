@@ -2,12 +2,13 @@
 //  LoginViewController.m
 //  tradeportal
 //
-//  Created by intern on 8/10/14.
+//  Created by Nagarajan Sathish on 8/10/14.
 //  Copyright (c) 2014 __MyCompanyName__. All rights reserved.
 //
 
 #import "LoginViewController.h"
 #import "DataModel.h"
+
 
 @interface LoginViewController (){
     NSURLConnection *conn;
@@ -25,7 +26,7 @@
 @implementation LoginViewController
 
 DataModel *dm;
-@synthesize uname,pwd,buffer,parser,conn,error;
+@synthesize uname,pwd,buffer,parser,conn,error,spinner;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -72,11 +73,11 @@ DataModel *dm;
     //NSLog(@"%@ , %@",name,password);
     BOOL flag=TRUE;
     if([name isEqualToString:@""]){
-        uname.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Username" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:200.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]}];
+        uname.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Username" attributes:@{NSForegroundColorAttributeName: iERROR}];
         flag=FALSE;
     }
     if([password isEqualToString:@""]){
-        pwd.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Password" attributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:200.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]}];
+        pwd.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Password" attributes:@{NSForegroundColorAttributeName: iERROR}];
 
         flag = FALSE;
     }
@@ -103,9 +104,12 @@ DataModel *dm;
         [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
         
         conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-        if (conn) {
-            self.buffer = [NSMutableData data];
-        }
+        spinner.hidesWhenStopped=YES;
+        [spinner startAnimating];
+
+            if (conn) {
+                buffer = [NSMutableData data];
+            }
     }
 }
 
@@ -136,7 +140,7 @@ DataModel *dm;
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
     [parser parse];
-    
+    [spinner stopAnimating];
 }
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
