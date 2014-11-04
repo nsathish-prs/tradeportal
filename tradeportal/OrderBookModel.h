@@ -22,6 +22,7 @@
     NSString *avgPrice;
     NSDate *orderDate;
     NSString *currency;
+    NSString *side;
     
 }
 @property(nonatomic,strong)NSString *refNo;
@@ -37,5 +38,6 @@
 @property(nonatomic,strong)NSString *avgPrice;
 @property(nonatomic,strong)NSDate *orderDate;
 @property(nonatomic,strong)NSString *currency;
+@property(nonatomic,strong)NSString *side;
 
 @end

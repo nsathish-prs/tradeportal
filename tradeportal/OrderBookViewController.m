@@ -17,18 +17,35 @@
 @property (strong, nonatomic) NSXMLParser *parser;
 @property (strong, nonatomic) NSString *parseURL;
 @property (strong, nonatomic) NSURLConnection *conn;
-
-
+@property(strong,nonatomic)NSDictionary *statusDict;
 
 @end
 
 @implementation OrderBookViewController
 
-@synthesize orders = _orders,buffer,parseURL,parser,conn,spinner,orderList=_orderList;
+
+@synthesize orders = _orders,buffer,parseURL,parser,conn,spinner,orderList=_orderList,statusDict;
 OrderBookModel *obm;
 DataModel *dm;
 
 -(void)viewDidLoad{
+    
+    statusDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                  @"CXL",@"Cancelled",
+                  @"CHG",@"Changed",
+                  @"FILL",@"Filled",
+                  @"PARK",@"Parked",
+                  @"PART",@"Partially Filled",
+                  @"PCHG",@"Pending Changed",
+                  @"PCXL",@"Pending Cancel",
+                  @"PQ",@"Pending Queue",
+                  @"Q",@"Queue",
+                  @"RJCT",@"Rejected",
+                  @"CXL",@"Unsolicited Cancel",
+                  @"CHG",@"Part Changed",
+                  @"CXL",@"Part Cancelled",
+                  nil];
+    
     [self.tableView registerClass: [OrderBookTableViewCell class] forCellReuseIdentifier:@"Cell"];
     orders = [[NSMutableArray alloc]init];
     orderList= [[NSMutableArray alloc]init];
@@ -75,19 +92,19 @@ DataModel *dm;
         cell = [nib objectAtIndex:0];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-       if([orders count]>0){
+    if([orders count]>0){
         [[cell stockCode] setText:[[orders objectAtIndex:[indexPath row]]stockCode]];
-        [[cell orderType] setText:[[orders objectAtIndex:[indexPath row]]orderType]];
-        if([[cell orderType].text isEqualToString:@"Buy"]){
-            [cell orderType].textColor = iGREEN;
+        [[cell side] setText:[[orders objectAtIndex:[indexPath row]]side]];
+        if([[cell side].text isEqualToString:@"Buy"]){
+            [cell side].textColor = iGREEN;
         }
-        if([[cell orderType].text isEqualToString:@"Sell"]){
-            [cell orderType].textColor = iRED;
+        if([[cell side].text isEqualToString:@"Sell"]){
+            [cell side].textColor = iRED;
         }
         [[cell price] setText:[[orders objectAtIndex:[indexPath row]]orderPrice]];
         [[cell quantity] setText:[[orders objectAtIndex:[indexPath row]]orderQty]];
         [[cell qtyFilled] setText:[[orders objectAtIndex:[indexPath row]]qtyFilled]];
-        [[cell status] setText:[[orders objectAtIndex:[indexPath row]]status]];
+        [[cell status] setText:[statusDict valueForKey:[[orders objectAtIndex:[indexPath row]]status]]];
     }
     return cell;
 }
@@ -184,7 +201,8 @@ DataModel *dm;
             order.stockCode = [attributeDict objectForKey:@"Stock"];
             order.desc = [attributeDict objectForKey:@"c43"];
             order.exchange = [attributeDict objectForKey:@"Exchange"];
-            order.orderType = [attributeDict objectForKey:@"c4"];
+            order.side = [attributeDict objectForKey:@"c4"];
+            order.orderType = [attributeDict objectForKey:@"c24"];
             order.status = [attributeDict objectForKey:@"c7"];
             order.orderQty = [attributeDict objectForKey:@"OrderQty"];
             order.qtyFilled = [attributeDict objectForKey:@"FilledQty"];
@@ -246,6 +264,7 @@ DataModel *dm;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         OrderBookModel *obm = [orders objectAtIndex:indexPath.row];
         vc.order = obm;
+        vc.orderBook = self;
     }
     
 }

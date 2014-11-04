@@ -193,7 +193,9 @@ NSString *userID;
         OrderBookViewController *vc = (OrderBookViewController *)[[self.tabBarController viewControllers]objectAtIndex:1];
         [vc.view setNeedsDisplay];
         [orderEntry reloadData];
+        
         [self.tabBarController setSelectedViewController:vc];
+        [vc viewDidLoad];
         [self.navigationController popViewControllerAnimated:YES];
         
         //        [self performSegueWithIdentifier:@"orderCompleted" sender:self];

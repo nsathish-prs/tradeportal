@@ -458,6 +458,8 @@ RadioButton *rb1, *rb2;
     if (!([accountNumber.text isEqualToString:@""])
         && !([price.text isEqualToString:@""])
         && !([quantity.text isEqualToString:@""])
+        && !([price.text isEqualToString:@"0"])
+        && !([quantity.text isEqualToString:@"0"])
         && !([exchange.text isEqualToString:@""])){
         [self performSegueWithIdentifier:@"orderConfirmation" sender:sender];
     }

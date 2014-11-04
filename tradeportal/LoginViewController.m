@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 #import "DataModel.h"
+#import "ChangePasswordViewController.h"
+#import "TransitionDelegate.h"
 
 
 @interface LoginViewController (){
@@ -20,6 +22,7 @@
     NSString *sessionID;
 }
 
+@property (nonatomic, strong) TransitionDelegate *transitionController;
 
 @end
 
@@ -27,6 +30,8 @@
 
 DataModel *dm;
 @synthesize uname,pwd,buffer,parser,conn,error,spinner;
+@synthesize transitionController;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,8 +47,13 @@ DataModel *dm;
     dm = [[DataModel alloc]init];
     uname.delegate = self;
     pwd.delegate = self;
+    self.transitionController = [[TransitionDelegate alloc] init];
+    
     }
 
+-(void)viewWillAppear:(BOOL)animated{
+    self.view.alpha = 1.0f;
+}
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [uname resignFirstResponder];
     [pwd resignFirstResponder];
@@ -69,8 +79,15 @@ DataModel *dm;
 -(IBAction)login:(id)sender{
     name = uname.text;
     password = pwd.text;
-    sessionID = @"string";
-    //NSLog(@"%@ , %@",name,password);
+    NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
+    NSMutableString *s = [NSMutableString stringWithCapacity:10];
+    for (NSUInteger i = 0U; i < 20; i++) {
+        u_int32_t r = arc4random() % [alphabet length];
+        unichar c = [alphabet characterAtIndex:r];
+        [s appendFormat:@"%C", c];
+    }
+    sessionID = s;
+    //NSLog(@"%@",password);
     BOOL flag=TRUE;
     if([name isEqualToString:@""]){
         uname.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Username" attributes:@{NSForegroundColorAttributeName: iERROR}];
@@ -195,6 +212,20 @@ DataModel *dm;
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName{
 }
 
+-(IBAction)buttonClicked:(UIButton*) button {
+    LoginViewController *lvc;
+    ChangePasswordViewController *cvc;
+    dm.toView=cvc;
+    dm.fromView = lvc;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ChangePasswordViewController"];
 
+    vc.view.backgroundColor = [UIColor clearColor];
+    self.view.alpha = 0.5f;
+    [vc setTransitioningDelegate:transitionController];
+    vc.modalPresentationStyle= UIModalPresentationCustom;
+    [self presentViewController:vc animated:YES completion:nil];
+    
+}
 
 @end

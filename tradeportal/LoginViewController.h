@@ -10,7 +10,7 @@
 
 
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController<UIGestureRecognizerDelegate>
 
 -(IBAction)login:(id)sender;
 
@@ -22,5 +22,6 @@
 @property (strong, nonatomic) NSURLConnection *conn;
 @property(strong,nonatomic)IBOutlet UILabel *error;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+
 
 @end

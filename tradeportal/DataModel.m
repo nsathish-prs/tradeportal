@@ -10,6 +10,6 @@
 
 @implementation DataModel
 
-@synthesize userID,password,sessionID;
+@synthesize userID,password,sessionID,fromView,toView;
 
 @end

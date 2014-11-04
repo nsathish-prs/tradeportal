@@ -10,7 +10,7 @@
 
 @interface OrderBookTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *stockCode;
-@property (weak, nonatomic) IBOutlet UILabel *orderType;
+@property (weak, nonatomic) IBOutlet UILabel *side;
 @property (weak, nonatomic) IBOutlet UILabel *quantity;
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UILabel *status;

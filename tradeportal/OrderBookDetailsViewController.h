@@ -8,26 +8,35 @@
 
 #import <UIKit/UIKit.h>
 #import "OrderBookModel.h"
+#import "OrderBookViewController.h"
 
-@interface OrderBookDetailsViewController : UIViewController
+@interface OrderBookDetailsViewController : UIViewController<UIAlertViewDelegate>
 
 @property(nonatomic,strong)OrderBookModel *order;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *refNo;
 @property(nonatomic,strong) IBOutlet UILabel *clientAccount;
-@property(nonatomic,strong) IBOutlet UILabel *stockCode;
-@property(nonatomic,strong) IBOutlet UILabel *orderPrice;
-@property(nonatomic,strong) IBOutlet UILabel *orderQty;
-@property(nonatomic,strong) IBOutlet UILabel *status;
-@property(nonatomic,strong) IBOutlet UILabel *qtyFilled;
-@property(nonatomic,strong) IBOutlet UILabel *desc;
-@property(nonatomic,strong) IBOutlet UILabel *exchange;
-@property(nonatomic,strong) IBOutlet UILabel *orderType;
-@property(nonatomic,strong) IBOutlet UILabel *avgPrice;
-@property(nonatomic,strong) IBOutlet UILabel *orderDate;
-@property(nonatomic,strong) IBOutlet UILabel *currency;
+@property(nonatomic,weak) IBOutlet UILabel *stockCode;
+@property(nonatomic,weak) IBOutlet UILabel *orderPrice;
+@property(nonatomic,weak) IBOutlet UILabel *orderQty;
+@property(nonatomic,weak) IBOutlet UILabel *status;
+@property(nonatomic,weak) IBOutlet UILabel *qtyFilled;
+@property(nonatomic,weak) IBOutlet UILabel *desc;
+@property(nonatomic,weak) IBOutlet UILabel *exchange;
+@property(nonatomic,weak) IBOutlet UILabel *orderType;
+@property(nonatomic,weak) IBOutlet UILabel *avgPrice;
+@property(nonatomic,weak) IBOutlet UILabel *orderDate;
+@property(nonatomic,weak) IBOutlet UILabel *currency;
+@property(nonatomic,weak) IBOutlet UILabel *side;
 
+@property (weak, nonatomic) IBOutlet UIView *options;
+@property (weak, nonatomic) IBOutlet UIButton *edit;
+@property (weak, nonatomic) IBOutlet UIButton *cancel;
+- (IBAction)amendOrder:(id)sender;
+- (IBAction)cancelOrder:(id)sender;
+
+@property(nonatomic,strong)IBOutlet OrderBookViewController *orderBook;
 
 
 @end

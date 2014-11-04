@@ -24,5 +24,5 @@
 
 -(void)loadOrders;
 - (IBAction)indexChanged:(UISegmentedControl *)sender;
-
+-(void)reloadTableData;
 @end

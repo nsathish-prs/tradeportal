@@ -12,6 +12,8 @@
     NSString *userID;
     NSString *sessionID;
     NSString *password;
+    UIViewController *fromView;
+    UIViewController *toView;
 }
 
 # define iGREEN [UIColor colorWithRed:64.0f/255.0f green:177.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
@@ -22,5 +24,6 @@
 @property(strong,nonatomic)NSString *userID;
 @property(strong,nonatomic)NSString *sessionID;
 @property(strong,nonatomic)NSString *password;
-
+@property(strong,nonatomic)UIViewController *fromView;
+@property(strong,nonatomic)UIViewController *toView;
 @end

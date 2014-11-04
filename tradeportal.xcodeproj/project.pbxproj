@@ -16,6 +16,16 @@
 		EC27EF9B1A01E21800464E27 /* icon-company-documents-large.png in Resources */ = {isa = PBXBuildFile; fileRef = EC27EF9D1A01E21800464E27 /* icon-company-documents-large.png */; };
 		EC27EFA01A02083E00464E27 /* btn_cancel.gif in Resources */ = {isa = PBXBuildFile; fileRef = EC27EF9E1A02083E00464E27 /* btn_cancel.gif */; };
 		EC27EFA11A02083E00464E27 /* btn_reduce.gif in Resources */ = {isa = PBXBuildFile; fileRef = EC27EF9F1A02083E00464E27 /* btn_reduce.gif */; };
+		EC27EFA31A03403100464E27 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC27EFA21A03403100464E27 /* Images.xcassets */; };
+		EC27EFA41A03411D00464E27 /* IFIS_Logo_2014_new.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EC27EFA61A03411D00464E27 /* IFIS_Logo_2014_new.jpg */; };
+		EC27EFA91A03427F00464E27 /* IFIS_Logo_2014_new_25.png in Resources */ = {isa = PBXBuildFile; fileRef = EC27EFA71A03427F00464E27 /* IFIS_Logo_2014_new_25.png */; };
+		EC27EFAC1A03434100464E27 /* IFIS_Logo_2014_new copy.png in Resources */ = {isa = PBXBuildFile; fileRef = EC27EFAA1A03434100464E27 /* IFIS_Logo_2014_new copy.png */; };
+		EC2DA0921A038936008A40BE /* IFIS_Logo_2014_new_launch.png in Resources */ = {isa = PBXBuildFile; fileRef = EC2DA0901A038936008A40BE /* IFIS_Logo_2014_new_launch.png */; };
+		EC2DA0951A038B94008A40BE /* IFIS_Logo_2014_new_launch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EC2DA0931A038B93008A40BE /* IFIS_Logo_2014_new_launch.jpg */; };
+		EC2DA0AA1A086EF7008A40BE /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2DA0A81A086EF7008A40BE /* ChangePasswordViewController.m */; };
+		EC2DA0B01A087151008A40BE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC2DA0AF1A087151008A40BE /* CoreData.framework */; };
+		EC2DA0B71A0883AD008A40BE /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2DA0B41A0883AD008A40BE /* AnimatedTransitioning.m */; };
+		EC2DA0B81A0883AD008A40BE /* TransitionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2DA0B61A0883AD008A40BE /* TransitionDelegate.m */; };
 		EC43B26319E4F7EB0014DDA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26219E4F7EB0014DDA5 /* UIKit.framework */; };
 		EC43B26519E4F7EB0014DDA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26419E4F7EB0014DDA5 /* Foundation.framework */; };
 		EC43B26719E4F7EB0014DDA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26619E4F7EB0014DDA5 /* CoreGraphics.framework */; };
@@ -37,7 +47,6 @@
 		ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */; };
 		ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6819EB6E5700A053CB /* RadioButton-Unselected.png */; };
 		ECF46A6C19EBBB2700A053CB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6B19EBBB2700A053CB /* Default-568h@2x.png */; };
-		ECF9F67119E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ECF9F67019E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +65,7 @@
 		EC27EF7B19F90B0100464E27 /* OrderBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OrderBookViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OrderBookViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EC27EF7E19FDE78500464E27 /* OrderBookDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookDetailsViewController.h; sourceTree = "<group>"; };
-		EC27EF7F19FDE78500464E27 /* OrderBookDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderBookDetailsViewController.m; sourceTree = "<group>"; };
+		EC27EF7F19FDE78500464E27 /* OrderBookDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OrderBookDetailsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EC27EF8119FE438000464E27 /* OrderBookTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookTableViewCell.h; sourceTree = "<group>"; };
 		EC27EF8219FE438000464E27 /* OrderBookTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderBookTableViewCell.m; sourceTree = "<group>"; };
 		EC27EF8819FF3A8900464E27 /* OrderBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookModel.h; sourceTree = "<group>"; };
@@ -65,6 +74,19 @@
 		EC27EF9C1A01E21800464E27 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/icon-company-documents-large.png"; sourceTree = "<group>"; };
 		EC27EF9E1A02083E00464E27 /* btn_cancel.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = btn_cancel.gif; sourceTree = "<group>"; };
 		EC27EF9F1A02083E00464E27 /* btn_reduce.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = btn_reduce.gif; sourceTree = "<group>"; };
+		EC27EFA21A03403100464E27 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EC27EFA51A03411D00464E27 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = en; path = en.lproj/IFIS_Logo_2014_new.jpg; sourceTree = "<group>"; };
+		EC27EFA81A03427F00464E27 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/IFIS_Logo_2014_new_25.png; sourceTree = "<group>"; };
+		EC27EFAB1A03434100464E27 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/IFIS_Logo_2014_new copy.png"; sourceTree = "<group>"; };
+		EC2DA0911A038936008A40BE /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/IFIS_Logo_2014_new_launch.png; sourceTree = "<group>"; };
+		EC2DA0941A038B93008A40BE /* en */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = en; path = en.lproj/IFIS_Logo_2014_new_launch.jpg; sourceTree = "<group>"; };
+		EC2DA0A71A086EF7008A40BE /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		EC2DA0A81A086EF7008A40BE /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		EC2DA0AF1A087151008A40BE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		EC2DA0B31A0883AD008A40BE /* AnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedTransitioning.h; sourceTree = "<group>"; };
+		EC2DA0B41A0883AD008A40BE /* AnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransitioning.m; sourceTree = "<group>"; };
+		EC2DA0B51A0883AD008A40BE /* TransitionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionDelegate.h; sourceTree = "<group>"; };
+		EC2DA0B61A0883AD008A40BE /* TransitionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionDelegate.m; sourceTree = "<group>"; };
 		EC43B25E19E4F7EB0014DDA5 /* tradeportal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeportal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC43B26219E4F7EB0014DDA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EC43B26419E4F7EB0014DDA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,7 +117,6 @@
 		ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RadioButton-Selected.png"; sourceTree = "<group>"; };
 		ECF46A6819EB6E5700A053CB /* RadioButton-Unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RadioButton-Unselected.png"; sourceTree = "<group>"; };
 		ECF46A6B19EBBB2700A053CB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		ECF9F67019E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IFIS_Logo_2014_new.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC2DA0B01A087151008A40BE /* CoreData.framework in Frameworks */,
 				EC43B26319E4F7EB0014DDA5 /* UIKit.framework in Frameworks */,
 				EC43B26519E4F7EB0014DDA5 /* Foundation.framework in Frameworks */,
 				EC43B26719E4F7EB0014DDA5 /* CoreGraphics.framework in Frameworks */,
@@ -137,6 +159,11 @@
 		EC27EF8519FF328500464E27 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				EC2DA0B31A0883AD008A40BE /* AnimatedTransitioning.h */,
+				EC2DA0B41A0883AD008A40BE /* AnimatedTransitioning.m */,
+				EC2DA0B51A0883AD008A40BE /* TransitionDelegate.h */,
+				EC2DA0B61A0883AD008A40BE /* TransitionDelegate.m */,
+				EC27EFA21A03403100464E27 /* Images.xcassets */,
 				EC43B27119E4F7EB0014DDA5 /* AppDelegate.h */,
 				EC43B27219E4F7EB0014DDA5 /* AppDelegate.m */,
 				EC6B8F9819F669B800AA17B8 /* DataModel.h */,
@@ -165,6 +192,8 @@
 			children = (
 				EC43B27A19E4F7EB0014DDA5 /* LoginViewController.h */,
 				EC43B27B19E4F7EB0014DDA5 /* LoginViewController.m */,
+				EC2DA0A71A086EF7008A40BE /* ChangePasswordViewController.h */,
+				EC2DA0A81A086EF7008A40BE /* ChangePasswordViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -193,6 +222,7 @@
 		EC43B26119E4F7EB0014DDA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC2DA0AF1A087151008A40BE /* CoreData.framework */,
 				EC43B26219E4F7EB0014DDA5 /* UIKit.framework */,
 				EC43B26419E4F7EB0014DDA5 /* Foundation.framework */,
 				EC43B26619E4F7EB0014DDA5 /* CoreGraphics.framework */,
@@ -247,6 +277,10 @@
 		ECF9F66F19E54C4D005B56A3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EC2DA0931A038B93008A40BE /* IFIS_Logo_2014_new_launch.jpg */,
+				EC2DA0901A038936008A40BE /* IFIS_Logo_2014_new_launch.png */,
+				EC27EFAA1A03434100464E27 /* IFIS_Logo_2014_new copy.png */,
+				EC27EFA71A03427F00464E27 /* IFIS_Logo_2014_new_25.png */,
 				EC27EF9E1A02083E00464E27 /* btn_cancel.gif */,
 				EC27EF9F1A02083E00464E27 /* btn_reduce.gif */,
 				EC27EF9D1A01E21800464E27 /* icon-company-documents-large.png */,
@@ -255,7 +289,7 @@
 				ECF46A6819EB6E5700A053CB /* RadioButton-Unselected.png */,
 				EC73C06519E635E000C45DB8 /* ThomsonReutersLogo.jpg */,
 				ECD0669919EBD24E0070332A /* trade.png */,
-				ECF9F67019E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg */,
+				EC27EFA61A03411D00464E27 /* IFIS_Logo_2014_new.jpg */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -332,18 +366,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */,
+				EC2DA0921A038936008A40BE /* IFIS_Logo_2014_new_launch.png in Resources */,
 				EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */,
 				ECF46A6C19EBBB2700A053CB /* Default-568h@2x.png in Resources */,
+				EC27EFAC1A03434100464E27 /* IFIS_Logo_2014_new copy.png in Resources */,
 				EC27EFA01A02083E00464E27 /* btn_cancel.gif in Resources */,
 				EC43B26D19E4F7EB0014DDA5 /* InfoPlist.strings in Resources */,
 				EC27EF9B1A01E21800464E27 /* icon-company-documents-large.png in Resources */,
 				EC27EF9A1A01E21200464E27 /* order_book.png in Resources */,
 				ECD0669719EBD24E0070332A /* trade.png in Resources */,
 				EC27EFA11A02083E00464E27 /* btn_reduce.gif in Resources */,
+				EC27EFA31A03403100464E27 /* Images.xcassets in Resources */,
 				ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */,
+				EC27EFA91A03427F00464E27 /* IFIS_Logo_2014_new_25.png in Resources */,
 				EC43B27619E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard in Resources */,
 				EC43B27919E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard in Resources */,
-				ECF9F67119E54CC0005B56A3 /* IFIS_Logo_2014_new.jpg in Resources */,
+				EC2DA0951A038B94008A40BE /* IFIS_Logo_2014_new_launch.jpg in Resources */,
+				EC27EFA41A03411D00464E27 /* IFIS_Logo_2014_new.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +418,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC73C08219E7B50000C45DB8 /* orderEntryViewController.m in Sources */,
+				EC2DA0AA1A086EF7008A40BE /* ChangePasswordViewController.m in Sources */,
+				EC2DA0B71A0883AD008A40BE /* AnimatedTransitioning.m in Sources */,
+				EC2DA0B81A0883AD008A40BE /* TransitionDelegate.m in Sources */,
 				EC43B26F19E4F7EB0014DDA5 /* main.m in Sources */,
 				EC27EF8019FDE78600464E27 /* OrderBookDetailsViewController.m in Sources */,
 				EC27EF8319FE438000464E27 /* OrderBookTableViewCell.m in Sources */,
@@ -417,6 +459,46 @@
 				EC27EF9C1A01E21800464E27 /* en */,
 			);
 			name = "icon-company-documents-large.png";
+			sourceTree = "<group>";
+		};
+		EC27EFA61A03411D00464E27 /* IFIS_Logo_2014_new.jpg */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC27EFA51A03411D00464E27 /* en */,
+			);
+			name = IFIS_Logo_2014_new.jpg;
+			sourceTree = "<group>";
+		};
+		EC27EFA71A03427F00464E27 /* IFIS_Logo_2014_new_25.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC27EFA81A03427F00464E27 /* en */,
+			);
+			name = IFIS_Logo_2014_new_25.png;
+			sourceTree = "<group>";
+		};
+		EC27EFAA1A03434100464E27 /* IFIS_Logo_2014_new copy.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC27EFAB1A03434100464E27 /* en */,
+			);
+			name = "IFIS_Logo_2014_new copy.png";
+			sourceTree = "<group>";
+		};
+		EC2DA0901A038936008A40BE /* IFIS_Logo_2014_new_launch.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC2DA0911A038936008A40BE /* en */,
+			);
+			name = IFIS_Logo_2014_new_launch.png;
+			sourceTree = "<group>";
+		};
+		EC2DA0931A038B93008A40BE /* IFIS_Logo_2014_new_launch.jpg */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC2DA0941A038B93008A40BE /* en */,
+			);
+			name = IFIS_Logo_2014_new_launch.jpg;
 			sourceTree = "<group>";
 		};
 		EC43B26B19E4F7EB0014DDA5 /* InfoPlist.strings */ = {
@@ -533,6 +615,8 @@
 		EC43B29519E4F7EC0014DDA5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
@@ -546,6 +630,8 @@
 		EC43B29619E4F7EC0014DDA5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
