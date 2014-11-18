@@ -2,13 +2,13 @@
 //  ChangePasswordViewController.h
 //  tradeportal
 //
-//  Created by intern on 4/11/14.
+//  Created by Nagarajan Sathish on 4/11/14.
 //
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ChangePasswordViewController : UIViewController
+@interface ChangePasswordViewController : UIViewController<UITextFieldDelegate,NSXMLParserDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *userID;
 @property (weak, nonatomic) IBOutlet UITextField *password;

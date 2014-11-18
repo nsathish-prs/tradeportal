@@ -10,7 +10,9 @@
 #import "OrderBookModel.h"
 #import "OrderBookViewController.h"
 
-@interface OrderBookDetailsViewController : UIViewController<UIAlertViewDelegate>
+@interface OrderBookDetailsViewController : UIViewController<UIAlertViewDelegate,NSXMLParserDelegate>{
+    
+}
 
 @property(nonatomic,strong)OrderBookModel *order;
 

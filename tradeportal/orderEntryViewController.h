@@ -11,10 +11,10 @@
 
 @class RadioButton;
 
-@interface orderEntryViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UISearchDisplayDelegate,UITabBarControllerDelegate, UISearchBarDelegate,UITableViewDelegate>
+@interface orderEntryViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UISearchDisplayDelegate,UITabBarControllerDelegate, UISearchBarDelegate,UITableViewDelegate,NSXMLParserDelegate>
 {
     //DropDown
-    IBOutlet UIButton *btnSelect;
+    
     //NIDropDown *dropDown;
     //Radio Button
     NSMutableArray *radioButtons;
@@ -40,7 +40,7 @@
 @property(nonatomic,strong)IBOutlet UITextField *quantity;
 @property(nonatomic,strong)IBOutlet UITextField *price;
 @property(weak, nonatomic) IBOutlet UIPickerView *picker;
-@property(strong,nonatomic)IBOutlet UITextField *accountNumber;
+@property(weak,nonatomic) IBOutlet UIButton *btnSelect;
 
 @property(nonatomic,strong)IBOutlet UILabel *lastPrice;
 @property(nonatomic,strong)IBOutlet UILabel *change;
@@ -49,7 +49,7 @@
 @property(nonatomic,strong)IBOutlet UILabel *bidPrice;
 @property(nonatomic,strong)IBOutlet UILabel *askPrice;
 @property(nonatomic,strong)IBOutlet UILabel *exchange;
-@property(nonatomic,strong)IBOutlet NSString *marketEx;
+@property(nonatomic,strong)NSString *marketEx;
 
 
 @end

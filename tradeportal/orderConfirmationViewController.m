@@ -17,7 +17,7 @@
 @property (strong, nonatomic) NSXMLParser *parser;
 @property (strong, nonatomic) NSString *parseURL;
 @property(strong,nonatomic)NSString *dataFound;
-@property(nonatomic)float amt;
+@property(nonatomic)CGFloat amt;
 @end
 
 @implementation orderConfirmationViewController
@@ -27,7 +27,7 @@
 
 
 @synthesize orderPrice,clientAccount,shortName,stockCode,qty,totalAmount,currency,type,routeDest;
-@synthesize orderPriceValue,clientAccountValue,shortNameValue,stockCodeValue,qtyValue,totalAmountValue,currencyValue,typeValue,routeDestValue,side,exchange,orderType,exchangeRate,timeInForce,currencyCode,spinner;
+@synthesize orderPriceValue,clientAccountValue,shortNameValue,stockCodeValue,qtyValue,totalAmountValue,currencyValue,typeValue,routeDestValue,side,exchange,orderType,exchangeRate,timeInForce,currencyCode,spinner,amt;
 DataModel *dm;
 NSString *userID;
 
@@ -50,15 +50,17 @@ NSString *userID;
     timeInForce=@"0";
     currencyCode=@"702";
     
-    _amt = [orderPriceValue floatValue]*[qtyValue integerValue];
+    amt = [orderPriceValue floatValue]*[qtyValue integerValue];
     NSNumberFormatter *fmt = [[NSNumberFormatter alloc]init];
     [fmt setMaximumFractionDigits:2];
-    totalAmount.text = [fmt stringFromNumber:[NSNumber numberWithFloat:_amt]];
+    [fmt setMinimumIntegerDigits:1];
+    totalAmount.text = [fmt stringFromNumber:[NSNumber numberWithFloat:amt]];
     if ([typeValue isEqualToString:@"BUY"]) {
         type.textColor = iGREEN;
     }else if ([typeValue isEqualToString:@"SELL"]){
         type.textColor = iRED;
     }
+    self.password.delegate = self;
     //[self initBackBtn];
 }
 
@@ -76,6 +78,31 @@ NSString *userID;
 }
 
 
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.35f];
+    CGRect frame = self.view.frame;
+    frame.origin.y = -100;
+    [self.view setFrame:frame];
+    [UIView commitAnimations];
+    return YES;
+}
+
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    [ UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.35f];
+    CGRect frame = self.view.frame;
+    frame.origin.y = 0;
+    [self.view setFrame:frame];
+    [UIView commitAnimations];
+    return YES;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.view endEditing:YES];
+    return YES;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -83,34 +110,44 @@ NSString *userID;
 
 - (IBAction)confirmPassword:(id)sender {
     NSString *password = self.password.text;
-    
-    NSString *soapRequest = [NSString stringWithFormat:
-                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-                             "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-                             "<soap:Body>"
-                             "<CheckUserPwd xmlns=\"http://OMS/\">"
-                             "<strUserID>%@</strUserID>"
-                             "<strPwd>%@</strPwd>"
-                             "</CheckUserPwd>"
-                             "</soap:Body>"
-                             "</soap:Envelope>",userID,password];
-    //NSLog(@"SoapRequest is %@" , soapRequest);
-    NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=CheckUserPwd"];
-    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
-    [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [req addValue:@"http://OMS/CheckUserPwd" forHTTPHeaderField:@"SOAPAction"];
-    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
-    [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
-    [req setHTTPMethod:@"POST"];
-    [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    
-    conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-    spinner.hidesWhenStopped=YES;
-    [spinner startAnimating];
-    
-    if (conn) {
-        buffer = [NSMutableData data];
+    if(password == nil){
+        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"Please enter user password!" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [toast show];
+        int duration = 1.5;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [toast dismissWithClickedButtonIndex:0 animated:YES];
+        });
+
+    }
+    else{
+        NSString *soapRequest = [NSString stringWithFormat:
+                                 @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                                 "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+                                 "<soap:Body>"
+                                 "<CheckUserPwd xmlns=\"http://OMS/\">"
+                                 "<strUserID>%@</strUserID>"
+                                 "<strPwd>%@</strPwd>"
+                                 "</CheckUserPwd>"
+                                 "</soap:Body>"
+                                 "</soap:Envelope>",userID,password];
+        //NSLog(@"SoapRequest is %@" , soapRequest);
+        NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=CheckUserPwd"];
+        NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+        [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        [req addValue:@"http://OMS/CheckUserPwd" forHTTPHeaderField:@"SOAPAction"];
+        NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
+        [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
+        [req setHTTPMethod:@"POST"];
+        [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        
+        conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+        spinner.hidesWhenStopped=YES;
+        [spinner startAnimating];
+        
+        if (conn) {
+            buffer = [NSMutableData data];
+        }
     }
 }
 
@@ -153,7 +190,6 @@ NSString *userID;
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
     
-    //parse the data
     if ([elementName isEqualToString:@"z:row"]) {
         NSInteger result = [[attributeDict objectForKey:@"RESULT"] integerValue];
         if (result == 1) {
@@ -184,33 +220,41 @@ NSString *userID;
         
         if ([string isEqualToString:@"S"]) {
             msg = @"Order Successfully Made!";
+            OrderBookViewController *vc = (OrderBookViewController *)[[self.tabBarController viewControllers]objectAtIndex:1];
+            [orderEntry reloadData];
+            [[[[[self tabBarController]tabBar]items]objectAtIndex:1] setBadgeValue:@"1"];
+            [self.tabBarController setSelectedViewController:vc];
+            [self.navigationController popViewControllerAnimated:YES];
         }
         else
-            //if ([string isEqualToString:@"E No permission to access"])
         {
-            msg = @"Something went wrong. \n Try again!";
+            
+            if([[string substringToIndex:1] isEqualToString:@"E"]){
+                //NSLog(@"E error");
+                msg = @"User has logged on elsewhere!";
+                [self dismissViewControllerAnimated:YES completion:nil];
+                [[self navigationController]popToRootViewControllerAnimated:YES];
+            }
+            else{
+                msg = string;
+            }
         }
-        OrderBookViewController *vc = (OrderBookViewController *)[[self.tabBarController viewControllers]objectAtIndex:1];
-        [vc.view setNeedsDisplay];
-        [orderEntry reloadData];
-        
-        [self.tabBarController setSelectedViewController:vc];
-        [vc viewDidLoad];
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        //        [self performSegueWithIdentifier:@"orderCompleted" sender:self];
         _dataFound=@"";
     }
     if ([_dataFound isEqualToString:@"checkUser"]) {
         if ([[string substringToIndex:1] isEqualToString:@"R"]) {
-            msg = @"Incorrect Password. \n Try again!";
+            msg = @"Incorrect Password. \n Try again...";
         }
+        else if ([[string substringToIndex:1] isEqualToString:@"E"]) {
+            msg = @"Some Technical Error. \n Please Try again...";
+        }
+        
     }
     if (![msg isEqualToString:@""]) {
         
         UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [toast show];
-        int duration = 1;
+        int duration = 1.5;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [toast dismissWithClickedButtonIndex:0 animated:YES];
         });
@@ -223,7 +267,7 @@ NSString *userID;
                              "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
                              "<soap:Body>"
                              "<NewOrder xmlns=\"http://OMS/\">"
-                             "<UserSession>string</UserSession>"
+                             "<UserSession>%@</UserSession>"
                              "<TradeAccID>%@</TradeAccID>"
                              "<Symbol>%@</Symbol>"
                              "<Qty>%d</Qty>"
@@ -254,7 +298,7 @@ NSString *userID;
                              "<AlBenchMark></AlBenchMark>"
                              "</NewOrder>"
                              "</soap:Body>"
-                             "</soap:Envelope>",clientAccountValue,stockCodeValue,[qtyValue intValue],[orderPriceValue floatValue],side,orderType,userID,exchange,timeInForce,currencyCode,userID,exchangeRate,currencyCode,exchange,1,0.0,0.0];
+                             "</soap:Envelope>",dm.sessionID,clientAccountValue,stockCodeValue,[qtyValue intValue],[orderPriceValue floatValue],side,orderType,userID,exchange,timeInForce,currencyCode,userID,exchangeRate,currencyCode,exchange,1,0.0,0.0];
     //NSLog(@"SoapRequest is %@" , soapRequest);
     NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms_portal/ws_rsoms.asmx?op=NewOrder"];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];

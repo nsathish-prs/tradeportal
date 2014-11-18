@@ -34,7 +34,8 @@
 
 @implementation orderEntryViewController
 
-@synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange, accountNumber,buffer,conn,parser,parseURL,submit,marketEx,spinner;
+@synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange,buffer,conn,parser,parseURL,submit,marketEx,spinner,btnSelect;
+
 UIView *container;
 DataModel *dm;
 UILabel *label1, *label2;
@@ -46,12 +47,12 @@ RadioButton *rb1, *rb2;
     [super viewDidLoad];
     [self reloadData];
     
-
+    
     [self.tabBarController setDelegate:self];
     //Picker View
     accountDict =[[NSMutableDictionary alloc]init];
     //[accountDict setValue:@"" forKey:@"Select Account"];
-    [accountNumber resignFirstResponder];
+    
     [self loadAccountListfor:dm.userID withSession:dm.sessionID];
     marketEx = @"SGX";
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -110,6 +111,9 @@ RadioButton *rb1, *rb2;
     [container addSubview:label2];
     [rb1 handleButtonTap:self];
     
+    btnSelect.layer.borderWidth = 1;
+    btnSelect.layer.borderColor = [[UIColor lightTextColor] CGColor];
+    btnSelect.layer.cornerRadius = 5;
 }
 
 
@@ -122,7 +126,7 @@ RadioButton *rb1, *rb2;
     lastPrice.text = @"";
     bidPrice.text = @"";
     askPrice.text = @"";
-    accountNumber.text = @"";
+    [btnSelect setTitle:@"" forState:UIControlStateNormal];
     price.text = @"";
     quantity.text = @"";
     exchange.text = @"";
@@ -134,10 +138,22 @@ RadioButton *rb1, *rb2;
     [self.view setNeedsDisplay];
 }
 
+#pragma mark - TextField Delegates
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [accountNumber resignFirstResponder];
     [price resignFirstResponder];
     [quantity resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSArray  *arrayOfString = [newString componentsSeparatedByString:@"."];
+    
+    if ([arrayOfString count] > 2 )
+        return NO;
+    
     return YES;
 }
 
@@ -185,8 +201,8 @@ RadioButton *rb1, *rb2;
     
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     if (conn) {
-            buffer = [NSMutableData data];
-        }
+        buffer = [NSMutableData data];
+    }
 }
 
 #pragma mark -  TableView
@@ -238,9 +254,9 @@ RadioButton *rb1, *rb2;
         conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
         spinner.hidesWhenStopped=YES;
         [spinner startAnimating];
-            if (conn) {
-                buffer = [NSMutableData data];
-            }
+        if (conn) {
+            buffer = [NSMutableData data];
+        }
     }
 }
 
@@ -285,8 +301,8 @@ RadioButton *rb1, *rb2;
     
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     if (conn) {
-            buffer = [NSMutableData data];
-        }
+        buffer = [NSMutableData data];
+    }
 }
 
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
@@ -317,7 +333,7 @@ RadioButton *rb1, *rb2;
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
     [parser parse];
-        [spinner stopAnimating];
+    [spinner stopAnimating];
 }
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
@@ -351,9 +367,12 @@ RadioButton *rb1, *rb2;
             shortName.text = [attributeDict objectForKey:@"SHORT_NAME"];
             lotSize.text = [attributeDict objectForKey:@"LOT_SIZE"];
             change.text = [attributeDict objectForKey:@""];
-            lastPrice.text = [attributeDict objectForKey:@"LAST_DONE_PRICE"];
-            bidPrice.text = [attributeDict objectForKey:@"BID_PRICE"];
-            askPrice.text = [attributeDict objectForKey:@"ASK_PRICE"];
+            CGFloat lPrice = [[attributeDict objectForKey:@"LAST_DONE_PRICE"] floatValue];
+            lastPrice.text = [[NSNumber numberWithFloat:lPrice] stringValue];
+            CGFloat bPrice = [[attributeDict objectForKey:@"BID_PRICE"] floatValue];
+            bidPrice.text = [[NSNumber numberWithFloat:bPrice] stringValue];
+            CGFloat aPrice = [[attributeDict objectForKey:@"ASK_PRICE"] floatValue];
+            askPrice.text = [[NSNumber numberWithFloat:aPrice] stringValue];
             exchange.text = [attributeDict objectForKey:@"EXCHANGE"];
             self.currency = [attributeDict objectForKey:@"CURRENCY_NAME"];
             self.exchangeRate = [attributeDict objectForKey:@"EXCHANGE_RATE"];
@@ -392,7 +411,7 @@ RadioButton *rb1, *rb2;
 
 #pragma mark - pickerView
 
--(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 1;
 }
 -(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
@@ -403,12 +422,13 @@ RadioButton *rb1, *rb2;
 }
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if (row == 0) {
-        accountNumber.text=@"";
+        [btnSelect setTitle:@"" forState:UIControlStateNormal];
     }
     else{
-        accountNumber.text=[accountList objectAtIndex:row];
+        [btnSelect setTitle:[accountList objectAtIndex:row] forState:UIControlStateNormal];
     }
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -434,12 +454,16 @@ RadioButton *rb1, *rb2;
 }
 
 
+- (IBAction)hideSearch:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (IBAction)accountPicker:(id)sender {
+    [self hideSearch:sender];
     [UIView beginAnimations:Nil context:NULL];
-    [accountNumber resignFirstResponder];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-        _pickerViewContainer.frame = CGRectMake(6, 290, 308, 208);
+        _pickerViewContainer.frame = CGRectMake(6, 300, 308, 208);
         [UIView setAnimationDuration:0.3];
     }
     else{
@@ -455,23 +479,42 @@ RadioButton *rb1, *rb2;
 #pragma mark - Submit
 
 - (IBAction)submitOrder:(id)sender {
-    if (!([accountNumber.text isEqualToString:@""])
-        && !([price.text isEqualToString:@""])
-        && !([quantity.text isEqualToString:@""])
-        && !([price.text isEqualToString:@"0"])
-        && !([quantity.text isEqualToString:@"0"])
-        && !([exchange.text isEqualToString:@""])){
+    NSString *msg;
+    if([exchange.text isEqualToString:@""]){
+        msg = @"Please set Stock Symbol";
+    }
+    else if (btnSelect.titleLabel.text == nil){
+        msg = @"Please Select Account No";
+    }
+    else if(([price.text isEqualToString:@""])
+            || ([price.text isEqualToString:@"0"])){
+                msg = @"Please enter price!";
+            }
+    else if(([quantity.text isEqualToString:@""])
+            || ([quantity.text isEqualToString:@"0"])){
+        msg = @"Please enter Quantity";
+    }
+    else{
         [self performSegueWithIdentifier:@"orderConfirmation" sender:sender];
+    }
+    if(msg != nil){
+        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [toast show];
+        int duration = 1.5;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [toast dismissWithClickedButtonIndex:0 animated:YES];
+        });
     }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     orderConfirmationViewController *vc = (orderConfirmationViewController *)segue.destinationViewController;
-    vc.clientAccountValue = [accountDict objectForKey:accountNumber.text];
+    vc.clientAccountValue = [accountDict objectForKey:btnSelect.titleLabel.text];
     vc.stockCodeValue = self.stockCode;
     vc.shortNameValue = shortName.text;
     vc.qtyValue = quantity.text;
-    vc.orderPriceValue = price.text;
+    CGFloat oPrice = [price.text floatValue];
+    vc.orderPriceValue = [[NSNumber numberWithFloat:oPrice]stringValue];
     vc.currencyValue = self.currency;
     vc.typeValue =submit.titleLabel.text;
     vc.routeDestValue = exchange.text;

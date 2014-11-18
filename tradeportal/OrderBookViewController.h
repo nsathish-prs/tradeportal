@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "OrderBookModel.h"
 #import "DataModel.h"
+#import "StockHoldingsTableViewCell.h"
 
-@interface OrderBookViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource>
+@interface OrderBookViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,NSXMLParserDelegate>
 {
     NSMutableArray *orders;
     NSMutableArray *orderList;
@@ -21,8 +22,12 @@
 @property(assign, nonatomic)NSMutableArray *orderList;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UITextField *searchBar;
+@property (weak, nonatomic) IBOutlet UIButton *orderBy;
+@property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 
 -(void)loadOrders;
 - (IBAction)indexChanged:(UISegmentedControl *)sender;
 -(void)reloadTableData;
+- (IBAction)stockSearch:(id)sender;
 @end

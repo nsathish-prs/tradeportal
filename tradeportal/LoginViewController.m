@@ -44,9 +44,7 @@ DataModel *dm;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    dm = [[DataModel alloc]init];
-    uname.delegate = self;
-    pwd.delegate = self;
+    uname.text = dm.userID;
     self.transitionController = [[TransitionDelegate alloc] init];
     
     }
@@ -79,15 +77,16 @@ DataModel *dm;
 -(IBAction)login:(id)sender{
     name = uname.text;
     password = pwd.text;
-    NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
-    NSMutableString *s = [NSMutableString stringWithCapacity:10];
-    for (NSUInteger i = 0U; i < 20; i++) {
+    
+    NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyz$-~#@ABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
+    NSMutableString *s = [NSMutableString stringWithCapacity:30];
+    for (NSUInteger i = 0U; i < 30; i++) {
         u_int32_t r = arc4random() % [alphabet length];
         unichar c = [alphabet characterAtIndex:r];
         [s appendFormat:@"%C", c];
     }
     sessionID = s;
-    //NSLog(@"%@",password);
+    //NSLog(@"%@",sessionID);
     BOOL flag=TRUE;
     if([name isEqualToString:@""]){
         uname.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Username" attributes:@{NSForegroundColorAttributeName: iERROR}];
@@ -174,6 +173,7 @@ DataModel *dm;
         dm.userID=name;
         dm.password=password;
         dm.sessionID = sessionID;
+        pwd.text=@"";
         [self performSegueWithIdentifier:@"ifisPortal" sender:self];
     }
     
@@ -198,7 +198,7 @@ DataModel *dm;
             
         UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [toast show];
-        int duration = 1;
+        int duration = 1.5;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [toast dismissWithClickedButtonIndex:0 animated:YES];
         });

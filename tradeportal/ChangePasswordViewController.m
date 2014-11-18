@@ -2,7 +2,7 @@
 //  ChangePasswordViewController.m
 //  tradeportal
 //
-//  Created by intern on 4/11/14.
+//  Created by Nagarajan Sathish on 4/11/14.
 //
 //
 
@@ -19,12 +19,15 @@
 @end
 
 @implementation ChangePasswordViewController
+DataModel *dm;
 
 @synthesize spinner,userID,password,nPassword,cPassword,buffer,parser,parseURL,conn;
 bool dataFound=NO;
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    userID.text = dm.userID;
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -33,17 +36,11 @@ bool dataFound=NO;
     // Dispose of any resources that can be recreated.
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    [self.view endEditing:YES];
+    return YES;
 }
-*/
-
 - (IBAction)changePassword:(id)sender {
     BOOL flag=TRUE;
     if([userID.text isEqualToString:@""]){
@@ -83,7 +80,7 @@ bool dataFound=NO;
                                  "</ChangeUserPwd>"
                                  "</soap:Body>"
                                  "</soap:Envelope>",userID.text,password.text,nPassword.text];
-        NSLog(@"SoapRequest is %@" , soapRequest);
+        //NSLog(@"SoapRequest is %@" , soapRequest);
         NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=ChangeUserPwd"];
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
         [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -127,7 +124,7 @@ bool dataFound=NO;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    NSLog(@"\n\nSoap Response is %@",theXML);
+    //NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -149,13 +146,14 @@ bool dataFound=NO;
     if(dataFound){
         if([[string substringToIndex:1] isEqualToString:@"R"]){
             //NSLog(@"R error");
-            msg = @"Invalid Username or Password";
+            msg = @"Invalid Password";
             flag=TRUE;
         }
         else if([[string substringToIndex:1] isEqualToString:@"E"]){
             //NSLog(@"E error");
-            msg = @"Invalid Username or Password";
+            msg = @"Invalid Password";
             flag=TRUE;
+            [self.tabBarController popoverPresentationController];
         }
         if ([string isEqualToString:@"S"]) {
             msg = @"Password Changed Successfully!";
@@ -166,7 +164,7 @@ bool dataFound=NO;
             
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [toast show];
-            int duration = 1;
+            int duration = 1.5;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [toast dismissWithClickedButtonIndex:0 animated:YES];
             });

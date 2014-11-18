@@ -10,7 +10,7 @@
 
 
 
-@interface LoginViewController : UIViewController<UIGestureRecognizerDelegate>
+@interface LoginViewController : UIViewController<UIGestureRecognizerDelegate,NSXMLParserDelegate>
 
 -(IBAction)login:(id)sender;
 

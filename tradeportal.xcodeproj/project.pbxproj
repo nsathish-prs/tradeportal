@@ -39,10 +39,18 @@
 		EC43B28619E4F7EC0014DDA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26419E4F7EB0014DDA5 /* Foundation.framework */; };
 		EC43B28E19E4F7EC0014DDA5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC43B28C19E4F7EC0014DDA5 /* InfoPlist.strings */; };
 		EC43B29119E4F7EC0014DDA5 /* tradeportalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43B29019E4F7EC0014DDA5 /* tradeportalTests.m */; };
+		EC502D9B1A14A051004ED0DA /* AmendOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC502D9A1A14A051004ED0DA /* AmendOrderViewController.m */; };
 		EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6B8F9919F669B800AA17B8 /* DataModel.m */; };
+		EC6C8E711A0A330D00A778D7 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = EC6C8E731A0A330D00A778D7 /* Search.png */; };
 		EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EC73C06519E635E000C45DB8 /* ThomsonReutersLogo.jpg */; };
 		EC73C08219E7B50000C45DB8 /* orderEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */; };
+		EC9DA9471A107D6500615ACF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9DA9461A107D6500615ACF /* libsqlite3.dylib */; };
+		EC9DA9491A107F8700615ACF /* TradePortal.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC9DA9481A107F8700615ACF /* TradePortal.plist */; };
+		EC9DA94D1A10AD7F00615ACF /* StockHoldingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9DA94C1A10AD7F00615ACF /* StockHoldingsViewController.m */; };
+		EC9DA9501A10B07500615ACF /* StockHoldingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9DA94F1A10B07500615ACF /* StockHoldingsTableViewCell.m */; };
+		EC9DA9531A10B0C700615ACF /* StockHoldingsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9DA9521A10B0C700615ACF /* StockHoldingsDataModel.m */; };
 		ECD0669719EBD24E0070332A /* trade.png in Resources */ = {isa = PBXBuildFile; fileRef = ECD0669919EBD24E0070332A /* trade.png */; };
+		ECD39DDE1A08E0C20084A30D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */; };
 		ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF46A6519EB6AAA00A053CB /* RadioButton.m */; };
 		ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */; };
 		ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6819EB6E5700A053CB /* RadioButton-Unselected.png */; };
@@ -106,12 +114,25 @@
 		EC43B28D19E4F7EC0014DDA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC43B28F19E4F7EC0014DDA5 /* tradeportalTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tradeportalTests.h; sourceTree = "<group>"; };
 		EC43B29019E4F7EC0014DDA5 /* tradeportalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tradeportalTests.m; sourceTree = "<group>"; };
+		EC502D991A14A051004ED0DA /* AmendOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmendOrderViewController.h; sourceTree = "<group>"; };
+		EC502D9A1A14A051004ED0DA /* AmendOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmendOrderViewController.m; sourceTree = "<group>"; };
 		EC6B8F9819F669B800AA17B8 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		EC6B8F9919F669B800AA17B8 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
+		EC6C8E721A0A330D00A778D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/Search.png; sourceTree = "<group>"; };
 		EC73C06519E635E000C45DB8 /* ThomsonReutersLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ThomsonReutersLogo.jpg; sourceTree = "<group>"; };
 		EC73C08019E7B4FF00C45DB8 /* orderEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = orderEntryViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = orderEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		EC9DA9461A107D6500615ACF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		EC9DA9481A107F8700615ACF /* TradePortal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TradePortal.plist; sourceTree = "<group>"; };
+		EC9DA94B1A10AD7F00615ACF /* StockHoldingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHoldingsViewController.h; sourceTree = "<group>"; };
+		EC9DA94C1A10AD7F00615ACF /* StockHoldingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHoldingsViewController.m; sourceTree = "<group>"; };
+		EC9DA94E1A10B07500615ACF /* StockHoldingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHoldingsTableViewCell.h; sourceTree = "<group>"; };
+		EC9DA94F1A10B07500615ACF /* StockHoldingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHoldingsTableViewCell.m; sourceTree = "<group>"; };
+		EC9DA9511A10B0C700615ACF /* StockHoldingsDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHoldingsDataModel.h; sourceTree = "<group>"; };
+		EC9DA9521A10B0C700615ACF /* StockHoldingsDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHoldingsDataModel.m; sourceTree = "<group>"; };
 		ECD0669819EBD24E0070332A /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/trade.png; sourceTree = "<group>"; };
+		ECD39DDC1A08E0C10084A30D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		ECF46A6419EB6AAA00A053CB /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
 		ECF46A6519EB6AAA00A053CB /* RadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioButton.m; sourceTree = "<group>"; };
 		ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RadioButton-Selected.png"; sourceTree = "<group>"; };
@@ -124,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC9DA9471A107D6500615ACF /* libsqlite3.dylib in Frameworks */,
 				EC2DA0B01A087151008A40BE /* CoreData.framework in Frameworks */,
 				EC43B26319E4F7EB0014DDA5 /* UIKit.framework in Frameworks */,
 				EC43B26519E4F7EB0014DDA5 /* Foundation.framework in Frameworks */,
@@ -146,8 +168,6 @@
 		EC27EF8419FF324D00464E27 /* Trade */ = {
 			isa = PBXGroup;
 			children = (
-				ECF46A6419EB6AAA00A053CB /* RadioButton.h */,
-				ECF46A6519EB6AAA00A053CB /* RadioButton.m */,
 				EC73C08019E7B4FF00C45DB8 /* orderEntryViewController.h */,
 				EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */,
 				EC03041D19F4B28A00868028 /* orderConfirmationViewController.h */,
@@ -159,6 +179,8 @@
 		EC27EF8519FF328500464E27 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				ECF46A6419EB6AAA00A053CB /* RadioButton.h */,
+				ECF46A6519EB6AAA00A053CB /* RadioButton.m */,
 				EC2DA0B31A0883AD008A40BE /* AnimatedTransitioning.h */,
 				EC2DA0B41A0883AD008A40BE /* AnimatedTransitioning.m */,
 				EC2DA0B51A0883AD008A40BE /* TransitionDelegate.h */,
@@ -183,6 +205,8 @@
 				EC27EF8219FE438000464E27 /* OrderBookTableViewCell.m */,
 				EC27EF8819FF3A8900464E27 /* OrderBookModel.h */,
 				EC27EF8919FF3A8900464E27 /* OrderBookModel.m */,
+				EC502D991A14A051004ED0DA /* AmendOrderViewController.h */,
+				EC502D9A1A14A051004ED0DA /* AmendOrderViewController.m */,
 			);
 			name = OrderBook;
 			sourceTree = "<group>";
@@ -192,8 +216,6 @@
 			children = (
 				EC43B27A19E4F7EB0014DDA5 /* LoginViewController.h */,
 				EC43B27B19E4F7EB0014DDA5 /* LoginViewController.m */,
-				EC2DA0A71A086EF7008A40BE /* ChangePasswordViewController.h */,
-				EC2DA0A81A086EF7008A40BE /* ChangePasswordViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -222,6 +244,7 @@
 		EC43B26119E4F7EB0014DDA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC9DA9461A107D6500615ACF /* libsqlite3.dylib */,
 				EC2DA0AF1A087151008A40BE /* CoreData.framework */,
 				EC43B26219E4F7EB0014DDA5 /* UIKit.framework */,
 				EC43B26419E4F7EB0014DDA5 /* Foundation.framework */,
@@ -233,6 +256,8 @@
 		EC43B26819E4F7EB0014DDA5 /* tradeportal */ = {
 			isa = PBXGroup;
 			children = (
+				EC9DA94A1A10AD4B00615ACF /* StockHoldings */,
+				EC9DA9451A1075B100615ACF /* Settings */,
 				EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */,
 				EC43B27719E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard */,
 				EC27EF8419FF324D00464E27 /* Trade */,
@@ -251,6 +276,7 @@
 				EC43B26B19E4F7EB0014DDA5 /* InfoPlist.strings */,
 				EC43B26E19E4F7EB0014DDA5 /* main.m */,
 				EC43B27019E4F7EB0014DDA5 /* tradeportal-Prefix.pch */,
+				EC9DA9481A107F8700615ACF /* TradePortal.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -274,9 +300,34 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		EC9DA9451A1075B100615ACF /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				EC2DA0A71A086EF7008A40BE /* ChangePasswordViewController.h */,
+				EC2DA0A81A086EF7008A40BE /* ChangePasswordViewController.m */,
+				ECD39DDC1A08E0C10084A30D /* SettingsViewController.h */,
+				ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		EC9DA94A1A10AD4B00615ACF /* StockHoldings */ = {
+			isa = PBXGroup;
+			children = (
+				EC9DA94B1A10AD7F00615ACF /* StockHoldingsViewController.h */,
+				EC9DA94C1A10AD7F00615ACF /* StockHoldingsViewController.m */,
+				EC9DA94E1A10B07500615ACF /* StockHoldingsTableViewCell.h */,
+				EC9DA94F1A10B07500615ACF /* StockHoldingsTableViewCell.m */,
+				EC9DA9511A10B0C700615ACF /* StockHoldingsDataModel.h */,
+				EC9DA9521A10B0C700615ACF /* StockHoldingsDataModel.m */,
+			);
+			name = StockHoldings;
+			sourceTree = "<group>";
+		};
 		ECF9F66F19E54C4D005B56A3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EC6C8E731A0A330D00A778D7 /* Search.png */,
 				EC2DA0931A038B93008A40BE /* IFIS_Logo_2014_new_launch.jpg */,
 				EC2DA0901A038936008A40BE /* IFIS_Logo_2014_new_launch.png */,
 				EC27EFAA1A03434100464E27 /* IFIS_Logo_2014_new copy.png */,
@@ -366,11 +417,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */,
+				EC9DA9491A107F8700615ACF /* TradePortal.plist in Resources */,
 				EC2DA0921A038936008A40BE /* IFIS_Logo_2014_new_launch.png in Resources */,
 				EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */,
 				ECF46A6C19EBBB2700A053CB /* Default-568h@2x.png in Resources */,
 				EC27EFAC1A03434100464E27 /* IFIS_Logo_2014_new copy.png in Resources */,
 				EC27EFA01A02083E00464E27 /* btn_cancel.gif in Resources */,
+				EC6C8E711A0A330D00A778D7 /* Search.png in Resources */,
 				EC43B26D19E4F7EB0014DDA5 /* InfoPlist.strings in Resources */,
 				EC27EF9B1A01E21800464E27 /* icon-company-documents-large.png in Resources */,
 				EC27EF9A1A01E21200464E27 /* order_book.png in Resources */,
@@ -420,14 +473,19 @@
 				EC73C08219E7B50000C45DB8 /* orderEntryViewController.m in Sources */,
 				EC2DA0AA1A086EF7008A40BE /* ChangePasswordViewController.m in Sources */,
 				EC2DA0B71A0883AD008A40BE /* AnimatedTransitioning.m in Sources */,
+				EC9DA94D1A10AD7F00615ACF /* StockHoldingsViewController.m in Sources */,
 				EC2DA0B81A0883AD008A40BE /* TransitionDelegate.m in Sources */,
 				EC43B26F19E4F7EB0014DDA5 /* main.m in Sources */,
+				EC9DA9531A10B0C700615ACF /* StockHoldingsDataModel.m in Sources */,
 				EC27EF8019FDE78600464E27 /* OrderBookDetailsViewController.m in Sources */,
 				EC27EF8319FE438000464E27 /* OrderBookTableViewCell.m in Sources */,
+				ECD39DDE1A08E0C20084A30D /* SettingsViewController.m in Sources */,
 				EC27EF7D19F90B0100464E27 /* OrderBookViewController.m in Sources */,
 				EC43B27319E4F7EB0014DDA5 /* AppDelegate.m in Sources */,
 				EC43B27C19E4F7EB0014DDA5 /* LoginViewController.m in Sources */,
 				EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */,
+				EC502D9B1A14A051004ED0DA /* AmendOrderViewController.m in Sources */,
+				EC9DA9501A10B07500615ACF /* StockHoldingsTableViewCell.m in Sources */,
 				EC03041F19F4B28A00868028 /* orderConfirmationViewController.m in Sources */,
 				EC27EF8A19FF3A8900464E27 /* OrderBookModel.m in Sources */,
 				ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */,
@@ -531,6 +589,14 @@
 				EC43B28D19E4F7EC0014DDA5 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EC6C8E731A0A330D00A778D7 /* Search.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC6C8E721A0A330D00A778D7 /* en */,
+			);
+			name = Search.png;
 			sourceTree = "<group>";
 		};
 		ECD0669919EBD24E0070332A /* trade.png */ = {

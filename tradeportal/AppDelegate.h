@@ -9,10 +9,15 @@
 #import <UIKit/UIKit.h>
 @class ViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate,NSXMLParserDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property(strong,nonatomic)ViewController *loginViewController;
+@property(strong,nonatomic)UIViewController *lastViewController;
+@property(strong,nonatomic)NSTimer *timer;
+@property (strong, nonatomic) NSMutableData *buffer;
+@property (strong, nonatomic) NSXMLParser *parser;
+@property (strong, nonatomic) NSString *parseURL;
+@property (strong, nonatomic) NSURLConnection *conn;
 
 
 @end
