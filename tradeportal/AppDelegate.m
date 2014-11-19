@@ -51,32 +51,33 @@ BOOL resultFound;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    NSLog(@"applicationWillEnterForeground");
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    NSString *soapRequest = [NSString stringWithFormat:
-                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-                             "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-                             "<soap:Body>"
-                             "<ChkSession xmlns=\"http://OMS/\">"
-                             "<UserSession>%@</UserSession>"
-                             "</ChkSession>"
-                             "</soap:Body>"
-                             "</soap:Envelope>", dm.sessionID];
-    //NSLog(@"SoapRequest is %@" , soapRequest);
-    NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=ChkSession"];
-    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
-    [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [req addValue:@"http://OMS/ChkSession" forHTTPHeaderField:@"SOAPAction"];
-    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
-    [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
-    [req setHTTPMethod:@"POST"];
-    [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-    if (conn) {
-        buffer = [NSMutableData data];
+    if (!([dm.sessionID isEqualToString:@""])) {
+        NSLog(@"applicationWillEnterForeground");
+        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        NSString *soapRequest = [NSString stringWithFormat:
+                                 @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                                 "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+                                 "<soap:Body>"
+                                 "<ChkSession xmlns=\"http://OMS/\">"
+                                 "<UserSession>%@</UserSession>"
+                                 "</ChkSession>"
+                                 "</soap:Body>"
+                                 "</soap:Envelope>", dm.sessionID];
+        //NSLog(@"SoapRequest is %@" , soapRequest);
+        NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=ChkSession"];
+        NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+        [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        [req addValue:@"http://OMS/ChkSession" forHTTPHeaderField:@"SOAPAction"];
+        NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
+        [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
+        [req setHTTPMethod:@"POST"];
+        [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+        if (conn) {
+            buffer = [NSMutableData data];
+        }
     }
-    
 }
 
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
@@ -152,16 +153,16 @@ BOOL resultFound;
     self.window.hidden = NO;
     [timer invalidate];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-//    if ([dm.userID length]>0) {
-//        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"User Authentication" message:@"Enter Password" delegate:self cancelButtonTitle:@"Enter" otherButtonTitles:@"Exit", nil];
-//        alertView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
-//        [alertView textFieldAtIndex:0].text = dm.userID;
-//        [alertView textFieldAtIndex:0].userInteractionEnabled = NO;
-//        [alertView textFieldAtIndex:1].placeholder = @"Password";
-//        alertView.tag = 0;
-//        [[alertView textFieldAtIndex:1] becomeFirstResponder];
-//        [alertView show];
-//    }
+    //    if ([dm.userID length]>0) {
+    //        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"User Authentication" message:@"Enter Password" delegate:self cancelButtonTitle:@"Enter" otherButtonTitles:@"Exit", nil];
+    //        alertView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    //        [alertView textFieldAtIndex:0].text = dm.userID;
+    //        [alertView textFieldAtIndex:0].userInteractionEnabled = NO;
+    //        [alertView textFieldAtIndex:1].placeholder = @"Password";
+    //        alertView.tag = 0;
+    //        [[alertView textFieldAtIndex:1] becomeFirstResponder];
+    //        [alertView show];
+    //    }
     
     
     
