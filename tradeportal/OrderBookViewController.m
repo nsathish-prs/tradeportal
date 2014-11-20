@@ -304,9 +304,10 @@ DataModel *dm;
             [self.tableView reloadData];
             
         }
+        [spinner stopAnimating];
+        [self.refreshControl endRefreshing];
     }
-    [spinner stopAnimating];
-    [self.refreshControl endRefreshing];
+    
 }
 
 
