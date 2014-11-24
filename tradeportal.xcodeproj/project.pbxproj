@@ -33,7 +33,6 @@
 		EC43B26F19E4F7EB0014DDA5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43B26E19E4F7EB0014DDA5 /* main.m */; };
 		EC43B27319E4F7EB0014DDA5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43B27219E4F7EB0014DDA5 /* AppDelegate.m */; };
 		EC43B27619E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */; };
-		EC43B27919E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC43B27719E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard */; };
 		EC43B27C19E4F7EB0014DDA5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43B27B19E4F7EB0014DDA5 /* LoginViewController.m */; };
 		EC43B28519E4F7EC0014DDA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26219E4F7EB0014DDA5 /* UIKit.framework */; };
 		EC43B28619E4F7EC0014DDA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26419E4F7EB0014DDA5 /* Foundation.framework */; };
@@ -106,7 +105,6 @@
 		EC43B27119E4F7EB0014DDA5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EC43B27219E4F7EB0014DDA5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		EC43B27519E4F7EB0014DDA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
-		EC43B27819E4F7EB0014DDA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		EC43B27A19E4F7EB0014DDA5 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		EC43B27B19E4F7EB0014DDA5 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EC43B28219E4F7EB0014DDA5 /* tradeportalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tradeportalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -259,7 +257,6 @@
 				EC9DA94A1A10AD4B00615ACF /* StockHoldings */,
 				EC9DA9451A1075B100615ACF /* Settings */,
 				EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */,
-				EC43B27719E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard */,
 				EC27EF8419FF324D00464E27 /* Trade */,
 				EC27EF8519FF328500464E27 /* Common */,
 				EC27EF8719FF331F00464E27 /* Login */,
@@ -433,7 +430,6 @@
 				ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */,
 				EC27EFA91A03427F00464E27 /* IFIS_Logo_2014_new_25.png in Resources */,
 				EC43B27619E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard in Resources */,
-				EC43B27919E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard in Resources */,
 				EC2DA0951A038B94008A40BE /* IFIS_Logo_2014_new_launch.jpg in Resources */,
 				EC27EFA41A03411D00464E27 /* IFIS_Logo_2014_new.jpg in Resources */,
 			);
@@ -573,14 +569,6 @@
 				EC43B27519E4F7EB0014DDA5 /* en */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		EC43B27719E4F7EB0014DDA5 /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EC43B27819E4F7EB0014DDA5 /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		EC43B28C19E4F7EC0014DDA5 /* InfoPlist.strings */ = {

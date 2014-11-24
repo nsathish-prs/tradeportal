@@ -34,9 +34,9 @@
 
 @implementation orderEntryViewController
 
-@synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange,buffer,conn,parser,parseURL,submit,marketEx,spinner,btnSelect;
+@synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange,buffer,conn,parser,parseURL,submit,marketEx,spinner,btnSelect,container;
 
-UIView *container;
+//UIView *container;
 DataModel *dm;
 UILabel *label1, *label2;
 RadioButton *rb1, *rb2;
@@ -47,7 +47,7 @@ RadioButton *rb1, *rb2;
     [super viewDidLoad];
     [self reloadData];
     
-    
+    _pickerViewContainer.hidden = YES;
     [self.tabBarController setDelegate:self];
     //Picker View
     accountDict =[[NSMutableDictionary alloc]init];
@@ -67,7 +67,7 @@ RadioButton *rb1, *rb2;
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-        container = [[UIView alloc] initWithFrame:CGRectMake(150, 170, 150, 30)];
+//        container = [[UIView alloc] initWithFrame:CGRectMake(150, 170, 150, 30)];
         label1  =[[UILabel alloc] initWithFrame:CGRectMake(35, 15, 60, 20)];
         label1.backgroundColor = [UIColor clearColor];
         label1.font = [UIFont fontWithName:@"Helvetica Neue" size:14.0f];
@@ -83,7 +83,7 @@ RadioButton *rb1, *rb2;
         
         _pickerViewContainer.frame = CGRectMake(6, 556, 308, 208);
     } else {
-        container = [[UIView alloc] initWithFrame:CGRectMake(400, 250, 150, 30)];
+//        container = [[UIView alloc] initWithFrame:CGRectMake(400, 250, 150, 30)];
         label1 =[[UILabel alloc] initWithFrame:CGRectMake(30, 5, 60, 20)];
         label1.backgroundColor = [UIColor clearColor];
         label1.font = [UIFont fontWithName:@"Helvetica Neue" size:17.0f];
@@ -312,7 +312,13 @@ RadioButton *rb1, *rb2;
     [buffer appendData:data];
 }
 -(void) connection:(NSURLConnection *) connection didFailWithError:(NSError *) error {
-    
+    UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    [toast show];
+    int duration = 1.5;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [toast dismissWithClickedButtonIndex:0 animated:YES];
+    });
+
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
@@ -394,6 +400,7 @@ RadioButton *rb1, *rb2;
 #pragma mark -  RadioButton
 
 -(void)radioButtonSelectedAtIndex:(NSUInteger)index inGroup:(NSString *)groupId{
+    [self CancelPic:self];
     if (index == 0) {
         [submit setTitle:@"BUY" forState:UIControlStateNormal];
         submit.backgroundColor = iGREEN;
@@ -437,16 +444,11 @@ RadioButton *rb1, *rb2;
 
 - (IBAction)CancelPic:(id)sender {
     [UIView beginAnimations:Nil context:NULL];
-    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-        _pickerViewContainer.frame = CGRectMake(6, 556, 301, 208);
+//        _pickerViewContainer.frame = CGRectMake(11, 955, 300, 245);
+        _pickerViewContainer.hidden=YES;
         [UIView setAnimationDuration:0.3];
-    }
-    else{
-        container.hidden=NO;
-        _pickerViewContainer.frame = CGRectMake(404, 853, 492, 350);
-        [UIView setAnimationDuration:0.5];
     }
     
     [UIView commitAnimations];
@@ -459,20 +461,16 @@ RadioButton *rb1, *rb2;
 }
 
 - (IBAction)accountPicker:(id)sender {
+_pickerViewContainer.hidden=NO;
     [self hideSearch:sender];
-    [UIView beginAnimations:Nil context:NULL];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        _pickerViewContainer.frame = CGRectMake(6, 300, 308, 208);
-        [UIView setAnimationDuration:0.3];
-    }
-    else{
-        container.hidden=YES;
-        _pickerViewContainer.frame = CGRectMake(404, 240, 492, 350);
-        [UIView setAnimationDuration:0.5];
-    }
-    [self.picker selectRow:0 inComponent:0 animated:YES];
-    [UIView commitAnimations];
+//    [UIView beginAnimations:Nil context:NULL];
+//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//    {
+//        _pickerViewContainer.frame = CGRectMake(11, 313, 300, 245);
+//        [UIView setAnimationDuration:0.3];
+//    }
+//    [self.picker selectRow:0 inComponent:0 animated:YES];
+//    [UIView commitAnimations];
     
 }
 

@@ -50,6 +50,7 @@
 @property(nonatomic,strong)IBOutlet UILabel *askPrice;
 @property(nonatomic,strong)IBOutlet UILabel *exchange;
 @property(nonatomic,strong)NSString *marketEx;
+@property (weak, nonatomic) IBOutlet UIView *container;
 
 
 @end

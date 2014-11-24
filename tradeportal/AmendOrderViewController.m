@@ -139,6 +139,13 @@ NSUserDefaults *getOrder;
     [buffer appendData:data];
 }
 -(void) connection:(NSURLConnection *) connection didFailWithError:(NSError *) error {
+    UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"Connection Error..." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    [toast show];
+    int duration = 1.5;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [toast dismissWithClickedButtonIndex:0 animated:YES];
+    });
+
     
 }
 
