@@ -37,9 +37,8 @@
       "scale" : "2x"
     },
     {
-      "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "Icon-Spotlight-iOS7@2x.png",
+      "size" : "60x60",
       "scale" : "3x"
     },
     {
@@ -77,9 +76,8 @@
       "scale" : "2x"
     },
     {
-      "size" : "72x72",
       "idiom" : "ipad",
-      "filename" : "Icon-72.png",
+      "size" : "72x72",
       "scale" : "1x"
     },
     {

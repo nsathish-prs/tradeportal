@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderBookDetailsViewController.h"
+#import "OrderBookModel.h"
+
 
 @interface AmendOrderViewController : UIViewController<NSXMLParserDelegate>
 
@@ -18,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *confirm;
 @property (weak, nonatomic) IBOutlet UIButton *cancelAmend;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property(strong,nonatomic)OrderBookModel *order;
+@property(nonatomic,strong)IBOutlet OrderBookDetailsViewController *orderBook;
 
 - (IBAction)cancelAmend:(id)sender;
 - (IBAction)confirmAmend:(id)sender;

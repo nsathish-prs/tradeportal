@@ -22,11 +22,10 @@
 @end
 
 @implementation AmendOrderViewController
-@synthesize orderPrice,orderQty,matchQty,nQty,nPrice,spinner,buffer,parser,parseURL,conn;
+@synthesize orderPrice,orderQty,matchQty,nQty,nPrice,spinner,buffer,parser,parseURL,conn,order,orderBook;
 DataModel *dm;
 NSInteger qty ;
 CGFloat price;
-OrderBookModel *order;
 NSUserDefaults *getOrder;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,20 +38,24 @@ NSUserDefaults *getOrder;
     [numberFormatter setDecimalSeparator:@"."];
     [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [numberFormatter setMaximumFractionDigits:3];
-    
+    self.view.backgroundColor=[UIColor clearColor];
+    orderBook.view.alpha=0.5f;
     spinner.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height/2);
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
     [mainWindow addSubview:spinner];
     
     
-     getOrder = [NSUserDefaults standardUserDefaults];
-    NSData *deOrder = [getOrder objectForKey:@"order"];
-    order = [NSKeyedUnarchiver unarchiveObjectWithData:deOrder];
-    orderQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.orderQty intValue]]];
-    orderPrice.text = [numberFormatter stringFromNumber:[NSNumber numberWithDouble:[order.orderPrice doubleValue]]];
-    matchQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.qtyFilled intValue]]];
-    [getOrder removeObjectForKey:@"order"];
-    [getOrder synchronize];
+    //     getOrder = [NSUserDefaults standardUserDefaults];
+    //    NSData *deOrder = [getOrder objectForKey:@"order"];
+    //    order = [NSKeyedUnarchiver unarchiveObjectWithData:deOrder];
+    //    orderQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.orderQty intValue]]];
+    //    orderPrice.text = [numberFormatter stringFromNumber:[NSNumber numberWithDouble:[order.orderPrice doubleValue]]];
+    //    matchQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.qtyFilled intValue]]];
+    //    [getOrder removeObjectForKey:@"order"];
+    //    [getOrder synchronize];
+    orderQty.text = order.orderQty;
+    orderPrice.text = order.orderPrice;
+    matchQty.text = order.qtyFilled;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,6 +66,7 @@ NSUserDefaults *getOrder;
 
 - (IBAction)cancelAmend:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+    orderBook.view.alpha = 1.0f;
 }
 
 - (IBAction)confirmAmend:(id)sender {
@@ -145,7 +149,7 @@ NSUserDefaults *getOrder;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
-
+    
     
 }
 
@@ -181,9 +185,8 @@ NSUserDefaults *getOrder;
             resultFound=NO;
         }
         if ([elementName isEqualToString:@"z:row"]) {
-            [getOrder setObject:@"YES" forKey:@"amend"];
-            [getOrder synchronize];
             [self dismissViewControllerAnimated:YES completion:nil];
+            [orderBook.navigationController popViewControllerAnimated:YES];
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"Order Amended Successfully!" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [toast show];
             int duration = 1.5;

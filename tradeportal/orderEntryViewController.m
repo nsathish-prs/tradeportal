@@ -46,7 +46,8 @@ RadioButton *rb1, *rb2;
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     [super viewDidLoad];
     [self reloadData];
-    
+    dm.userID = @"jo1";
+    dm.password = @"1234";
     _pickerViewContainer.hidden = YES;
     [self.tabBarController setDelegate:self];
     //Picker View

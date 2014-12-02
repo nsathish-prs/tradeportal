@@ -15,13 +15,13 @@
 -(IBAction)login:(id)sender;
 
 
-@property(nonatomic,weak)IBOutlet UITextField *uname;
-@property(nonatomic,weak)IBOutlet UITextField *pwd;
+@property(nonatomic,weak)IBOutlet UITextField *uname1;
+@property(nonatomic,strong)IBOutlet UITextField *upwd;
 @property (strong, nonatomic) NSMutableData *buffer;
 @property (strong, nonatomic) NSXMLParser *parser;
 @property (strong, nonatomic) NSURLConnection *conn;
 @property(strong,nonatomic)IBOutlet UILabel *error;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner1;
 
 
 @end

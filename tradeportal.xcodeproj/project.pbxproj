@@ -16,7 +16,6 @@
 		EC27EF9B1A01E21800464E27 /* icon-company-documents-large.png in Resources */ = {isa = PBXBuildFile; fileRef = EC27EF9D1A01E21800464E27 /* icon-company-documents-large.png */; };
 		EC27EFA01A02083E00464E27 /* btn_cancel.gif in Resources */ = {isa = PBXBuildFile; fileRef = EC27EF9E1A02083E00464E27 /* btn_cancel.gif */; };
 		EC27EFA11A02083E00464E27 /* btn_reduce.gif in Resources */ = {isa = PBXBuildFile; fileRef = EC27EF9F1A02083E00464E27 /* btn_reduce.gif */; };
-		EC27EFA31A03403100464E27 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC27EFA21A03403100464E27 /* Images.xcassets */; };
 		EC27EFA41A03411D00464E27 /* IFIS_Logo_2014_new.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EC27EFA61A03411D00464E27 /* IFIS_Logo_2014_new.jpg */; };
 		EC27EFA91A03427F00464E27 /* IFIS_Logo_2014_new_25.png in Resources */ = {isa = PBXBuildFile; fileRef = EC27EFA71A03427F00464E27 /* IFIS_Logo_2014_new_25.png */; };
 		EC27EFAC1A03434100464E27 /* IFIS_Logo_2014_new copy.png in Resources */ = {isa = PBXBuildFile; fileRef = EC27EFAA1A03434100464E27 /* IFIS_Logo_2014_new copy.png */; };
@@ -81,7 +80,6 @@
 		EC27EF9C1A01E21800464E27 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/icon-company-documents-large.png"; sourceTree = "<group>"; };
 		EC27EF9E1A02083E00464E27 /* btn_cancel.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = btn_cancel.gif; sourceTree = "<group>"; };
 		EC27EF9F1A02083E00464E27 /* btn_reduce.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = btn_reduce.gif; sourceTree = "<group>"; };
-		EC27EFA21A03403100464E27 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EC27EFA51A03411D00464E27 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = en; path = en.lproj/IFIS_Logo_2014_new.jpg; sourceTree = "<group>"; };
 		EC27EFA81A03427F00464E27 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/IFIS_Logo_2014_new_25.png; sourceTree = "<group>"; };
 		EC27EFAB1A03434100464E27 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/IFIS_Logo_2014_new copy.png"; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 				EC2DA0B41A0883AD008A40BE /* AnimatedTransitioning.m */,
 				EC2DA0B51A0883AD008A40BE /* TransitionDelegate.h */,
 				EC2DA0B61A0883AD008A40BE /* TransitionDelegate.m */,
-				EC27EFA21A03403100464E27 /* Images.xcassets */,
 				EC43B27119E4F7EB0014DDA5 /* AppDelegate.h */,
 				EC43B27219E4F7EB0014DDA5 /* AppDelegate.m */,
 				EC6B8F9819F669B800AA17B8 /* DataModel.h */,
@@ -426,7 +423,6 @@
 				EC27EF9A1A01E21200464E27 /* order_book.png in Resources */,
 				ECD0669719EBD24E0070332A /* trade.png in Resources */,
 				EC27EFA11A02083E00464E27 /* btn_reduce.gif in Resources */,
-				EC27EFA31A03403100464E27 /* Images.xcassets in Resources */,
 				ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */,
 				EC27EFA91A03427F00464E27 /* IFIS_Logo_2014_new_25.png in Resources */,
 				EC43B27619E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard in Resources */,
@@ -675,6 +671,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
 				INFOPLIST_FILE = "tradeportal/tradeportal-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
@@ -690,6 +687,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
 				INFOPLIST_FILE = "tradeportal/tradeportal-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;

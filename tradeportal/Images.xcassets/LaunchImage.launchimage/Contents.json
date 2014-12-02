@@ -8,12 +8,11 @@
       "scale" : "2x"
     },
     {
-      "extent" : "full-screen",
+      "orientation" : "portrait",
       "idiom" : "iphone",
+      "extent" : "full-screen",
+      "minimum-system-version" : "7.0",
       "subtype" : "retina4",
-      "filename" : "IFIS_Logo_2014_new_launch.png",
-      "minimum-system-version" : "7.0",
-      "orientation" : "portrait",
       "scale" : "2x"
     },
     {
@@ -42,7 +41,6 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "IFIS_Logo_2014_new_launch-1.png",
       "scale" : "2x"
     },
     {
@@ -61,7 +59,6 @@
       "orientation" : "portrait",
       "idiom" : "iphone",
       "extent" : "full-screen",
-      "filename" : "IFIS_Logo_2014_new_launch-2.png",
       "subtype" : "retina4",
       "scale" : "2x"
     },

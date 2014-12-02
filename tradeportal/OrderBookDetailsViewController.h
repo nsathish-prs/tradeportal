@@ -39,6 +39,6 @@
 - (IBAction)cancelOrder:(id)sender;
 
 @property(nonatomic,strong)IBOutlet OrderBookViewController *orderBook;
-
+@property(nonatomic,assign)Boolean flag;
 
 @end

@@ -29,7 +29,7 @@
 @implementation LoginViewController
 
 DataModel *dm;
-@synthesize uname,pwd,buffer,parser,conn,error,spinner;
+@synthesize uname1,upwd,buffer,parser,conn,error,spinner1;
 @synthesize transitionController;
 
 
@@ -44,7 +44,7 @@ DataModel *dm;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    uname.text = dm.userID;
+    //uname.text = dm.userID;
     self.transitionController = [[TransitionDelegate alloc] init];
     
     }
@@ -53,8 +53,8 @@ DataModel *dm;
     self.view.alpha = 1.0f;
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [uname resignFirstResponder];
-    [pwd resignFirstResponder];
+    [uname1 resignFirstResponder];
+    [upwd resignFirstResponder];
     return YES;
 }
 
@@ -75,8 +75,8 @@ DataModel *dm;
 }
 
 -(IBAction)login:(id)sender{
-    name = uname.text;
-    password = pwd.text;
+    name = uname1.text;
+    password = upwd.text;
     
     NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyz$-~#@ABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
     NSMutableString *s = [NSMutableString stringWithCapacity:30];
@@ -89,11 +89,11 @@ DataModel *dm;
     //NSLog(@"%@",sessionID);
     BOOL flag=TRUE;
     if([name isEqualToString:@""]){
-        uname.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Username" attributes:@{NSForegroundColorAttributeName: iERROR}];
+        uname1.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Username" attributes:@{NSForegroundColorAttributeName: iERROR}];
         flag=FALSE;
     }
     if([password isEqualToString:@""]){
-        pwd.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Password" attributes:@{NSForegroundColorAttributeName: iERROR}];
+        upwd.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Password" attributes:@{NSForegroundColorAttributeName: iERROR}];
 
         flag = FALSE;
     }
@@ -120,8 +120,8 @@ DataModel *dm;
         [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
         
         conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-        spinner.hidesWhenStopped=YES;
-        [spinner startAnimating];
+        spinner1.hidesWhenStopped=YES;
+        [spinner1 startAnimating];
 
             if (conn) {
                 buffer = [NSMutableData data];
@@ -142,8 +142,6 @@ DataModel *dm;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
-
-    
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
@@ -163,7 +161,7 @@ DataModel *dm;
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
     [parser parse];
-    [spinner stopAnimating];
+    [spinner1 stopAnimating];
 }
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
@@ -180,7 +178,7 @@ DataModel *dm;
         dm.userID=name;
         dm.password=password;
         dm.sessionID = sessionID;
-        pwd.text=@"";
+        upwd.text=@"";
         [self performSegueWithIdentifier:@"ifisPortal" sender:self];
     }
     
@@ -220,18 +218,18 @@ DataModel *dm;
 }
 
 -(IBAction)buttonClicked:(UIButton*) button {
-    LoginViewController *lvc;
-    ChangePasswordViewController *cvc;
-    dm.toView=cvc;
-    dm.fromView = lvc;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ChangePasswordViewController"];
-
-    vc.view.backgroundColor = [UIColor clearColor];
-    self.view.alpha = 0.5f;
-    [vc setTransitioningDelegate:transitionController];
-    vc.modalPresentationStyle= UIModalPresentationCustom;
-    [self presentViewController:vc animated:YES completion:nil];
+//    LoginViewController *lvc;
+//    ChangePasswordViewController *cvc;
+//    dm.toView=cvc;
+//    dm.fromView = lvc;
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+//    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ChangePasswordViewController"];
+//
+//    vc.view.backgroundColor = [UIColor clearColor];
+//    self.view.alpha = 0.5f;
+//    [vc setTransitioningDelegate:transitionController];
+//    vc.modalPresentationStyle= UIModalPresentationCustom;
+//    [self presentViewController:vc animated:YES completion:nil];
     
 }
 

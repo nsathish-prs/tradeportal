@@ -11,7 +11,7 @@
 #import "DataModel.h"
 #import "StockHoldingsTableViewCell.h"
 
-@interface OrderBookViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate,NSXMLParserDelegate>
+@interface OrderBookViewController : UITableViewController<UITextFieldDelegate,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *orders;
     NSMutableArray *orderList;

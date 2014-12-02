@@ -31,7 +31,7 @@
 
 @synthesize transitionController;
 
-@synthesize order,refNo,clientAccount,stockCode,desc,exchange,orderType,status,orderQty,qtyFilled,orderPrice,avgPrice,orderDate,currency,options,edit,cancel,buffer,parser,parseURL,conn,spinner,orderBook,side;
+@synthesize order,refNo,clientAccount,stockCode,desc,exchange,orderType,status,orderQty,qtyFilled,orderPrice,avgPrice,orderDate,currency,options,edit,cancel,buffer,parser,parseURL,conn,spinner,orderBook,side,flag;
 DataModel *dm;
 bool tag;
 NSInteger qty ;
@@ -39,7 +39,7 @@ CGFloat price;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    flag=false;
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setGroupingSeparator:@","];
     [numberFormatter setGroupingSize:3];
@@ -49,7 +49,7 @@ CGFloat price;
     [numberFormatter setMaximumFractionDigits:3];
     
     self.transitionController = [[TransitionDelegate alloc] init];
-    
+
     refNo.text = order.refNo;
     clientAccount.text = order.clientAccount;
     stockCode.text = order.stockCode;
@@ -94,38 +94,32 @@ CGFloat price;
 -(void)viewWillAppear:(BOOL)animated{
     self.view.alpha = 1.0f;
     NSUserDefaults *setOrder = [NSUserDefaults standardUserDefaults];
-    if ([[setOrder objectForKey:@"amend"] isEqualToString:@"YES"]) {
+    if (flag) {
         [orderBook reloadTableData];
         [self.navigationController popViewControllerAnimated:YES];
-        [setOrder setObject:@"" forKey:@"amend"];
-    }else if ([[setOrder objectForKey:@"amend"] isEqualToString:@"NO"]){
-        [self dismissViewControllerAnimated:YES completion:nil];
-        [[self navigationController]popToRootViewControllerAnimated:YES];
-        
     }
 }
 
 - (IBAction)amendOrder:(id)sender {
     
     //Store data
-    NSUserDefaults *setOrder = [NSUserDefaults standardUserDefaults];
-    NSData *enOrder = [NSKeyedArchiver archivedDataWithRootObject:order];
-    [setOrder setObject:enOrder forKey:@"order"];
-    
-    [setOrder synchronize];
-    //Show Alert View
-    OrderBookDetailsViewController *lvc;
-    AmendOrderViewController *cvc;
-    dm.toView=cvc;
-    dm.fromView = lvc;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AmendOrderViewController"];
-    vc.view.backgroundColor = [UIColor clearColor];
-    self.view.alpha = 0.5f;
-    [vc setTransitioningDelegate:transitionController];
-    vc.modalPresentationStyle= UIModalPresentationCustom;
-    [self presentViewController:vc animated:YES completion:nil];
-    
+//    NSUserDefaults *setOrder = [NSUserDefaults standardUserDefaults];
+//    NSData *enOrder = [NSKeyedArchiver archivedDataWithRootObject:order];
+//    [setOrder setObject:enOrder forKey:@"order"];
+//    
+//    [setOrder synchronize];
+//    //Show Alert View
+//    OrderBookDetailsViewController *lvc;
+//    AmendOrderViewController *cvc;
+//    dm.toView=cvc;
+//    dm.fromView = lvc;
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+//    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AmendOrderViewController"];
+//    vc.view.backgroundColor = [UIColor clearColor];
+//    self.view.alpha = 0.5f;
+//    [vc setTransitioningDelegate:transitionController];
+//    vc.modalPresentationStyle= UIModalPresentationCustom;
+//    [self presentViewController:vc animated:YES completion:nil];
     
 }
 
@@ -322,6 +316,14 @@ CGFloat price;
         resultFound=YES;
     }
 }
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"Amend"]) {
+        
+        AmendOrderViewController *vc = (AmendOrderViewController *)segue.destinationViewController;
+        vc.order = order;
+        vc.orderBook = self;
+    }
+}
 
 @end

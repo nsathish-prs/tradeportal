@@ -9,7 +9,6 @@
 #import "OrderBookViewController.h"
 #import "OrderBookTableViewCell.h"
 #import "OrderBookDetailsViewController.h"
-#import "LoginViewController.h"
 
 @interface OrderBookViewController(){
     BOOL resultFound;
@@ -20,6 +19,7 @@
 @property (strong, nonatomic) NSString *parseURL;
 @property (strong, nonatomic) NSURLConnection *conn;
 @property(strong,nonatomic)NSDictionary *statusDict;
+
 
 @end
 
@@ -48,10 +48,14 @@ DataModel *dm;
                   @"CXL",@"Part Cancelled",
                   nil];
     
-    [self.tableView registerClass: [OrderBookTableViewCell class] forCellReuseIdentifier:@"Cell"];
+    //   [self.tableView registerClass: [OrderBookTableViewCell class] forCellReuseIdentifier:@"Cell"];
+    //    [self.tableView registerNib:[UINib nibWithNibName:@"Cell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"Cell"];
+    
     orders = [[NSMutableArray alloc]init];
     orderList= [[NSMutableArray alloc]init];
     
+    self.tableView.estimatedRowHeight = 44.0;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     spinner.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height/2);
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
@@ -63,7 +67,7 @@ DataModel *dm;
     self.refreshControl = refreshControl;
     [self searchBar].hidden = TRUE;
     [self orderBy].hidden = TRUE;
-     [self reloadTableData];
+    [self reloadTableData];
     
 }
 
@@ -109,7 +113,7 @@ DataModel *dm;
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController.navigationBar endEditing:YES];
-//    [self reloadTableData];
+    //    [self reloadTableData];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -135,48 +139,46 @@ DataModel *dm;
         [orders removeAllObjects];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(stockCode contains[cd] %@) or (desc contains[cd] %@) or (clientAccount contains[cd] %@)", searchText,searchText,searchText];
         [orders addObjectsFromArray:[orderList filteredArrayUsingPredicate:predicate]];
-
+        
     }
     [self.tableView reloadData];
 }
 
 #pragma mark - Table View
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    return 1;
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [orders count];
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    OrderBookTableViewCell *cell = (OrderBookTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"OrderBookTableViewCell"];
     
-    if(cell == nil){
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"OrderBookTableViewCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-    }
+    OrderBookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if([orders count]>0){
         NSMutableString *stock = [[[orders objectAtIndex:[indexPath row]]stockCode]mutableCopy];
         UIColor *textColor = [[UIColor alloc]init];
-//        [[cell stockCode] setText:[[orders objectAtIndex:[indexPath row]]stockCode]];
+        //        [[cell stockCode] setText:[[orders objectAtIndex:[indexPath row]]stockCode]];
         [[cell side] setText:[[orders objectAtIndex:[indexPath row]]clientAccount]];
         if([[[orders objectAtIndex:[indexPath row]]side] isEqualToString:@"Buy"]){
             [stock appendString:@" (B)"];
-             textColor = iGREEN;
+            textColor = iGREEN;
         }
         if([[[orders objectAtIndex:[indexPath row]]side] isEqualToString:@"Sell"]){
             [stock appendString:@" (S)"];
             textColor = iRED;
         }
         NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:stock];
-//        NSLog(@"%lu\t%lu",(unsigned long)stock.length,(unsigned long)string.length);
+        //        NSLog(@"%lu\t%lu",(unsigned long)stock.length,(unsigned long)string.length);
         [string addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(stock.length-2, 1)];
         
         [[cell stockCode] setAttributedText:string];
@@ -195,7 +197,7 @@ DataModel *dm;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 68.0;
+    return 38.0;
 }
 
 
@@ -248,7 +250,7 @@ DataModel *dm;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
-
+    
     
 }
 
@@ -285,7 +287,7 @@ DataModel *dm;
             ////NSLog(@"%@",[attributeDict description]);
             resultFound=NO;
         }
-
+        
         if ([elementName isEqualToString:@"z:row"]) {
             resultFound=YES;
             OrderBookModel *order = [[OrderBookModel alloc]init];
@@ -308,6 +310,7 @@ DataModel *dm;
             //Add arrribute value to array
             [orderList addObject:order];
             [orders addObject:order];
+            
             [self.tableView reloadData];
             
         }
@@ -383,6 +386,7 @@ DataModel *dm;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+[self.navigationController.navigationBar endEditing:YES];
     if ([[segue identifier] isEqualToString:@"orderDetail"]) {
         
         OrderBookDetailsViewController *vc = (OrderBookDetailsViewController *)segue.destinationViewController;

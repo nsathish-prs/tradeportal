@@ -67,7 +67,7 @@ NSString *userID;
 
 -(void)initBackBtn
 {
-    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backBtnPressed)];
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backBtnPressed)];
     self.navigationItem.leftBarButtonItem = backBtn;
 }
 
