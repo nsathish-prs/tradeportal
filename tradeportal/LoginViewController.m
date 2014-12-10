@@ -211,7 +211,7 @@ DataModel *dm;
         
         }
         resultFound=YES;
-    }
+            }
 }
 
 -(void) parser:(NSXMLParser *) parser didEndElement:(NSString *) elementName

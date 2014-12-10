@@ -94,16 +94,16 @@ DataModel *dm;
     [self orderBy].hidden = TRUE;
     [self searchBar].hidden = TRUE;
     [self searchBar].text = @"";
-    [orders removeAllObjects];
-    [orders addObjectsFromArray:orderList];
-    [self.tableView reloadData];
+    [[self segmentedControl]setSelectedSegmentIndex:-1];
+    //    [orders removeAllObjects];
+    //    [orders addObjectsFromArray:orderList];
+    //    [self.tableView reloadData];
     [self.navigationController.navigationBar endEditing:YES];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     if(textField == searchBar){
         [self hideSearch:self];
-        
     }
     return YES;
 }
@@ -111,6 +111,12 @@ DataModel *dm;
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController.navigationBar endEditing:YES];
+    [orders removeAllObjects];
+    [orders addObjectsFromArray:orderList];
+    [self.tableView reloadData];
+    [[self segmentedControl]setSelectedSegmentIndex:0];
+    
+    
     //    [self reloadTableData];
 }
 
@@ -223,10 +229,10 @@ DataModel *dm;
                              "</GetOrderByUserID>"
                              "</soap:Body>"
                              "</soap:Envelope>", dm.sessionID,dm.userID];
-//    NSLog(@"SoapRequest is %@" , soapRequest);
+    //    NSLog(@"SoapRequest is %@" , soapRequest);
     NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetOrderByUserID"];
     NSURL *url =[NSURL URLWithString:urls];
-//    NSLog(@"%@",url);
+    //    NSLog(@"%@",url);
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [req addValue:@"http://OMS/GetOrderByUserID" forHTTPHeaderField:@"SOAPAction"];
@@ -277,7 +283,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-//    NSLog(@"\n\nSoap Response is %@",theXML);
+    //    NSLog(@"\n\nSoap Response is %@",theXML);
     [orderList removeAllObjects];
     [orders removeAllObjects];
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
@@ -342,10 +348,10 @@ DataModel *dm;
         else if([[string substringToIndex:1] isEqualToString:@"E"]){
             //NSLog(@"E error");
             msg = @"User has logged on elsewhere!";
-
+            
             [self dismissViewControllerAnimated:YES completion:nil];
             [[self navigationController]popToRootViewControllerAnimated:YES];
-
+            
             flag=TRUE;
         }
         if (flag) {
@@ -398,7 +404,7 @@ DataModel *dm;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-[self.navigationController.navigationBar endEditing:YES];
+    [self.navigationController.navigationBar endEditing:YES];
     if ([[segue identifier] isEqualToString:@"orderDetail"]) {
         
         OrderBookDetailsViewController *vc = (OrderBookDetailsViewController *)segue.destinationViewController;
