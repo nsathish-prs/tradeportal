@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "RadioButton.h"
 #import "DataModel.h"
+#import "ClientAccountViewController.h"
 
 @interface orderEntryViewController ()
 
@@ -38,7 +39,7 @@
 
 //UIView *container;
 DataModel *dm;
-UILabel *label1, *label2;
+UIButton *label1, *label2;
 RadioButton *rb1, *rb2;
 
 
@@ -46,35 +47,38 @@ RadioButton *rb1, *rb2;
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     [super viewDidLoad];
     [self reloadData];
-    dm.userID = @"jo1";
-    dm.password = @"1234";
     _pickerViewContainer.hidden = YES;
-    [self.tabBarController setDelegate:self];
+    //    [self.tabBarController setDelegate:self];
     //Picker View
     accountDict =[[NSMutableDictionary alloc]init];
     //[accountDict setValue:@"" forKey:@"Select Account"];
     
     [self loadAccountListfor:dm.userID withSession:dm.sessionID];
     marketEx = @"SGX";
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       [UIFont fontWithName:@"Helvetica Neue" size:11.0f], UITextAttributeFont,
-                                                       [UIColor whiteColor], UITextAttributeTextColor,
-                                                       [UIColor whiteColor], UITextAttributeTextShadowColor,
-                                                       [NSValue valueWithUIOffset:UIOffsetMake(0.0f, 1.0f)], UITextAttributeTextShadowOffset,
-                                                       nil] forState:UIControlStateNormal];
-    
+    //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+    //                                                       [UIFont fontWithName:@"Helvetica Neue" size:11.0f], UITextAttributeFont,
+    //                                                       [UIColor whiteColor], UITextAttributeTextColor,
+    //                                                       [UIColor whiteColor], UITextAttributeTextShadowColor,
+    //                                                       [NSValue valueWithUIOffset:UIOffsetMake(0.0f, 1.0f)], UITextAttributeTextShadowOffset,
+    //                                                       nil] forState:UIControlStateNormal];
+    //
     //Radio Button
     
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-//        container = [[UIView alloc] initWithFrame:CGRectMake(150, 170, 150, 30)];
-        label1  =[[UILabel alloc] initWithFrame:CGRectMake(35, 15, 60, 20)];
+        //        container = [[UIView alloc] initWithFrame:CGRectMake(150, 170, 150, 30)];
+        label1  =[[UIButton alloc] initWithFrame:CGRectMake(35, 15, 40, 20)];
+        label1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [label1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         label1.backgroundColor = [UIColor clearColor];
-        label1.font = [UIFont fontWithName:@"Helvetica Neue" size:14.0f];
-        label2 =[[UILabel alloc] initWithFrame:CGRectMake(105, 15, 60, 20)];
+        [label1 addTarget:self action:@selector(radioLabel:) forControlEvents:UIControlEventTouchDown];
+
+        label2 =[[UIButton alloc] initWithFrame:CGRectMake(105, 15, 40, 20)];
+        label2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [label2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         label2.backgroundColor = [UIColor clearColor];
-        label2.font = [UIFont fontWithName:@"Helvetica Neue" size:14.0f];
+        [label2 addTarget:self action:@selector(radioLabel:) forControlEvents:UIControlEventTouchDown];
         
         rb1 = [[RadioButton alloc] initWithGroupId:@"first group" index:0];
         rb2 = [[RadioButton alloc] initWithGroupId:@"first group" index:1];
@@ -84,14 +88,14 @@ RadioButton *rb1, *rb2;
         
         _pickerViewContainer.frame = CGRectMake(6, 556, 308, 208);
     } else {
-//        container = [[UIView alloc] initWithFrame:CGRectMake(400, 250, 150, 30)];
-        label1 =[[UILabel alloc] initWithFrame:CGRectMake(30, 5, 60, 20)];
+        //        container = [[UIView alloc] initWithFrame:CGRectMake(400, 250, 150, 30)];
+        label1 =[[UIButton alloc] initWithFrame:CGRectMake(30, 5, 60, 20)];
         label1.backgroundColor = [UIColor clearColor];
-        label1.font = [UIFont fontWithName:@"Helvetica Neue" size:17.0f];
+//        label1.font = [UIFont fontWithName:@"Helvetica Neue" size:17.0f];
         
-        label2 =[[UILabel alloc] initWithFrame:CGRectMake(110, 5, 60, 20)];
+        label2 =[[UIButton alloc] initWithFrame:CGRectMake(110, 5, 60, 20)];
         label2.backgroundColor = [UIColor clearColor];
-        label2.font = [UIFont fontWithName:@"Helvetica Neue" size:17.0f];
+//        label2.font = [UIFont fontWithName:@"Helvetica Neue" size:17.0f];
         
         rb1 = [[RadioButton alloc] initWithGroupId:@"first group" index:0];
         rb2 = [[RadioButton alloc] initWithGroupId:@"first group" index:1];
@@ -106,22 +110,28 @@ RadioButton *rb1, *rb2;
     [container addSubview:rb2];
     [RadioButton addObserverForGroupId:@"first group" observer:self];
     container.hidden=NO;
-    label1.text = @"Buy";
+    [label1 setTitle:@"Buy" forState:UIControlStateNormal];
     [container addSubview:label1];
-    label2.text = @"Sell";
+    [label2 setTitle:@"Sell" forState:UIControlStateNormal];
     [container addSubview:label2];
     [rb1 handleButtonTap:self];
     
-    btnSelect.layer.borderWidth = 1;
+    btnSelect.layer.borderWidth = 5;
     btnSelect.layer.borderColor = [[UIColor lightTextColor] CGColor];
     btnSelect.layer.cornerRadius = 5;
 }
-
+-(IBAction)radioLabel:(id)sender{
+    if (sender == label1) {
+        [rb1 handleButtonTap:self];
+    } else {
+        [rb2 handleButtonTap:self];
+    }
+}
 
 -(void)reloadData{
     self.searchStockNameList = [[NSMutableArray alloc]init];
     self.searchStockList = [[NSMutableArray alloc]init];
-    shortName.text = @"";
+    shortName.text = @" ";
     lotSize.text = @"";
     change.text = @"";
     lastPrice.text = @"";
@@ -189,7 +199,8 @@ RadioButton *rb1, *rb2;
                              "</soap:Body>"
                              "</soap:Envelope>",session,user];
     //NSLog(@"SoapRequest is %@" , soapRequest);
-    NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=GetTradeAccount"];
+    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetTradeAccount"];
+    NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [req addValue:@"http://OMS/GetTradeAccount" forHTTPHeaderField:@"SOAPAction"];
@@ -241,7 +252,9 @@ RadioButton *rb1, *rb2;
                                  "</soap:Body>"
                                  "</soap:Envelope>", searchText];
         //NSLog(@"SoapRequest is %@" , soapRequest);
-        NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=GetRicInfoFromDatabase"];
+        
+        NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetRicInfoFromDatabase"];
+        NSURL *url =[NSURL URLWithString:urls];
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
         [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         [req addValue:@"http://OMS/GetRicInfoFromDatabase" forHTTPHeaderField:@"SOAPAction"];
@@ -313,13 +326,13 @@ RadioButton *rb1, *rb2;
     [buffer appendData:data];
 }
 -(void) connection:(NSURLConnection *) connection didFailWithError:(NSError *) error {
-    UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-    [toast show];
-    int duration = 1.5;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [toast dismissWithClickedButtonIndex:0 animated:YES];
-    });
-
+    //    UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    //    [toast show];
+    //    int duration = 1.5;
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        [toast dismissWithClickedButtonIndex:0 animated:YES];
+    //    });
+    //
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
@@ -335,7 +348,7 @@ RadioButton *rb1, *rb2;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //NSLog(@"\n\nSoap Response is %@",theXML);
+    //    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -447,7 +460,7 @@ RadioButton *rb1, *rb2;
     [UIView beginAnimations:Nil context:NULL];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-//        _pickerViewContainer.frame = CGRectMake(11, 955, 300, 245);
+        //        _pickerViewContainer.frame = CGRectMake(11, 955, 300, 245);
         _pickerViewContainer.hidden=YES;
         [UIView setAnimationDuration:0.3];
     }
@@ -462,16 +475,16 @@ RadioButton *rb1, *rb2;
 }
 
 - (IBAction)accountPicker:(id)sender {
-_pickerViewContainer.hidden=NO;
+    _pickerViewContainer.hidden=NO;
     [self hideSearch:sender];
-//    [UIView beginAnimations:Nil context:NULL];
-//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-//    {
-//        _pickerViewContainer.frame = CGRectMake(11, 313, 300, 245);
-//        [UIView setAnimationDuration:0.3];
-//    }
-//    [self.picker selectRow:0 inComponent:0 animated:YES];
-//    [UIView commitAnimations];
+    //    [UIView beginAnimations:Nil context:NULL];
+    //    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    //    {
+    //        _pickerViewContainer.frame = CGRectMake(11, 313, 300, 245);
+    //        [UIView setAnimationDuration:0.3];
+    //    }
+    //    [self.picker selectRow:0 inComponent:0 animated:YES];
+    //    [UIView commitAnimations];
     
 }
 
@@ -487,8 +500,8 @@ _pickerViewContainer.hidden=NO;
     }
     else if(([price.text isEqualToString:@""])
             || ([price.text isEqualToString:@"0"])){
-                msg = @"Please enter price!";
-            }
+        msg = @"Please enter price!";
+    }
     else if(([quantity.text isEqualToString:@""])
             || ([quantity.text isEqualToString:@"0"])){
         msg = @"Please enter Quantity";
@@ -507,20 +520,28 @@ _pickerViewContainer.hidden=NO;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    orderConfirmationViewController *vc = (orderConfirmationViewController *)segue.destinationViewController;
-    vc.clientAccountValue = [accountDict objectForKey:btnSelect.titleLabel.text];
-    vc.stockCodeValue = self.stockCode;
-    vc.shortNameValue = shortName.text;
-    vc.qtyValue = quantity.text;
-    CGFloat oPrice = [price.text floatValue];
-    vc.orderPriceValue = [[NSNumber numberWithFloat:oPrice]stringValue];
-    vc.currencyValue = self.currency;
-    vc.typeValue =submit.titleLabel.text;
-    vc.routeDestValue = exchange.text;
-    vc.orderEntry=self;
-    vc.side = self.side;
-    vc.exchange = exchange.text;
-    vc.exchangeRate = self.exchangeRate;
+    [self.view endEditing:YES];
+    if ([[segue identifier] isEqualToString:@"clientAccount"]) {
+        
+        ClientAccountViewController *vc = (ClientAccountViewController *)segue.destinationViewController;
+        vc.clientAccountOrder = self;
+    }
+    else{
+        orderConfirmationViewController *vc = (orderConfirmationViewController *)segue.destinationViewController;
+        vc.clientAccountValue = [accountDict objectForKey:btnSelect.titleLabel.text];
+        vc.stockCodeValue = self.stockCode;
+        vc.shortNameValue = shortName.text;
+        vc.qtyValue = quantity.text;
+        CGFloat oPrice = [price.text floatValue];
+        vc.orderPriceValue = [[NSNumber numberWithFloat:oPrice]stringValue];
+        vc.currencyValue = self.currency;
+        vc.typeValue =submit.titleLabel.text;
+        vc.routeDestValue = exchange.text;
+        vc.orderEntry=self;
+        vc.side = self.side;
+        vc.exchange = exchange.text;
+        vc.exchangeRate = self.exchangeRate;
+    }
 }
 
 

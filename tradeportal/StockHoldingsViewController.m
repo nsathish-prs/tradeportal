@@ -8,6 +8,7 @@
 
 #import "StockHoldingsViewController.h"
 #import "StockHoldingsTableViewCell.h"
+#import "ClientAccountViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -24,18 +25,15 @@
 
 @implementation StockHoldingsViewController
 
-@synthesize buffer,parseURL,parser,conn,clientAccount,stockCode,pickerViewContainer,searchAccount,tableView;
+@synthesize buffer,parseURL,parser,conn,clientAccount,stockCode,tableView,cAccount;
 DataModel *dm;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     stockArray = [[NSMutableArray alloc]init];
     stockList = [[NSMutableArray alloc]init];
-    accountList = [[NSMutableArray alloc]init];
-    accountDict = [[NSMutableDictionary alloc]init];
     
-    // Load Account List
-    [self loadAccountListfor:dm.userID withSession:dm.sessionID];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,6 +41,10 @@ DataModel *dm;
     // Dispose of any resources that can be recreated.
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.view endEditing:YES];
+    return YES;
+}
 
 #pragma mark - Table View
 
@@ -59,19 +61,18 @@ DataModel *dm;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    StockHoldingsTableViewCell *cell = (StockHoldingsTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"StockHoldingsTableViewCell"];
+    StockHoldingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     if(cell == nil){
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StockHoldingsTableViewCell" owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"Cell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if([stockList count]>0){
         [[cell stockName] setText:[[stockList objectAtIndex:[indexPath row]]stockName]];
         [[cell stockCode] setText:[[stockList objectAtIndex:[indexPath row]]stockCode]];
         [[cell location] setText:[[stockList objectAtIndex:[indexPath row]]stockLocation]];
         [[cell totalStock] setText:[[stockList objectAtIndex:[indexPath row]]totalStock]];
-        
     }
     return cell;
 }
@@ -86,38 +87,8 @@ DataModel *dm;
     return 38.0;
 }
 
+#pragma mark - Load Stocks
 
-#pragma mark - Account List
-
--(void)loadAccountListfor:(NSString *)user withSession:(NSString *)session{
-    parseURL = @"accountList";
-    NSString *soapRequest = [NSString stringWithFormat:
-                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-                             "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-                             "<soap:Body>"
-                             "<GetTradeAccount xmlns=\"http://OMS/\">"
-                             "<UserSession>%@</UserSession>"
-                             "<UserID>%@</UserID>"
-                             "</GetTradeAccount>"
-                             "</soap:Body>"
-                             "</soap:Envelope>",session,user];
-    //NSLog(@"SoapRequest is %@" , soapRequest);
-    NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=GetTradeAccount"];
-    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
-    [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [req addValue:@"http://OMS/GetTradeAccount" forHTTPHeaderField:@"SOAPAction"];
-    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
-    [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
-    [req setHTTPMethod:@"POST"];
-    [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
-    //    [self.searchStockList removeAllObjects];
-    //    [self.searchStockNameList removeAllObjects];
-    
-    conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-    if (conn) {
-        buffer = [NSMutableData data];
-    }
-}
 
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
     [buffer setLength:0];
@@ -149,7 +120,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -160,20 +131,7 @@ DataModel *dm;
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
     //parse the data
-    if ([parseURL isEqualToString:@"accountList"]) {
-        if([elementName isEqualToString:@"GetTradeAccountResult"]){
-            ////NSLog(@"%@",[attributeDict description]);
-            resultFound=NO;
-        }
-        [accountDict setValue:@"" forKey:@" Select Account"];
-        if ([elementName isEqualToString:@"z:row"]) {
-            [accountDict setValue:[attributeDict objectForKey:@"TRADE_ACC_ID"] forKey:[attributeDict objectForKey:@"TRADE_ACC_NAME"]];
-            accountList =[[[accountDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] mutableCopy];
-            [[self accountPicker]reloadAllComponents];
-        }
-        
-    }
-    else if ([parseURL isEqualToString:@"loadStocks"]) {
+    if ([parseURL isEqualToString:@"loadStocks"]) {
         if([elementName isEqualToString:@"GetCustodyStockLocationDetailsResult"]){
             ////NSLog(@"%@",[attributeDict description]);
             resultFound=NO;
@@ -221,104 +179,13 @@ DataModel *dm;
     }
 }
 
-#pragma mark - pickerView
 
--(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
-    return 30.0f;
-}
--(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    return 1;
-}
--(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return [accountList count];
-}
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return[accountList objectAtIndex:row];
-}
--(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
-    if([[accountList objectAtIndex:row] isEqualToString:@" Select Account"]){
-        [clientAccount setTitle:@"" forState:UIControlStateNormal];
-    }
-    else{
-        [clientAccount setTitle:[accountList objectAtIndex:row] forState:UIControlStateNormal];
-    }
-}
 
-- (IBAction)CancelPic:(id)sender {
-    [UIView beginAnimations:Nil context:NULL];
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        pickerViewContainer.frame = CGRectMake(6, 606, 301, 208);
-        [UIView setAnimationDuration:0.3];
-    }
-    else{
-        pickerViewContainer.frame = CGRectMake(404, 853, 492, 350);
-        [UIView setAnimationDuration:0.5];
-    }
-    
-    [UIView commitAnimations];
-    [self LoadStocks:sender];
-    [searchAccount resignFirstResponder];
-}
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if(textField == searchAccount){
-        [self CancelPic:self];
-    }
-    [self.view endEditing:YES];
-    return YES;
-}
-
-- (IBAction)AccountPicker:(id)sender {
-    [self.view endEditing:YES];    [UIView beginAnimations:Nil context:NULL];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        pickerViewContainer.frame = CGRectMake(6, 106, 308, 208);
-        [UIView setAnimationDuration:0.3];
-    }
-    else{
-        pickerViewContainer.frame = CGRectMake(404, 240, 492, 350);
-        [UIView setAnimationDuration:0.5];
-    }
-    [self.accountPicker selectRow:0 inComponent:0 animated:YES];
-    [UIView commitAnimations];
-    [searchAccount becomeFirstResponder];
-    [self SearchAccount];
-    
-}
-
--(IBAction)SearchAccount{
-    accountList =[[[accountDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] mutableCopy];
-    NSArray *account = [[NSArray alloc]initWithArray:accountList copyItems:YES];
-    [accountList removeAllObjects];
-    if ([searchAccount.text isEqualToString:@""]) {
-        accountList =[[[accountDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] mutableCopy];
-        
-    } else {
-        NSString *searchText = searchAccount.text;
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
-        [accountList addObjectsFromArray:[account filteredArrayUsingPredicate:predicate]];
-    }
-    [[self accountPicker]reloadAllComponents];
-    if ([accountList count]>0) {
-        if([[accountList objectAtIndex:0] isEqualToString:@" Select Account"]){
-            [clientAccount setTitle:@"" forState:UIControlStateNormal];
-        }
-        else{
-            [clientAccount setTitle:[accountList objectAtIndex:0] forState:UIControlStateNormal];
-        }
-    }
-    else {
-        [clientAccount setTitle:@"" forState:UIControlStateNormal];
-    }
-}
 
 
 #pragma mark - Load Stocks
-- (void)LoadStocks:(id)sender {
+- (void)LoadStocksForAccount:(NSString *)account {
     self.parseURL = @"loadStocks";
-    NSString *account = [accountDict objectForKey:clientAccount.titleLabel.text];
     NSString *soapRequest = [NSString stringWithFormat:
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                              "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
@@ -330,8 +197,9 @@ DataModel *dm;
                              "</GetCustodyStockLocationDetails>"
                              "</soap:Body>"
                              "</soap:Envelope>", dm.sessionID,account];
-    //NSLog(@"SoapRequest is %@" , soapRequest);
-    NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=GetCustodyStockLocationDetails"];
+//    NSLog(@"SoapRequest is %@" , soapRequest);
+    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetCustodyStockLocationDetails"];
+    NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [req addValue:@"http://OMS/GetCustodyStockLocationDetails" forHTTPHeaderField:@"SOAPAction"];
@@ -355,10 +223,21 @@ DataModel *dm;
     }
     else
     {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.stockCode contains[c] %@", searchText];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SELF.stockCode contains[c] %@) or (SELF.stockName contains[c] %@)", searchText, searchText];
         [stockList addObjectsFromArray:[stockArray filteredArrayUsingPredicate:predicate]];
     }
     [tableView reloadData];
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"clientAccount"]) {
+        
+        ClientAccountViewController *vc = (ClientAccountViewController *)segue.destinationViewController;
+        vc.clientAccountStock = self;
+    }
 }
 
 @end

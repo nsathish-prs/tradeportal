@@ -65,17 +65,17 @@ NSString *userID;
 }
 
 
--(void)initBackBtn
-{
-    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backBtnPressed)];
-    self.navigationItem.leftBarButtonItem = backBtn;
-}
-
--(void)backBtnPressed
-{
-    //write your code to prepare popview
-    [self.navigationController popViewControllerAnimated:NO];
-}
+//-(void)initBackBtn
+//{
+//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backBtnPressed)];
+//    self.navigationItem.leftBarButtonItem = backBtn;
+//}
+//
+//-(void)backBtnPressed
+//{
+//    //write your code to prepare popview
+//    [self.navigationController popViewControllerAnimated:NO];
+//}
 
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -89,13 +89,18 @@ NSString *userID;
 }
 
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    [self hideKeyboard:textField];
+    return YES;
+}
+
+-(IBAction)hideKeyboard:(id)sender{
     [ UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.35f];
     CGRect frame = self.view.frame;
     frame.origin.y = 0;
     [self.view setFrame:frame];
     [UIView commitAnimations];
-    return YES;
+    [self.view endEditing:YES];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -130,8 +135,10 @@ NSString *userID;
                                  "</CheckUserPwd>"
                                  "</soap:Body>"
                                  "</soap:Envelope>",userID,password];
-        //NSLog(@"SoapRequest is %@" , soapRequest);
-        NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=CheckUserPwd"];
+//        NSLog(@"SoapRequest is %@" , soapRequest);
+        NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=CheckUserPwd"];
+        NSURL *url =[NSURL URLWithString:urls];
+
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
         [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         [req addValue:@"http://OMS/CheckUserPwd" forHTTPHeaderField:@"SOAPAction"];
@@ -186,7 +193,7 @@ NSString *userID;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -227,12 +234,14 @@ NSString *userID;
         
         if ([string isEqualToString:@"S"]) {
             msg = @"Order Successfully Made!";
-            OrderBookViewController *vc = (OrderBookViewController *)[[self.tabBarController viewControllers]objectAtIndex:1];
+            [self.navigationController popToViewController:orderEntry animated:YES];
             [orderEntry reloadData];
+            
             [[[[[self tabBarController]tabBar]items]objectAtIndex:1] setBadgeValue:@"1"];
-            [self.tabBarController setSelectedViewController:vc];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
+//            [self.tabBarController setSelectedIndex:1];
+//            [self.tabBarController setSelectedViewController:(OrderBookViewController*)[[self.tabBarController viewControllers]objectAtIndex:1]];
+//            NSLog(@"%lu",(unsigned long)self.tabBarController.selectedIndex);
+                    }
         else
         {
             
@@ -306,8 +315,9 @@ NSString *userID;
                              "</NewOrder>"
                              "</soap:Body>"
                              "</soap:Envelope>",dm.sessionID,clientAccountValue,stockCodeValue,[qtyValue intValue],[orderPriceValue floatValue],side,orderType,userID,exchange,timeInForce,currencyCode,userID,exchangeRate,currencyCode,exchange,1,0.0,0.0];
-    //NSLog(@"SoapRequest is %@" , soapRequest);
-    NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms_portal/ws_rsoms.asmx?op=NewOrder"];
+//    NSLog(@"SoapRequest is %@" , soapRequest);
+    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=NewOrder"];
+    NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [req addValue:@"http://OMS/NewOrder" forHTTPHeaderField:@"SOAPAction"];

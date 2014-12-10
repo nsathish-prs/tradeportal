@@ -8,7 +8,7 @@
 
 #import "LoginViewController.h"
 #import "DataModel.h"
-#import "ChangePasswordViewController.h"
+#import "ChangeServiceViewController.h"
 #import "TransitionDelegate.h"
 
 
@@ -77,7 +77,7 @@ DataModel *dm;
 -(IBAction)login:(id)sender{
     name = uname1.text;
     password = upwd.text;
-    
+    dm.userID = name;
     NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyz$-~#@ABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
     NSMutableString *s = [NSMutableString stringWithCapacity:30];
     for (NSUInteger i = 0U; i < 30; i++) {
@@ -109,8 +109,9 @@ DataModel *dm;
                                  "</AuthenticateUser>"
                                  "</soap:Body>"
                                  "</soap:Envelope>", name,password,sessionID];
-        //NSLog(@"SoapRequest is %@" , soapRequest);
-        NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=AuthenticateUser"];
+//        NSLog(@"\nSoapRequest is %@" , soapRequest);
+        NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=AuthenticateUser"];
+        NSURL *url =[NSURL URLWithString:urls];
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
         [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         [req addValue:@"http://OMS/AuthenticateUser" forHTTPHeaderField:@"SOAPAction"];
@@ -156,7 +157,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -232,5 +233,15 @@ DataModel *dm;
 //    [self presentViewController:vc animated:YES completion:nil];
     
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"changeService"]) {
+        
+        ChangeServiceViewController *vc = (ChangeServiceViewController *)segue.destinationViewController;
+        vc.settings = self;
+    }
+}
+
 
 @end

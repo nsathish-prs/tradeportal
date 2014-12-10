@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Reachability;
 @class ViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate,NSXMLParserDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate,NSXMLParserDelegate>{
+    
+}
 
 @property (strong, nonatomic) UIWindow *window;
 @property(strong,nonatomic)UIViewController *lastViewController;
@@ -18,6 +21,10 @@
 @property (strong, nonatomic) NSXMLParser *parser;
 @property (strong, nonatomic) NSString *parseURL;
 @property (strong, nonatomic) NSURLConnection *conn;
+@property (strong, nonatomic)NSMutableDictionary *url;
 
+@property (nonatomic) Reachability *hostReachability;
+@property (nonatomic) Reachability *internetReachability;
+@property (nonatomic) Reachability *wifiReachability;
 
 @end

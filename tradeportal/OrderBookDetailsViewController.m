@@ -44,9 +44,14 @@ CGFloat price;
     [numberFormatter setGroupingSeparator:@","];
     [numberFormatter setGroupingSize:3];
     [numberFormatter setUsesGroupingSeparator:YES];
-    [numberFormatter setDecimalSeparator:@"."];
-    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    [numberFormatter setMaximumFractionDigits:3];
+    
+    NSNumberFormatter *priceFormatter = [[NSNumberFormatter alloc] init];
+    [priceFormatter setGroupingSeparator:@","];
+    [priceFormatter setGroupingSize:3];
+    [priceFormatter setDecimalSeparator:@"."];
+    [priceFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [priceFormatter setMaximumFractionDigits:3];
+    [priceFormatter setMinimumFractionDigits:3];
     
     self.transitionController = [[TransitionDelegate alloc] init];
 
@@ -59,8 +64,8 @@ CGFloat price;
     status.text = order.status;
     orderQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.orderQty intValue]]];
     qtyFilled.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.qtyFilled intValue]]];
-    orderPrice.text = [numberFormatter stringFromNumber:[NSNumber numberWithDouble:[order.orderPrice doubleValue]]];
-    avgPrice.text = [numberFormatter stringFromNumber:[NSNumber numberWithDouble:[order.avgPrice doubleValue]]];
+    orderPrice.text = [priceFormatter stringFromNumber:[NSNumber numberWithDouble:[order.orderPrice doubleValue]]];
+    avgPrice.text = [priceFormatter stringFromNumber:[NSNumber numberWithDouble:[order.avgPrice doubleValue]]];
     orderDate.text = [NSDateFormatter localizedStringFromDate:order.orderDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterShortStyle];
     currency.text = order.currency;
     
@@ -93,7 +98,7 @@ CGFloat price;
 
 -(void)viewWillAppear:(BOOL)animated{
     self.view.alpha = 1.0f;
-    NSUserDefaults *setOrder = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *setOrder = [NSUserDefaults standardUserDefaults];
     if (flag) {
         [orderBook reloadTableData];
         [self.navigationController popViewControllerAnimated:YES];
@@ -149,7 +154,8 @@ CGFloat price;
                              "</soap:Body>"
                              "</soap:Envelope>", dm.sessionID,[order.refNo intValue]];
     //NSLog(@"SoapRequest is %@" , soapRequest);
-    NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms_portal/ws_rsoms.asmx?op=GetOrderStatus"];
+    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetOrderStatus"];
+    NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [req addValue:@"http://OMS/GetOrderStatus" forHTTPHeaderField:@"SOAPAction"];
@@ -267,8 +273,9 @@ CGFloat price;
                                          "</soap:Body>"
                                          "</soap:Envelope>", dm.sessionID,[order.refNo intValue],dm.userID,currentdate];
                 //NSLog(@"SoapRequest is %@" , soapRequest);
-                NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms_portal/ws_rsoms.asmx?op=CancelOrder"];
-                NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+                NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=CancelOrder"];
+                NSURL *url =[NSURL URLWithString:urls];
+                    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
                 [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
                 [req addValue:@"http://OMS/CancelOrder" forHTTPHeaderField:@"SOAPAction"];
                 NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
@@ -290,20 +297,20 @@ CGFloat price;
 
 - (void) parser:(NSXMLParser *) parser foundCharacters:(NSString *) string {
     NSString *msg;
-    BOOL flag=FALSE;
+    BOOL flag1=FALSE;
     if(!resultFound){
         if([[string substringToIndex:1] isEqualToString:@"R"]){
             msg = @"Some Technical Error...\nPlease Try again...";
-            flag=TRUE;
+            flag1=TRUE;
         }
         else if([[string substringToIndex:1] isEqualToString:@"E"]){
             //NSLog(@"E error");
             msg = @"User has logged on elsewhere!";
             [self dismissViewControllerAnimated:YES completion:nil];
             [[self navigationController]popToRootViewControllerAnimated:YES];
-            flag=TRUE;
+            flag1=TRUE;
         }
-        if (flag) {
+        if (flag1) {
             
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [toast show];

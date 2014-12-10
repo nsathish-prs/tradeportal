@@ -22,7 +22,7 @@
 @end
 
 @implementation AmendOrderViewController
-@synthesize orderPrice,orderQty,matchQty,nQty,nPrice,spinner,buffer,parser,parseURL,conn,order,orderBook;
+@synthesize orderPrice,orderQty,matchQty,nQty,nPrice,spinner,buffer,parser,parseURL,conn,order,orderBook,amendView;
 DataModel *dm;
 NSInteger qty ;
 CGFloat price;
@@ -35,9 +35,14 @@ NSUserDefaults *getOrder;
     [numberFormatter setGroupingSeparator:@","];
     [numberFormatter setGroupingSize:3];
     [numberFormatter setUsesGroupingSeparator:YES];
-    [numberFormatter setDecimalSeparator:@"."];
-    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    [numberFormatter setMaximumFractionDigits:3];
+    
+    NSNumberFormatter *priceFormatter = [[NSNumberFormatter alloc] init];
+    [priceFormatter setDecimalSeparator:@"."];
+    [priceFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [priceFormatter setMaximumFractionDigits:3];
+    [priceFormatter setMinimumFractionDigits:3];
+    
+    
     self.view.backgroundColor=[UIColor clearColor];
     orderBook.view.alpha=0.5f;
     spinner.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height/2);
@@ -45,18 +50,21 @@ NSUserDefaults *getOrder;
     [mainWindow addSubview:spinner];
     
     
-    //     getOrder = [NSUserDefaults standardUserDefaults];
-    //    NSData *deOrder = [getOrder objectForKey:@"order"];
-    //    order = [NSKeyedUnarchiver unarchiveObjectWithData:deOrder];
-    //    orderQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.orderQty intValue]]];
-    //    orderPrice.text = [numberFormatter stringFromNumber:[NSNumber numberWithDouble:[order.orderPrice doubleValue]]];
-    //    matchQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.qtyFilled intValue]]];
-    //    [getOrder removeObjectForKey:@"order"];
-    //    [getOrder synchronize];
-    orderQty.text = order.orderQty;
-    orderPrice.text = order.orderPrice;
-    matchQty.text = order.qtyFilled;
+    orderQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.orderQty intValue]]];
+    orderPrice.text = [priceFormatter stringFromNumber:[NSNumber numberWithDouble:[order.orderPrice doubleValue]]];
+    matchQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.qtyFilled intValue]]];
+    
+    UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapGesture:)];
+    singleTapGestureRecognizer.cancelsTouchesInView = NO;
+    
+    [self.amendView addGestureRecognizer:singleTapGestureRecognizer];
 }
+
+-(void)handleSingleTapGesture:(UITapGestureRecognizer *)tapGestureRecognizer{
+    [self.view endEditing:YES];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -66,6 +74,7 @@ NSUserDefaults *getOrder;
 
 - (IBAction)cancelAmend:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self.view endEditing:YES];
     orderBook.view.alpha = 1.0f;
 }
 
@@ -118,8 +127,9 @@ NSUserDefaults *getOrder;
                              "</GetOrderStatus>"
                              "</soap:Body>"
                              "</soap:Envelope>", dm.sessionID,[order.refNo intValue]];
-    NSLog(@"SoapRequest is %@" , soapRequest);
-    NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms_portal/ws_rsoms.asmx?op=GetOrderStatus"];
+//        NSLog(@"SoapRequest is %@" , soapRequest);
+    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetOrderStatus"];
+    NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [req addValue:@"http://OMS/GetOrderStatus" forHTTPHeaderField:@"SOAPAction"];
@@ -166,7 +176,7 @@ NSUserDefaults *getOrder;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    NSLog(@"\n\nSoap Response is %@",theXML);
+    //    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -226,8 +236,9 @@ NSUserDefaults *getOrder;
                                          "</AmendOrder>"
                                          "</soap:Body>"
                                          "</soap:Envelope>", dm.sessionID,[order.refNo intValue],(long)qty,price,dm.userID,currentdate,type];
-                //NSLog(@"SoapRequest is %@" , soapRequest);
-                NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms_portal/ws_rsoms.asmx?op=AmendOrder"];
+                NSLog(@"SoapRequest is %@" , soapRequest);
+                NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=AmendOrder"];
+                NSURL *url =[NSURL URLWithString:urls];
                 NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
                 [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
                 [req addValue:@"http://OMS/AmendOrder" forHTTPHeaderField:@"SOAPAction"];
@@ -259,7 +270,6 @@ NSUserDefaults *getOrder;
             //NSLog(@"E error");
             msg = @"User has logged on elsewhere!";
             [self dismissViewControllerAnimated:YES completion:nil];
-            [getOrder setObject:@"NO" forKey:@"amend"];
             flag=TRUE;
         }
         if (flag) {

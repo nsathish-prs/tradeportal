@@ -14,6 +14,7 @@
     NSString *password;
     UIViewController *fromView;
     UIViewController *toView;
+    NSString *serviceURL;
 }
 
 # define iGREEN [UIColor colorWithRed:64.0f/255.0f green:177.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
@@ -26,4 +27,11 @@
 @property(strong,nonatomic)NSString *password;
 @property(strong,nonatomic)UIViewController *fromView;
 @property(strong,nonatomic)UIViewController *toView;
+@property(strong,nonatomic)NSString *ip;
+@property(strong,nonatomic)NSString *domain;
+@property(strong,nonatomic)NSString *protocol;
+@property(strong,nonatomic)NSString *service;
+@property(strong,nonatomic)NSString *serviceURL;
+
+-(void)resetService;
 @end

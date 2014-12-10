@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property(strong,nonatomic)OrderBookModel *order;
 @property(nonatomic,strong)IBOutlet OrderBookDetailsViewController *orderBook;
+@property (weak, nonatomic) IBOutlet UIView *amendView;
 
 - (IBAction)cancelAmend:(id)sender;
 - (IBAction)confirmAmend:(id)sender;

@@ -48,8 +48,6 @@ DataModel *dm;
                   @"CXL",@"Part Cancelled",
                   nil];
     
-    //   [self.tableView registerClass: [OrderBookTableViewCell class] forCellReuseIdentifier:@"Cell"];
-    //    [self.tableView registerNib:[UINib nibWithNibName:@"Cell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"Cell"];
     
     orders = [[NSMutableArray alloc]init];
     orderList= [[NSMutableArray alloc]init];
@@ -160,9 +158,18 @@ DataModel *dm;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setGroupingSeparator:@","];
+    [numberFormatter setGroupingSize:3];
+    [numberFormatter setUsesGroupingSeparator:YES];
     
+    NSNumberFormatter *priceFormatter = [[NSNumberFormatter alloc] init];
+    [priceFormatter setDecimalSeparator:@"."];
+    [priceFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [priceFormatter setMaximumFractionDigits:3];
+    [priceFormatter setMinimumFractionDigits:3];
     
-    OrderBookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    OrderBookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"OrderBookTableViewCell"];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if([orders count]>0){
         NSMutableString *stock = [[[orders objectAtIndex:[indexPath row]]stockCode]mutableCopy];
@@ -182,9 +189,9 @@ DataModel *dm;
         [string addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(stock.length-2, 1)];
         
         [[cell stockCode] setAttributedText:string];
-        [[cell price] setText:[[orders objectAtIndex:[indexPath row]]orderPrice]];
-        [[cell quantity] setText:[[orders objectAtIndex:[indexPath row]]orderQty]];
-        [[cell qtyFilled] setText:[[orders objectAtIndex:[indexPath row]]qtyFilled]];
+        [[cell price] setText:[priceFormatter stringFromNumber:[NSNumber numberWithDouble:[[[orders objectAtIndex:[indexPath row]]orderPrice] doubleValue]]]];
+        [[cell quantity] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[orders objectAtIndex:[indexPath row]]orderQty] intValue]]]];
+        [[cell qtyFilled] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[orders objectAtIndex:[indexPath row]]qtyFilled] intValue]]]];
         [[cell status] setText:[statusDict valueForKey:[[orders objectAtIndex:[indexPath row]]status]]];
     }
     return cell;
@@ -216,8 +223,10 @@ DataModel *dm;
                              "</GetOrderByUserID>"
                              "</soap:Body>"
                              "</soap:Envelope>", dm.sessionID,dm.userID];
-    //NSLog(@"SoapRequest is %@" , soapRequest);
-    NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=GetOrderByUserID"];
+//    NSLog(@"SoapRequest is %@" , soapRequest);
+    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetOrderByUserID"];
+    NSURL *url =[NSURL URLWithString:urls];
+//    NSLog(@"%@",url);
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [req addValue:@"http://OMS/GetOrderByUserID" forHTTPHeaderField:@"SOAPAction"];
@@ -250,8 +259,9 @@ DataModel *dm;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
-    
-    
+    [self.tableView reloadData];
+    [spinner stopAnimating];
+    [self.refreshControl endRefreshing];
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
@@ -267,7 +277,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [orderList removeAllObjects];
     [orders removeAllObjects];
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
@@ -332,8 +342,10 @@ DataModel *dm;
         else if([[string substringToIndex:1] isEqualToString:@"E"]){
             //NSLog(@"E error");
             msg = @"User has logged on elsewhere!";
+
             [self dismissViewControllerAnimated:YES completion:nil];
             [[self navigationController]popToRootViewControllerAnimated:YES];
+
             flag=TRUE;
         }
         if (flag) {
@@ -391,6 +403,7 @@ DataModel *dm;
         
         OrderBookDetailsViewController *vc = (OrderBookDetailsViewController *)segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSLog(@"%@",indexPath);
         OrderBookModel *obm = [orders objectAtIndex:indexPath.row];
         vc.order = obm;
         vc.orderBook = self;

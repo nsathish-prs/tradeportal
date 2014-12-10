@@ -25,7 +25,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *orderBy;
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
-
 -(void)loadOrders;
 - (IBAction)indexChanged:(UISegmentedControl *)sender;
 -(void)reloadTableData;

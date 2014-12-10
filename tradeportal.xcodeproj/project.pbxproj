@@ -37,16 +37,31 @@
 		EC43B28619E4F7EC0014DDA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26419E4F7EB0014DDA5 /* Foundation.framework */; };
 		EC43B28E19E4F7EC0014DDA5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC43B28C19E4F7EC0014DDA5 /* InfoPlist.strings */; };
 		EC43B29119E4F7EC0014DDA5 /* tradeportalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43B29019E4F7EC0014DDA5 /* tradeportalTests.m */; };
+		EC4909FB1A37F9D5007B0C62 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909E91A37F9D5007B0C62 /* Icon-120.png */; };
+		EC4909FC1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909EB1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png */; };
+		EC4909FD1A37F9D5007B0C62 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909ED1A37F9D5007B0C62 /* Icon-Small.png */; };
+		EC4909FE1A37F9D5007B0C62 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909EF1A37F9D5007B0C62 /* Icon-Small@2x.png */; };
+		EC4909FF1A37F9D5007B0C62 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909F11A37F9D5007B0C62 /* Icon.png */; };
+		EC490A001A37F9D5007B0C62 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909F31A37F9D5007B0C62 /* Icon@2x.png */; };
+		EC490A011A37F9D5007B0C62 /* IFIS_Logo_2014_new copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909F51A37F9D5007B0C62 /* IFIS_Logo_2014_new copy@2x.png */; };
+		EC490A021A37F9D5007B0C62 /* IFIS_Logo_2014_new_launch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909F71A37F9D5007B0C62 /* IFIS_Logo_2014_new_launch@2x.png */; };
+		EC490A031A37F9D5007B0C62 /* order-history.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909F91A37F9D5007B0C62 /* order-history.png */; };
+		EC490A071A37FAE9007B0C62 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC490A061A37FAE9007B0C62 /* Images.xcassets */; };
 		EC502D9B1A14A051004ED0DA /* AmendOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC502D9A1A14A051004ED0DA /* AmendOrderViewController.m */; };
 		EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6B8F9919F669B800AA17B8 /* DataModel.m */; };
 		EC6C8E711A0A330D00A778D7 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = EC6C8E731A0A330D00A778D7 /* Search.png */; };
 		EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EC73C06519E635E000C45DB8 /* ThomsonReutersLogo.jpg */; };
 		EC73C08219E7B50000C45DB8 /* orderEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */; };
 		EC9DA9471A107D6500615ACF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EC9DA9461A107D6500615ACF /* libsqlite3.dylib */; };
-		EC9DA9491A107F8700615ACF /* TradePortal.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC9DA9481A107F8700615ACF /* TradePortal.plist */; };
 		EC9DA94D1A10AD7F00615ACF /* StockHoldingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9DA94C1A10AD7F00615ACF /* StockHoldingsViewController.m */; };
 		EC9DA9501A10B07500615ACF /* StockHoldingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9DA94F1A10B07500615ACF /* StockHoldingsTableViewCell.m */; };
 		EC9DA9531A10B0C700615ACF /* StockHoldingsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9DA9521A10B0C700615ACF /* StockHoldingsDataModel.m */; };
+		ECA6BBD21A31679E00814734 /* TradePortal.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECA6BBD11A31679E00814734 /* TradePortal.plist */; };
+		ECA6BBD41A319C8400814734 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECA6BBD31A319C8400814734 /* SystemConfiguration.framework */; };
+		ECA6BBD71A31A23100814734 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA6BBD61A31A23100814734 /* Reachability.m */; };
+		ECA6BBDA1A35458600814734 /* ClientAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA6BBD91A35458600814734 /* ClientAccountViewController.m */; };
+		ECA6BBDD1A35B2DF00814734 /* ChangeServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */; };
+		ECBC4BDD1A2DACFA00CD6E60 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */; };
 		ECD0669719EBD24E0070332A /* trade.png in Resources */ = {isa = PBXBuildFile; fileRef = ECD0669919EBD24E0070332A /* trade.png */; };
 		ECD39DDE1A08E0C20084A30D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */; };
 		ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF46A6519EB6AAA00A053CB /* RadioButton.m */; };
@@ -110,6 +125,16 @@
 		EC43B28D19E4F7EC0014DDA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC43B28F19E4F7EC0014DDA5 /* tradeportalTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tradeportalTests.h; sourceTree = "<group>"; };
 		EC43B29019E4F7EC0014DDA5 /* tradeportalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tradeportalTests.m; sourceTree = "<group>"; };
+		EC4909EA1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon-120.png"; sourceTree = "<group>"; };
+		EC4909EC1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon-iPad-Spotlight-iOS7@2x.png"; sourceTree = "<group>"; };
+		EC4909EE1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon-Small.png"; sourceTree = "<group>"; };
+		EC4909F01A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon-Small@2x.png"; sourceTree = "<group>"; };
+		EC4909F21A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/Icon.png; sourceTree = "<group>"; };
+		EC4909F41A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon@2x.png"; sourceTree = "<group>"; };
+		EC4909F61A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/IFIS_Logo_2014_new copy@2x.png"; sourceTree = "<group>"; };
+		EC4909F81A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/IFIS_Logo_2014_new_launch@2x.png"; sourceTree = "<group>"; };
+		EC4909FA1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/order-history.png"; sourceTree = "<group>"; };
+		EC490A061A37FAE9007B0C62 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = tradeportal/Images.xcassets; sourceTree = "<group>"; };
 		EC502D991A14A051004ED0DA /* AmendOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmendOrderViewController.h; sourceTree = "<group>"; };
 		EC502D9A1A14A051004ED0DA /* AmendOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmendOrderViewController.m; sourceTree = "<group>"; };
 		EC6B8F9819F669B800AA17B8 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
@@ -119,13 +144,20 @@
 		EC73C08019E7B4FF00C45DB8 /* orderEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = orderEntryViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = orderEntryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EC9DA9461A107D6500615ACF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		EC9DA9481A107F8700615ACF /* TradePortal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TradePortal.plist; sourceTree = "<group>"; };
 		EC9DA94B1A10AD7F00615ACF /* StockHoldingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHoldingsViewController.h; sourceTree = "<group>"; };
 		EC9DA94C1A10AD7F00615ACF /* StockHoldingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHoldingsViewController.m; sourceTree = "<group>"; };
 		EC9DA94E1A10B07500615ACF /* StockHoldingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHoldingsTableViewCell.h; sourceTree = "<group>"; };
 		EC9DA94F1A10B07500615ACF /* StockHoldingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHoldingsTableViewCell.m; sourceTree = "<group>"; };
 		EC9DA9511A10B0C700615ACF /* StockHoldingsDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHoldingsDataModel.h; sourceTree = "<group>"; };
 		EC9DA9521A10B0C700615ACF /* StockHoldingsDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHoldingsDataModel.m; sourceTree = "<group>"; };
+		ECA6BBD11A31679E00814734 /* TradePortal.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TradePortal.plist; sourceTree = "<group>"; };
+		ECA6BBD31A319C8400814734 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		ECA6BBD51A31A23100814734 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		ECA6BBD61A31A23100814734 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		ECA6BBD81A35458600814734 /* ClientAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientAccountViewController.h; sourceTree = "<group>"; };
+		ECA6BBD91A35458600814734 /* ClientAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientAccountViewController.m; sourceTree = "<group>"; };
+		ECA6BBDB1A35B2DF00814734 /* ChangeServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeServiceViewController.h; sourceTree = "<group>"; };
+		ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeServiceViewController.m; sourceTree = "<group>"; };
 		ECD0669819EBD24E0070332A /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/trade.png; sourceTree = "<group>"; };
 		ECD39DDC1A08E0C10084A30D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
@@ -141,6 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECA6BBD41A319C8400814734 /* SystemConfiguration.framework in Frameworks */,
 				EC9DA9471A107D6500615ACF /* libsqlite3.dylib in Frameworks */,
 				EC2DA0B01A087151008A40BE /* CoreData.framework in Frameworks */,
 				EC43B26319E4F7EB0014DDA5 /* UIKit.framework in Frameworks */,
@@ -175,6 +208,8 @@
 		EC27EF8519FF328500464E27 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				ECA6BBD51A31A23100814734 /* Reachability.h */,
+				ECA6BBD61A31A23100814734 /* Reachability.m */,
 				ECF46A6419EB6AAA00A053CB /* RadioButton.h */,
 				ECF46A6519EB6AAA00A053CB /* RadioButton.m */,
 				EC2DA0B31A0883AD008A40BE /* AnimatedTransitioning.h */,
@@ -239,6 +274,7 @@
 		EC43B26119E4F7EB0014DDA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECA6BBD31A319C8400814734 /* SystemConfiguration.framework */,
 				EC9DA9461A107D6500615ACF /* libsqlite3.dylib */,
 				EC2DA0AF1A087151008A40BE /* CoreData.framework */,
 				EC43B26219E4F7EB0014DDA5 /* UIKit.framework */,
@@ -270,7 +306,7 @@
 				EC43B26B19E4F7EB0014DDA5 /* InfoPlist.strings */,
 				EC43B26E19E4F7EB0014DDA5 /* main.m */,
 				EC43B27019E4F7EB0014DDA5 /* tradeportal-Prefix.pch */,
-				EC9DA9481A107F8700615ACF /* TradePortal.plist */,
+				ECA6BBD11A31679E00814734 /* TradePortal.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -301,6 +337,8 @@
 				EC2DA0A81A086EF7008A40BE /* ChangePasswordViewController.m */,
 				ECD39DDC1A08E0C10084A30D /* SettingsViewController.h */,
 				ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */,
+				ECA6BBDB1A35B2DF00814734 /* ChangeServiceViewController.h */,
+				ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -314,6 +352,8 @@
 				EC9DA94F1A10B07500615ACF /* StockHoldingsTableViewCell.m */,
 				EC9DA9511A10B0C700615ACF /* StockHoldingsDataModel.h */,
 				EC9DA9521A10B0C700615ACF /* StockHoldingsDataModel.m */,
+				ECA6BBD81A35458600814734 /* ClientAccountViewController.h */,
+				ECA6BBD91A35458600814734 /* ClientAccountViewController.m */,
 			);
 			name = StockHoldings;
 			sourceTree = "<group>";
@@ -321,6 +361,16 @@
 		ECF9F66F19E54C4D005B56A3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EC490A061A37FAE9007B0C62 /* Images.xcassets */,
+				EC4909E91A37F9D5007B0C62 /* Icon-120.png */,
+				EC4909EB1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png */,
+				EC4909ED1A37F9D5007B0C62 /* Icon-Small.png */,
+				EC4909EF1A37F9D5007B0C62 /* Icon-Small@2x.png */,
+				EC4909F11A37F9D5007B0C62 /* Icon.png */,
+				EC4909F31A37F9D5007B0C62 /* Icon@2x.png */,
+				EC4909F51A37F9D5007B0C62 /* IFIS_Logo_2014_new copy@2x.png */,
+				EC4909F71A37F9D5007B0C62 /* IFIS_Logo_2014_new_launch@2x.png */,
+				EC4909F91A37F9D5007B0C62 /* order-history.png */,
 				EC6C8E731A0A330D00A778D7 /* Search.png */,
 				EC2DA0931A038B93008A40BE /* IFIS_Logo_2014_new_launch.jpg */,
 				EC2DA0901A038936008A40BE /* IFIS_Logo_2014_new_launch.png */,
@@ -386,6 +436,11 @@
 			attributes = {
 				LastTestingUpgradeCheck = 0600;
 				LastUpgradeCheck = 0600;
+				TargetAttributes = {
+					EC43B25D19E4F7EB0014DDA5 = {
+						DevelopmentTeam = VC34USPQPM;
+					};
+				};
 			};
 			buildConfigurationList = EC43B25819E4F7EA0014DDA5 /* Build configuration list for PBXProject "tradeportal" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -411,22 +466,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */,
-				EC9DA9491A107F8700615ACF /* TradePortal.plist in Resources */,
 				EC2DA0921A038936008A40BE /* IFIS_Logo_2014_new_launch.png in Resources */,
+				EC490A021A37F9D5007B0C62 /* IFIS_Logo_2014_new_launch@2x.png in Resources */,
+				EC490A031A37F9D5007B0C62 /* order-history.png in Resources */,
 				EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */,
 				ECF46A6C19EBBB2700A053CB /* Default-568h@2x.png in Resources */,
 				EC27EFAC1A03434100464E27 /* IFIS_Logo_2014_new copy.png in Resources */,
 				EC27EFA01A02083E00464E27 /* btn_cancel.gif in Resources */,
 				EC6C8E711A0A330D00A778D7 /* Search.png in Resources */,
+				EC490A071A37FAE9007B0C62 /* Images.xcassets in Resources */,
 				EC43B26D19E4F7EB0014DDA5 /* InfoPlist.strings in Resources */,
+				EC4909FB1A37F9D5007B0C62 /* Icon-120.png in Resources */,
 				EC27EF9B1A01E21800464E27 /* icon-company-documents-large.png in Resources */,
 				EC27EF9A1A01E21200464E27 /* order_book.png in Resources */,
+				EC4909FF1A37F9D5007B0C62 /* Icon.png in Resources */,
+				EC4909FD1A37F9D5007B0C62 /* Icon-Small.png in Resources */,
+				EC4909FE1A37F9D5007B0C62 /* Icon-Small@2x.png in Resources */,
+				EC4909FC1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
 				ECD0669719EBD24E0070332A /* trade.png in Resources */,
 				EC27EFA11A02083E00464E27 /* btn_reduce.gif in Resources */,
 				ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */,
+				EC490A001A37F9D5007B0C62 /* Icon@2x.png in Resources */,
+				ECA6BBD21A31679E00814734 /* TradePortal.plist in Resources */,
 				EC27EFA91A03427F00464E27 /* IFIS_Logo_2014_new_25.png in Resources */,
 				EC43B27619E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard in Resources */,
 				EC2DA0951A038B94008A40BE /* IFIS_Logo_2014_new_launch.jpg in Resources */,
+				EC490A011A37F9D5007B0C62 /* IFIS_Logo_2014_new copy@2x.png in Resources */,
 				EC27EFA41A03411D00464E27 /* IFIS_Logo_2014_new.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +500,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECBC4BDD1A2DACFA00CD6E60 /* MainStoryboard_iPhone.storyboard in Resources */,
 				EC43B28E19E4F7EC0014DDA5 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,10 +542,13 @@
 				EC43B27319E4F7EB0014DDA5 /* AppDelegate.m in Sources */,
 				EC43B27C19E4F7EB0014DDA5 /* LoginViewController.m in Sources */,
 				EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */,
+				ECA6BBD71A31A23100814734 /* Reachability.m in Sources */,
 				EC502D9B1A14A051004ED0DA /* AmendOrderViewController.m in Sources */,
+				ECA6BBDD1A35B2DF00814734 /* ChangeServiceViewController.m in Sources */,
 				EC9DA9501A10B07500615ACF /* StockHoldingsTableViewCell.m in Sources */,
 				EC03041F19F4B28A00868028 /* orderConfirmationViewController.m in Sources */,
 				EC27EF8A19FF3A8900464E27 /* OrderBookModel.m in Sources */,
+				ECA6BBDA1A35458600814734 /* ClientAccountViewController.m in Sources */,
 				ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,6 +644,78 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		EC4909E91A37F9D5007B0C62 /* Icon-120.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC4909EA1A37F9D5007B0C62 /* en */,
+			);
+			name = "Icon-120.png";
+			sourceTree = "<group>";
+		};
+		EC4909EB1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC4909EC1A37F9D5007B0C62 /* en */,
+			);
+			name = "Icon-iPad-Spotlight-iOS7@2x.png";
+			sourceTree = "<group>";
+		};
+		EC4909ED1A37F9D5007B0C62 /* Icon-Small.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC4909EE1A37F9D5007B0C62 /* en */,
+			);
+			name = "Icon-Small.png";
+			sourceTree = "<group>";
+		};
+		EC4909EF1A37F9D5007B0C62 /* Icon-Small@2x.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC4909F01A37F9D5007B0C62 /* en */,
+			);
+			name = "Icon-Small@2x.png";
+			sourceTree = "<group>";
+		};
+		EC4909F11A37F9D5007B0C62 /* Icon.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC4909F21A37F9D5007B0C62 /* en */,
+			);
+			name = Icon.png;
+			sourceTree = "<group>";
+		};
+		EC4909F31A37F9D5007B0C62 /* Icon@2x.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC4909F41A37F9D5007B0C62 /* en */,
+			);
+			name = "Icon@2x.png";
+			sourceTree = "<group>";
+		};
+		EC4909F51A37F9D5007B0C62 /* IFIS_Logo_2014_new copy@2x.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC4909F61A37F9D5007B0C62 /* en */,
+			);
+			name = "IFIS_Logo_2014_new copy@2x.png";
+			sourceTree = "<group>";
+		};
+		EC4909F71A37F9D5007B0C62 /* IFIS_Logo_2014_new_launch@2x.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC4909F81A37F9D5007B0C62 /* en */,
+			);
+			name = "IFIS_Logo_2014_new_launch@2x.png";
+			sourceTree = "<group>";
+		};
+		EC4909F91A37F9D5007B0C62 /* order-history.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC4909FA1A37F9D5007B0C62 /* en */,
+			);
+			name = "order-history.png";
+			sourceTree = "<group>";
+		};
 		EC6C8E731A0A330D00A778D7 /* Search.png */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -668,11 +809,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
 				INFOPLIST_FILE = "tradeportal/tradeportal-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -684,11 +828,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
 				INFOPLIST_FILE = "tradeportal/tradeportal-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};

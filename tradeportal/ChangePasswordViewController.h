@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingsViewController.h"
 
 @interface ChangePasswordViewController : UIViewController<UITextFieldDelegate,NSXMLParserDelegate>
 
@@ -15,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *nPassword;
 @property (weak, nonatomic) IBOutlet UITextField *cPassword;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property(strong,nonatomic)IBOutlet SettingsViewController *settings;
 - (IBAction)changePassword:(id)sender;
 - (IBAction)dismissView:(id)sender;
 @end

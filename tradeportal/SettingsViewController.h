@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UIViewController <UIActionSheetDelegate, UIAlertViewDelegate,UITabBarDelegate,UITabBarControllerDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate>
+@interface SettingsViewController : UITableViewController <UIActionSheetDelegate, UIAlertViewDelegate,UITabBarDelegate,UITabBarControllerDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate>
 
 -(IBAction)showAction;
 @end

@@ -21,14 +21,15 @@
 @implementation ChangePasswordViewController
 DataModel *dm;
 
-@synthesize spinner,userID,password,nPassword,cPassword,buffer,parser,parseURL,conn;
+@synthesize spinner,userID,password,nPassword,cPassword,buffer,parser,parseURL,conn,settings;
 bool dataFound=NO;
 
 - (void)viewDidLoad {
-    
+    self.view.backgroundColor=[UIColor clearColor];
+    settings.view.alpha=0.5f;
+
     [super viewDidLoad];
     userID.text = dm.userID;
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,7 +82,8 @@ bool dataFound=NO;
                                  "</soap:Body>"
                                  "</soap:Envelope>",userID.text,password.text,nPassword.text];
         //NSLog(@"SoapRequest is %@" , soapRequest);
-        NSURL *url =[NSURL URLWithString:@"http://192.168.174.109/oms/ws_rsoms.asmx?op=ChangeUserPwd"];
+        NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=ChangeUserPwd"];
+        NSURL *url =[NSURL URLWithString:urls];
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
         [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         [req addValue:@"http://OMS/ChangeUserPwd" forHTTPHeaderField:@"SOAPAction"];
@@ -186,5 +188,6 @@ bool dataFound=NO;
 }
 - (IBAction)dismissView:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+    settings.view.alpha = 1.0f;
 }
 @end

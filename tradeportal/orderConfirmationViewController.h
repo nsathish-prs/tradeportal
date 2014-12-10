@@ -46,5 +46,6 @@
 
 - (IBAction)confirmPassword:(id)sender;
 - (IBAction)cancelOrder:(id)sender;
+-(IBAction)hideKeyboard:(id)sender;
 
 @end
