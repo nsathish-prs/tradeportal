@@ -67,12 +67,16 @@ DataModel *dm;
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"Cell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setGroupingSeparator:@","];
+    [numberFormatter setGroupingSize:3];
+    [numberFormatter setUsesGroupingSeparator:YES];
     if([stockList count]>0){
         [[cell stockName] setText:[[stockList objectAtIndex:[indexPath row]]stockName]];
         [[cell stockCode] setText:[[stockList objectAtIndex:[indexPath row]]stockCode]];
         [[cell location] setText:[[stockList objectAtIndex:[indexPath row]]stockLocation]];
-        [[cell totalStock] setText:[[stockList objectAtIndex:[indexPath row]]totalStock]];
+        [[cell totalStock] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[stockList objectAtIndex:[indexPath row]]totalStock] intValue]]]];
+
     }
     return cell;
 }
@@ -137,6 +141,7 @@ DataModel *dm;
             resultFound=NO;
         }
         if ([elementName isEqualToString:@"z:row"]) {
+            
             StockHoldingsDataModel *stock = [[StockHoldingsDataModel alloc]init];
             stock.stockCode = [attributeDict objectForKey:@"RICCODE"];
             stock.stockLocation = [attributeDict objectForKey:@"STOCK_LOCATION"];

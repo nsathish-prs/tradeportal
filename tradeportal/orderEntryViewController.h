@@ -20,6 +20,7 @@
     NSMutableArray *radioButtons;
     NSMutableArray *accountList;
     NSDictionary *accountDict;
+    BOOL flag;
     
 }
 - (IBAction)CancelPic:(id)sender;
@@ -51,6 +52,7 @@
 @property(nonatomic,strong)IBOutlet UILabel *exchange;
 @property(nonatomic,strong)NSString *marketEx;
 @property (weak, nonatomic) IBOutlet UIView *container;
+@property(assign,nonatomic)BOOL flag;
 
 
 @end

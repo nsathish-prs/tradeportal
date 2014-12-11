@@ -18,6 +18,7 @@
 @property(nonatomic,weak)IBOutlet UITextField *uname1;
 @property(nonatomic,strong)IBOutlet UITextField *upwd;
 @property (strong, nonatomic) NSMutableData *buffer;
+@property (strong, nonatomic) NSString *parseURL;
 @property (strong, nonatomic) NSXMLParser *parser;
 @property (strong, nonatomic) NSURLConnection *conn;
 @property(strong,nonatomic)IBOutlet UILabel *error;

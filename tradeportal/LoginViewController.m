@@ -29,7 +29,7 @@
 @implementation LoginViewController
 
 DataModel *dm;
-@synthesize uname1,upwd,buffer,parser,conn,error,spinner1;
+@synthesize uname1,upwd,buffer,parser,conn,error,spinner1,parseURL;
 @synthesize transitionController;
 
 
@@ -47,10 +47,12 @@ DataModel *dm;
     //uname.text = dm.userID;
     self.transitionController = [[TransitionDelegate alloc] init];
     
-    }
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     self.view.alpha = 1.0f;
+    [super viewWillAppear:animated];
+    
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [uname1 resignFirstResponder];
@@ -94,7 +96,7 @@ DataModel *dm;
     }
     if([password isEqualToString:@""]){
         upwd.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Enter Password" attributes:@{NSForegroundColorAttributeName: iERROR}];
-
+        
         flag = FALSE;
     }
     if(flag){
@@ -109,7 +111,7 @@ DataModel *dm;
                                  "</AuthenticateUser>"
                                  "</soap:Body>"
                                  "</soap:Envelope>", name,password,sessionID];
-//        NSLog(@"\nSoapRequest is %@" , soapRequest);
+        //        NSLog(@"\nSoapRequest is %@" , soapRequest);
         NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=AuthenticateUser"];
         NSURL *url =[NSURL URLWithString:urls];
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -123,12 +125,46 @@ DataModel *dm;
         conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
         spinner1.hidesWhenStopped=YES;
         [spinner1 startAnimating];
-
-            if (conn) {
-                buffer = [NSMutableData data];
-            }
+        
+        if (conn) {
+            buffer = [NSMutableData data];
+        }
     }
 }
+
+#pragma mark - Account List
+
+-(void)loadAccountListfor:(NSString *)user withSession:(NSString *)session{
+    parseURL = @"accountList";
+    NSString *soapRequest = [NSString stringWithFormat:
+                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                             "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+                             "<soap:Body>"
+                             "<GetTradeAccount xmlns=\"http://OMS/\">"
+                             "<UserSession>%@</UserSession>"
+                             "<UserID>%@</UserID>"
+                             "</GetTradeAccount>"
+                             "</soap:Body>"
+                             "</soap:Envelope>",session,user];
+    //NSLog(@"SoapRequest is %@" , soapRequest);
+    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetTradeAccount"];
+    NSURL *url =[NSURL URLWithString:urls];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [req addValue:@"http://OMS/GetTradeAccount" forHTTPHeaderField:@"SOAPAction"];
+    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
+    [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    //    [self.searchStockList removeAllObjects];
+    //    [self.searchStockNameList removeAllObjects];
+    
+    conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    if (conn) {
+        buffer = [NSMutableData data];
+    }
+}
+
 
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
     [buffer setLength:0];
@@ -157,7 +193,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-//    NSLog(@"\n\nSoap Response is %@",theXML);
+    //    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -168,21 +204,38 @@ DataModel *dm;
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
     
-    if([elementName isEqualToString:@"AuthenticateUserResult"]){
-        ////NSLog(@"%@",[attributeDict description]);
-        resultFound=NO;
+    if ([parseURL isEqualToString:@"accountList"]) {
+        if([elementName isEqualToString:@"GetTradeAccountResult"]){
+            ////NSLog(@"%@",[attributeDict description]);
+            resultFound=NO;
+        }
+        if ([elementName isEqualToString:@"z:row"]) {
+            [dm.accountDict setValue:[attributeDict objectForKey:@"TRADE_ACC_ID"] forKey:[attributeDict objectForKey:@"TRADE_ACC_NAME"]];
+            dm.accountList =[[[dm.accountDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] mutableCopy];
+        }
+        
+    }else{
+        
+        
+        if([elementName isEqualToString:@"AuthenticateUserResult"]){
+            ////NSLog(@"%@",[attributeDict description]);
+            resultFound=NO;
+        }
+        if ([elementName isEqualToString:@"z:row"]) {
+            //        NSString* result = [attributeDict objectForKey:@"RESULT"];
+            //        //NSLog(@"%@",result);
+            resultFound=YES;
+            dm.userID=name;
+            dm.password=password;
+            dm.sessionID = sessionID;
+            upwd.text=@"";
+            dm.accountList = [[NSMutableArray alloc]init];
+            dm.accountDict = [[NSMutableDictionary alloc]init];
+            [self loadAccountListfor:dm.userID withSession:dm.sessionID];
+            
+            [self performSegueWithIdentifier:@"ifisPortal" sender:self];
+        }
     }
-    if ([elementName isEqualToString:@"z:row"]) {
-        //        NSString* result = [attributeDict objectForKey:@"RESULT"];
-        //        //NSLog(@"%@",result);
-        resultFound=YES;
-        dm.userID=name;
-        dm.password=password;
-        dm.sessionID = sessionID;
-        upwd.text=@"";
-        [self performSegueWithIdentifier:@"ifisPortal" sender:self];
-    }
-    
     
 }
 
@@ -198,20 +251,20 @@ DataModel *dm;
         else if([[string substringToIndex:1] isEqualToString:@"E"]){
             //NSLog(@"E error");
             msg = @"Connection Error";
-                        flag=TRUE;
+            flag=TRUE;
         }
         if (flag) {
             
-        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-        [toast show];
-        int duration = 1.5;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [toast dismissWithClickedButtonIndex:0 animated:YES];
-        });
-        
+            UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            [toast show];
+            int duration = 1.5;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [toast dismissWithClickedButtonIndex:0 animated:YES];
+            });
+            
         }
         resultFound=YES;
-            }
+    }
 }
 
 -(void) parser:(NSXMLParser *) parser didEndElement:(NSString *) elementName
@@ -219,18 +272,18 @@ DataModel *dm;
 }
 
 -(IBAction)buttonClicked:(UIButton*) button {
-//    LoginViewController *lvc;
-//    ChangePasswordViewController *cvc;
-//    dm.toView=cvc;
-//    dm.fromView = lvc;
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-//    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ChangePasswordViewController"];
-//
-//    vc.view.backgroundColor = [UIColor clearColor];
-//    self.view.alpha = 0.5f;
-//    [vc setTransitioningDelegate:transitionController];
-//    vc.modalPresentationStyle= UIModalPresentationCustom;
-//    [self presentViewController:vc animated:YES completion:nil];
+    //    LoginViewController *lvc;
+    //    ChangePasswordViewController *cvc;
+    //    dm.toView=cvc;
+    //    dm.fromView = lvc;
+    //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    //    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ChangePasswordViewController"];
+    //
+    //    vc.view.backgroundColor = [UIColor clearColor];
+    //    self.view.alpha = 0.5f;
+    //    [vc setTransitioningDelegate:transitionController];
+    //    vc.modalPresentationStyle= UIModalPresentationCustom;
+    //    [self presentViewController:vc animated:YES completion:nil];
     
 }
 

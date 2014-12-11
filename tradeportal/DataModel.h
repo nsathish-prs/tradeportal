@@ -15,6 +15,9 @@
     UIViewController *fromView;
     UIViewController *toView;
     NSString *serviceURL;
+    NSMutableArray *accountList;
+    NSMutableDictionary *accountDict;
+
 }
 
 # define iGREEN [UIColor colorWithRed:64.0f/255.0f green:177.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
@@ -32,6 +35,7 @@
 @property(strong,nonatomic)NSString *protocol;
 @property(strong,nonatomic)NSString *service;
 @property(strong,nonatomic)NSString *serviceURL;
-
+@property(strong,nonatomic)NSMutableArray *accountList;
+@property(strong,nonatomic)NSMutableDictionary *accountDict;
 -(void)resetService;
 @end

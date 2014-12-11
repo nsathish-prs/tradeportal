@@ -26,5 +26,6 @@
 @property (nonatomic) Reachability *hostReachability;
 @property (nonatomic) Reachability *internetReachability;
 @property (nonatomic) Reachability *wifiReachability;
+@property (nonatomic,strong) UIViewController* privacyScreen;
 
 @end

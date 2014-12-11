@@ -32,6 +32,10 @@ DataModel *dm;
 
 -(void)viewDidLoad{
     searchBar.delegate=self;
+    
+    
+    
+    
     statusDict = [[NSDictionary alloc] initWithObjectsAndKeys:
                   @"CXL",@"Cancelled",
                   @"CHG",@"Changed",
@@ -66,7 +70,8 @@ DataModel *dm;
     [self searchBar].hidden = TRUE;
     [self orderBy].hidden = TRUE;
     [self reloadTableData];
-    
+    [super viewDidLoad];
+
 }
 
 -(void)reloadTableData{
@@ -116,7 +121,8 @@ DataModel *dm;
     [self.tableView reloadData];
     [[self segmentedControl]setSelectedSegmentIndex:0];
     
-    
+    [super viewWillAppear:animated];
+
     //    [self reloadTableData];
 }
 
@@ -126,7 +132,7 @@ DataModel *dm;
         [self reloadTableData];
         [[[[[self tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:NULL];
     }
-    
+    [super viewDidAppear:animated];
 }
 
 
@@ -283,7 +289,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //    NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [orderList removeAllObjects];
     [orders removeAllObjects];
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
@@ -409,7 +415,7 @@ DataModel *dm;
         
         OrderBookDetailsViewController *vc = (OrderBookDetailsViewController *)segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSLog(@"%@",indexPath);
+        //        NSLog(@"%@",indexPath);
         OrderBookModel *obm = [orders objectAtIndex:indexPath.row];
         vc.order = obm;
         vc.orderBook = self;

@@ -62,12 +62,14 @@
 		ECA6BBDA1A35458600814734 /* ClientAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA6BBD91A35458600814734 /* ClientAccountViewController.m */; };
 		ECA6BBDD1A35B2DF00814734 /* ChangeServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */; };
 		ECBC4BDD1A2DACFA00CD6E60 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */; };
+		ECCA882E1A3934B30071859D /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA882D1A3934B30071859D /* settings.png */; };
+		ECCA88321A3936CB0071859D /* hand_share.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88311A3936CB0071859D /* hand_share.png */; };
+		ECCA88361A39476F0071859D /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88351A39476E0071859D /* Launch Screen.xib */; };
 		ECD0669719EBD24E0070332A /* trade.png in Resources */ = {isa = PBXBuildFile; fileRef = ECD0669919EBD24E0070332A /* trade.png */; };
 		ECD39DDE1A08E0C20084A30D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */; };
 		ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF46A6519EB6AAA00A053CB /* RadioButton.m */; };
 		ECF46A6919EB6E5700A053CB /* RadioButton-Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */; };
 		ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6819EB6E5700A053CB /* RadioButton-Unselected.png */; };
-		ECF46A6C19EBBB2700A053CB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECF46A6B19EBBB2700A053CB /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +160,9 @@
 		ECA6BBD91A35458600814734 /* ClientAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientAccountViewController.m; sourceTree = "<group>"; };
 		ECA6BBDB1A35B2DF00814734 /* ChangeServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeServiceViewController.h; sourceTree = "<group>"; };
 		ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeServiceViewController.m; sourceTree = "<group>"; };
+		ECCA882D1A3934B30071859D /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		ECCA88311A3936CB0071859D /* hand_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand_share.png; sourceTree = "<group>"; };
+		ECCA88351A39476E0071859D /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		ECD0669819EBD24E0070332A /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/trade.png; sourceTree = "<group>"; };
 		ECD39DDC1A08E0C10084A30D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
@@ -165,7 +170,6 @@
 		ECF46A6519EB6AAA00A053CB /* RadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioButton.m; sourceTree = "<group>"; };
 		ECF46A6719EB6E5700A053CB /* RadioButton-Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RadioButton-Selected.png"; sourceTree = "<group>"; };
 		ECF46A6819EB6E5700A053CB /* RadioButton-Unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RadioButton-Unselected.png"; sourceTree = "<group>"; };
-		ECF46A6B19EBBB2700A053CB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +212,7 @@
 		EC27EF8519FF328500464E27 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				ECCA88351A39476E0071859D /* Launch Screen.xib */,
 				ECA6BBD51A31A23100814734 /* Reachability.h */,
 				ECA6BBD61A31A23100814734 /* Reachability.m */,
 				ECF46A6419EB6AAA00A053CB /* RadioButton.h */,
@@ -253,7 +258,6 @@
 		EC43B25319E4F7EA0014DDA5 = {
 			isa = PBXGroup;
 			children = (
-				ECF46A6B19EBBB2700A053CB /* Default-568h@2x.png */,
 				ECF9F66F19E54C4D005B56A3 /* Images */,
 				EC43B26819E4F7EB0014DDA5 /* tradeportal */,
 				EC43B28919E4F7EC0014DDA5 /* tradeportalTests */,
@@ -361,6 +365,8 @@
 		ECF9F66F19E54C4D005B56A3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				ECCA88311A3936CB0071859D /* hand_share.png */,
+				ECCA882D1A3934B30071859D /* settings.png */,
 				EC490A061A37FAE9007B0C62 /* Images.xcassets */,
 				EC4909E91A37F9D5007B0C62 /* Icon-120.png */,
 				EC4909EB1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png */,
@@ -470,10 +476,11 @@
 				EC490A021A37F9D5007B0C62 /* IFIS_Logo_2014_new_launch@2x.png in Resources */,
 				EC490A031A37F9D5007B0C62 /* order-history.png in Resources */,
 				EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */,
-				ECF46A6C19EBBB2700A053CB /* Default-568h@2x.png in Resources */,
+				ECCA882E1A3934B30071859D /* settings.png in Resources */,
 				EC27EFAC1A03434100464E27 /* IFIS_Logo_2014_new copy.png in Resources */,
 				EC27EFA01A02083E00464E27 /* btn_cancel.gif in Resources */,
 				EC6C8E711A0A330D00A778D7 /* Search.png in Resources */,
+				ECCA88321A3936CB0071859D /* hand_share.png in Resources */,
 				EC490A071A37FAE9007B0C62 /* Images.xcassets in Resources */,
 				EC43B26D19E4F7EB0014DDA5 /* InfoPlist.strings in Resources */,
 				EC4909FB1A37F9D5007B0C62 /* Icon-120.png in Resources */,
@@ -491,6 +498,7 @@
 				EC27EFA91A03427F00464E27 /* IFIS_Logo_2014_new_25.png in Resources */,
 				EC43B27619E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard in Resources */,
 				EC2DA0951A038B94008A40BE /* IFIS_Logo_2014_new_launch.jpg in Resources */,
+				ECCA88361A39476F0071859D /* Launch Screen.xib in Resources */,
 				EC490A011A37F9D5007B0C62 /* IFIS_Logo_2014_new copy@2x.png in Resources */,
 				EC27EFA41A03411D00464E27 /* IFIS_Logo_2014_new.jpg in Resources */,
 			);

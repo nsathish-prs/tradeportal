@@ -32,6 +32,7 @@ DataModel *dm;
 
 -(void)viewWillAppear:(BOOL)animated{
     self.view.alpha = 1.0f;
+    [super viewWillAppear:animated];
 }
 
 -(IBAction)showAction{

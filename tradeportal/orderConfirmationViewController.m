@@ -33,10 +33,8 @@ NSString *userID;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //    self.navigationItem.title = @"Order Confirmation";
-    ////    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]init];
-    ////    backButton.title = @"Back";
-    //    self.navigationItem.leftBarButtonItem.title = @"Back";
+    
+    
     userID = dm.userID;
     clientAccount.text = clientAccountValue;
     stockCode.text = stockCodeValue;
@@ -114,6 +112,7 @@ NSString *userID;
 }
 
 - (IBAction)confirmPassword:(id)sender {
+    [self.view endEditing:YES];
     NSString *password = self.password.text;
     if(password == nil){
         UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"Please enter user password!" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
@@ -122,7 +121,7 @@ NSString *userID;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [toast dismissWithClickedButtonIndex:0 animated:YES];
         });
-
+        
     }
     else{
         NSString *soapRequest = [NSString stringWithFormat:
@@ -135,10 +134,10 @@ NSString *userID;
                                  "</CheckUserPwd>"
                                  "</soap:Body>"
                                  "</soap:Envelope>",userID,password];
-//        NSLog(@"SoapRequest is %@" , soapRequest);
+        //        NSLog(@"SoapRequest is %@" , soapRequest);
         NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=CheckUserPwd"];
         NSURL *url =[NSURL URLWithString:urls];
-
+        
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
         [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         [req addValue:@"http://OMS/CheckUserPwd" forHTTPHeaderField:@"SOAPAction"];
@@ -176,7 +175,7 @@ NSString *userID;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
-
+    
     
 }
 
@@ -193,7 +192,7 @@ NSString *userID;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-//    NSLog(@"\n\nSoap Response is %@",theXML);
+    //    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -234,14 +233,13 @@ NSString *userID;
         
         if ([string isEqualToString:@"S"]) {
             msg = @"Order Successfully Made!";
-            [self.navigationController popToViewController:orderEntry animated:YES];
-            [orderEntry reloadData];
             
-            [[[[[self tabBarController]tabBar]items]objectAtIndex:1] setBadgeValue:@"1"];
-//            [self.tabBarController setSelectedIndex:1];
-//            [self.tabBarController setSelectedViewController:(OrderBookViewController*)[[self.tabBarController viewControllers]objectAtIndex:1]];
-//            NSLog(@"%lu",(unsigned long)self.tabBarController.selectedIndex);
-                    }
+            [[self navigationController]popViewControllerAnimated:YES];
+            [orderEntry reloadData];
+            orderEntry.flag = true;
+            
+            
+        }
         else
         {
             
@@ -315,7 +313,7 @@ NSString *userID;
                              "</NewOrder>"
                              "</soap:Body>"
                              "</soap:Envelope>",dm.sessionID,clientAccountValue,stockCodeValue,[qtyValue intValue],[orderPriceValue floatValue],side,orderType,userID,exchange,timeInForce,currencyCode,userID,exchangeRate,currencyCode,exchange,1,0.0,0.0];
-//    NSLog(@"SoapRequest is %@" , soapRequest);
+    //    NSLog(@"SoapRequest is %@" , soapRequest);
     NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=NewOrder"];
     NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];

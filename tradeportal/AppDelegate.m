@@ -15,7 +15,7 @@
 
 @implementation AppDelegate
 
-@synthesize window = _window,timer,conn,parser,parseURL,buffer,url,hostReachability,internetReachability,wifiReachability;
+@synthesize window = _window,timer,conn,parser,parseURL,buffer,url,hostReachability,internetReachability,wifiReachability,privacyScreen;
 DataModel *dm;
 BOOL resultFound;
 
@@ -27,7 +27,7 @@ BOOL resultFound;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
     //Change the host name here to change the server you want to monitor.
-    NSString *remoteHostName = @"www.apple.com";
+    NSString *remoteHostName = @"www.google.com";
     
     self.hostReachability = [Reachability reachabilityWithHostName:remoteHostName];
     [self.hostReachability startNotifier];
@@ -65,7 +65,7 @@ BOOL resultFound;
 {
     self.window.hidden = YES;
     timer = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(reset) userInfo:nil repeats:NO];
-    
+    [application ignoreSnapshotOnNextApplicationLaunch];
 }
 
 - (void)reset{
@@ -90,15 +90,13 @@ BOOL resultFound;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-}
+    }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     //    NSLog(@"applicationDidBecomeActive\n%lu",(unsigned long)[dm.userID length]);
     self.window.hidden = NO;
     [timer invalidate];
-    
-    
 }
 
 - (void) reachabilityChanged:(NSNotification *)note

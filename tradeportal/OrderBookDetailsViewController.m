@@ -103,6 +103,8 @@ CGFloat price;
         [orderBook reloadTableData];
         [self.navigationController popViewControllerAnimated:YES];
     }
+    [super viewWillAppear:animated];
+
 }
 
 - (IBAction)amendOrder:(id)sender {

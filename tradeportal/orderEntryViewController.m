@@ -35,7 +35,7 @@
 
 @implementation orderEntryViewController
 
-@synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange,buffer,conn,parser,parseURL,submit,marketEx,spinner,btnSelect,container;
+@synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange,buffer,conn,parser,parseURL,submit,marketEx,spinner,btnSelect,container,flag;
 
 //UIView *container;
 DataModel *dm;
@@ -48,7 +48,9 @@ RadioButton *rb1, *rb2;
     [super viewDidLoad];
     [self reloadData];
     _pickerViewContainer.hidden = YES;
-    //    [self.tabBarController setDelegate:self];
+    
+
+//        [self.tabBarController setDelegate:self];
     //Picker View
     accountDict =[[NSMutableDictionary alloc]init];
     //[accountDict setValue:@"" forKey:@"Select Account"];
@@ -147,6 +149,15 @@ RadioButton *rb1, *rb2;
 -(void)viewWillAppear:(BOOL)animated{
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     [self.view setNeedsDisplay];
+    [super viewWillAppear:animated];
+    
+    if (flag) {
+        [[[[[self tabBarController]tabBar]items]objectAtIndex:1] setBadgeValue:@"1"];
+        
+        [self.tabBarController setSelectedViewController:[[self.tabBarController viewControllers]objectAtIndex:1]];
+        [self.tabBarController setSelectedIndex: 1];
+    }
+    flag=false;
 }
 
 #pragma mark - TextField Delegates
@@ -384,15 +395,23 @@ RadioButton *rb1, *rb2;
     }
     else if ([parseURL isEqualToString:@"searchStock"]) {
         if ([elementName isEqualToString:@"z:row"]) {
+            
+            NSNumberFormatter *priceFormatter = [[NSNumberFormatter alloc] init];
+            [priceFormatter setDecimalSeparator:@"."];
+            [priceFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+            [priceFormatter setMaximumFractionDigits:3];
+            [priceFormatter setMinimumFractionDigits:3];
+            
+            
             shortName.text = [attributeDict objectForKey:@"SHORT_NAME"];
             lotSize.text = [attributeDict objectForKey:@"LOT_SIZE"];
             change.text = [attributeDict objectForKey:@""];
             CGFloat lPrice = [[attributeDict objectForKey:@"LAST_DONE_PRICE"] floatValue];
-            lastPrice.text = [[NSNumber numberWithFloat:lPrice] stringValue];
+            lastPrice.text = [priceFormatter stringFromNumber:[NSNumber numberWithFloat:lPrice]];
             CGFloat bPrice = [[attributeDict objectForKey:@"BID_PRICE"] floatValue];
-            bidPrice.text = [[NSNumber numberWithFloat:bPrice] stringValue];
+            bidPrice.text = [priceFormatter stringFromNumber:[NSNumber numberWithFloat:bPrice]];
             CGFloat aPrice = [[attributeDict objectForKey:@"ASK_PRICE"] floatValue];
-            askPrice.text = [[NSNumber numberWithFloat:aPrice] stringValue];
+            askPrice.text = [priceFormatter stringFromNumber:[NSNumber numberWithFloat:aPrice]];
             exchange.text = [attributeDict objectForKey:@"EXCHANGE"];
             self.currency = [attributeDict objectForKey:@"CURRENCY_NAME"];
             self.exchangeRate = [attributeDict objectForKey:@"EXCHANGE_RATE"];

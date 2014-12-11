@@ -236,7 +236,7 @@ NSUserDefaults *getOrder;
                                          "</AmendOrder>"
                                          "</soap:Body>"
                                          "</soap:Envelope>", dm.sessionID,[order.refNo intValue],(long)qty,price,dm.userID,currentdate,type];
-                NSLog(@"SoapRequest is %@" , soapRequest);
+//                NSLog(@"SoapRequest is %@" , soapRequest);
                 NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=AmendOrder"];
                 NSURL *url =[NSURL URLWithString:urls];
                 NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
