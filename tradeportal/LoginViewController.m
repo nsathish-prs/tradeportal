@@ -9,7 +9,6 @@
 #import "LoginViewController.h"
 #import "DataModel.h"
 #import "ChangeServiceViewController.h"
-#import "TransitionDelegate.h"
 
 
 @interface LoginViewController (){
@@ -22,7 +21,6 @@
     NSString *sessionID;
 }
 
-@property (nonatomic, strong) TransitionDelegate *transitionController;
 
 @end
 
@@ -30,7 +28,6 @@
 
 DataModel *dm;
 @synthesize uname1,upwd,buffer,parser,conn,error,spinner1,parseURL;
-@synthesize transitionController;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -45,8 +42,8 @@ DataModel *dm;
 {
     [super viewDidLoad];
     //uname.text = dm.userID;
-    self.transitionController = [[TransitionDelegate alloc] init];
-    
+    dm.accountList = [[NSMutableArray alloc]init];
+    dm.accountDict = [[NSMutableDictionary alloc]init];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -100,6 +97,8 @@ DataModel *dm;
         flag = FALSE;
     }
     if(flag){
+        parseURL = @"login";
+
         NSString *soapRequest = [NSString stringWithFormat:
                                  @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                                  "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
@@ -111,7 +110,7 @@ DataModel *dm;
                                  "</AuthenticateUser>"
                                  "</soap:Body>"
                                  "</soap:Envelope>", name,password,sessionID];
-        //        NSLog(@"\nSoapRequest is %@" , soapRequest);
+//        NSLog(@"\nSoapRequest is %@" , soapRequest);
         NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=AuthenticateUser"];
         NSURL *url =[NSURL URLWithString:urls];
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -146,7 +145,7 @@ DataModel *dm;
                              "</GetTradeAccount>"
                              "</soap:Body>"
                              "</soap:Envelope>",session,user];
-    //NSLog(@"SoapRequest is %@" , soapRequest);
+//    NSLog(@"SoapRequest is %@" , soapRequest);
     NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetTradeAccount"];
     NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -156,8 +155,8 @@ DataModel *dm;
     [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
-    //    [self.searchStockList removeAllObjects];
-    //    [self.searchStockNameList removeAllObjects];
+        [dm.accountList removeAllObjects];
+        [dm.accountDict removeAllObjects];
     
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     if (conn) {
@@ -193,7 +192,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //    NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -214,7 +213,8 @@ DataModel *dm;
             dm.accountList =[[[dm.accountDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] mutableCopy];
         }
         
-    }else{
+    }
+    else{
         
         
         if([elementName isEqualToString:@"AuthenticateUserResult"]){

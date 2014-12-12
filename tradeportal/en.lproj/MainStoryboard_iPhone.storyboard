@@ -2418,6 +2418,7 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="0.69000000000000006" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="do2-dh-awZ" firstAttribute="centerY" secondItem="r60-4H-v3m" secondAttribute="centerY" constant="1" id="1nF-oG-qnv"/>
                                     <constraint firstAttribute="trailing" secondItem="oMU-9M-cyc" secondAttribute="trailing" constant="8" id="2IN-lB-LQy"/>
@@ -2575,6 +2576,9 @@
                                         <include reference="xlb-qD-uFO"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="12F-PN-9j4" appends="YES" id="WSy-7E-iTj"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Skh-RT-zN0">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -2637,6 +2641,7 @@
                                     <constraint firstItem="cIj-zu-TUc" firstAttribute="height" secondItem="Z7S-Vw-nVG" secondAttribute="height" id="cIU-n9-zBg"/>
                                     <constraint firstAttribute="width" secondItem="Z7S-Vw-nVG" secondAttribute="width" multiplier="368:120" id="eTJ-2A-lYc"/>
                                     <constraint firstItem="cIj-zu-TUc" firstAttribute="width" secondItem="Z7S-Vw-nVG" secondAttribute="width" id="jUV-jz-H2v"/>
+                                    <constraint firstItem="qc7-gl-35L" firstAttribute="height" secondItem="Skh-RT-zN0" secondAttribute="height" multiplier="6:21" id="ps4-bX-Tlk"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -2654,6 +2659,7 @@
                                         <exclude reference="IMy-rG-Tmp"/>
                                         <exclude reference="JKG-hu-1Ne"/>
                                         <exclude reference="QLl-2p-hcr"/>
+                                        <exclude reference="ps4-bX-Tlk"/>
                                         <exclude reference="Hfd-Og-Bra"/>
                                         <exclude reference="CTj-4q-3iK"/>
                                         <exclude reference="TUT-yl-Ff2"/>
@@ -2672,6 +2678,7 @@
                                         <include reference="IMy-rG-Tmp"/>
                                         <include reference="JKG-hu-1Ne"/>
                                         <include reference="QLl-2p-hcr"/>
+                                        <include reference="ps4-bX-Tlk"/>
                                         <include reference="Hfd-Og-Bra"/>
                                         <include reference="CTj-4q-3iK"/>
                                         <include reference="TUT-yl-Ff2"/>
@@ -2749,6 +2756,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MjN-G7-iRq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="12F-PN-9j4">
+                    <connections>
+                        <action selector="hideKeyboard:" destination="icX-Cb-bKw" id="RJq-fD-9yl"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3354" y="-1122"/>
         </scene>
@@ -3189,7 +3201,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" image="hand_share.png" id="wyu-wA-EX8"/>
+                    <tabBarItem key="tabBarItem" title="Account" image="ic_action_group.png" id="wyu-wA-EX8"/>
                     <connections>
                         <outlet property="clientAccount" destination="d4w-Mb-UTk" id="OHP-6R-5pC"/>
                         <outlet property="stockCode" destination="lYM-Ka-C0J" id="e0X-0q-Yb7"/>
@@ -3319,13 +3331,13 @@
         <image name="IFIS_Logo_2014_new.jpg" width="342" height="147"/>
         <image name="Search.png" width="25" height="25"/>
         <image name="ThomsonReutersLogo.jpg" width="187" height="49"/>
-        <image name="hand_share.png" width="25" height="25"/>
+        <image name="ic_action_group.png" width="25" height="25"/>
         <image name="order_book.png" width="25" height="25"/>
         <image name="settings.png" width="25" height="25"/>
         <image name="trade.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1Mc-8a-tad"/>
-        <segue reference="1TF-F4-7TG"/>
+        <segue reference="etN-fU-Owv"/>
     </inferredMetricsTieBreakers>
 </document>

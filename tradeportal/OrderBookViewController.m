@@ -235,7 +235,7 @@ DataModel *dm;
                              "</GetOrderByUserID>"
                              "</soap:Body>"
                              "</soap:Envelope>", dm.sessionID,dm.userID];
-    //    NSLog(@"SoapRequest is %@" , soapRequest);
+//    NSLog(@"SoapRequest is %@" , soapRequest);
     NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetOrderByUserID"];
     NSURL *url =[NSURL URLWithString:urls];
     //    NSLog(@"%@",url);
