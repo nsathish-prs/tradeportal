@@ -22,19 +22,15 @@
 
 @implementation orderConfirmationViewController
 
+@synthesize conn,parser,buffer,parseURL,orderEntry,orderPrice,clientAccount,shortName,stockCode,qty,totalAmount,currency,type,routeDest,orderPriceValue,clientAccountValue,shortNameValue,stockCodeValue,qtyValue,totalAmountValue,currencyValue,typeValue,routeDestValue,side,exchange,orderType,exchangeRate,timeInForce,currencyCode,spinner,amt;
 
-@synthesize conn,parser,buffer,parseURL,orderEntry;
-
-
-@synthesize orderPrice,clientAccount,shortName,stockCode,qty,totalAmount,currency,type,routeDest;
-@synthesize orderPriceValue,clientAccountValue,shortNameValue,stockCodeValue,qtyValue,totalAmountValue,currencyValue,typeValue,routeDestValue,side,exchange,orderType,exchangeRate,timeInForce,currencyCode,spinner,amt;
 DataModel *dm;
 NSString *userID;
 
+#pragma mark - View Delegates
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     userID = dm.userID;
     clientAccount.text = clientAccountValue;
     stockCode.text = stockCodeValue;
@@ -59,22 +55,10 @@ NSString *userID;
         type.textColor = iRED;
     }
     self.password.delegate = self;
-    //[self initBackBtn];
 }
 
 
-//-(void)initBackBtn
-//{
-//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backBtnPressed)];
-//    self.navigationItem.leftBarButtonItem = backBtn;
-//}
-//
-//-(void)backBtnPressed
-//{
-//    //write your code to prepare popview
-//    [self.navigationController popViewControllerAnimated:NO];
-//}
-
+#pragma mark - TextField Delegates
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     [UIView beginAnimations:nil context:NULL];
@@ -106,10 +90,7 @@ NSString *userID;
     return YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - Invoke Confirm Order Service
 
 - (IBAction)confirmPassword:(id)sender {
     [self.view endEditing:YES];
@@ -157,10 +138,14 @@ NSString *userID;
     }
 }
 
+#pragma mark - Cancel Order
+
 - (IBAction)cancelOrder:(id)sender {
     [orderEntry reloadData];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark - Connection Delegates
 
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
     [buffer setLength:0];
@@ -175,13 +160,9 @@ NSString *userID;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
-    
-    
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
-    
-    //NSLog(@"\n\nDone with bytes %lu", (unsigned long)[buffer length]);
     NSMutableString *theXML =
     [[NSMutableString alloc] initWithBytes:[buffer mutableBytes]
                                     length:[buffer length]
@@ -199,6 +180,9 @@ NSString *userID;
     [parser parse];
     [spinner stopAnimating];
 }
+
+
+#pragma mark - XML Parser
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
@@ -228,23 +212,16 @@ NSString *userID;
 
 - (void) parser:(NSXMLParser *) parser foundCharacters:(NSString *) string {
     NSString *msg=@"";
-    //NSLog(@"%@",string);
     if([_dataFound isEqualToString:@"newOrder"]){
         
         if ([string isEqualToString:@"S"]) {
             msg = @"Order Successfully Made!";
-            
             [[self navigationController]popViewControllerAnimated:YES];
             [orderEntry reloadData];
             orderEntry.flag = true;
-            
-            
         }
-        else
-        {
-            
+        else{
             if([[string substringToIndex:1] isEqualToString:@"E"]){
-                //NSLog(@"E error");
                 msg = @"User has logged on elsewhere!";
                 [self dismissViewControllerAnimated:YES completion:nil];
                 [[self navigationController]popToRootViewControllerAnimated:YES];
@@ -262,11 +239,9 @@ NSString *userID;
         else if ([[string substringToIndex:1] isEqualToString:@"E"]) {
             msg = @"Some Technical Error. \n Please Try again...";
         }
-        
     }
     if (![msg isEqualToString:@""]) {
-        
-        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [toast show];
         int duration = 1.5;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -274,6 +249,8 @@ NSString *userID;
         });
     }
 }
+
+#pragma mark - Invoke New Order Service
 
 -(void)newOrder{
     NSString *soapRequest = [NSString stringWithFormat:
@@ -323,12 +300,9 @@ NSString *userID;
     [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     spinner.hidesWhenStopped=YES;
     [spinner startAnimating];
-    
     if (conn) {
         buffer = [NSMutableData data];
     }

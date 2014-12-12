@@ -11,38 +11,22 @@
 
 @class RadioButton;
 
-@interface orderEntryViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UISearchDisplayDelegate,UITabBarControllerDelegate, UISearchBarDelegate,UITableViewDelegate,NSXMLParserDelegate>
+@interface orderEntryViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UISearchDisplayDelegate,UITabBarControllerDelegate, UISearchBarDelegate,UITableViewDelegate,NSXMLParserDelegate,UISearchControllerDelegate>
 {
-    //DropDown
-    
-    //NIDropDown *dropDown;
-    //Radio Button
     NSMutableArray *radioButtons;
     NSMutableArray *accountList;
     NSDictionary *accountDict;
     BOOL flag;
-    
 }
-- (IBAction)CancelPic:(id)sender;
 - (IBAction)submitOrder:(id)sender;
-- (IBAction)accountPicker:(id)sender;
-
 -(void)reloadData;
-//-(IBAction)selectClicked:(id)sender;
-//-(IBAction)accounts:(id)sender;
-//-(void)rel;
+
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-
-@property (weak, nonatomic) IBOutlet UIView *pickerViewContainer;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelBtn;
-@property(nonatomic,strong)IBOutlet UIButton *viewButton;
 @property(nonatomic,strong)IBOutlet UIButton *submit;
 @property(nonatomic,strong)IBOutlet UITextField *quantity;
 @property(nonatomic,strong)IBOutlet UITextField *price;
-@property(weak, nonatomic) IBOutlet UIPickerView *picker;
 @property(weak,nonatomic) IBOutlet UIButton *btnSelect;
-
 @property(nonatomic,strong)IBOutlet UILabel *lastPrice;
 @property(nonatomic,strong)IBOutlet UILabel *change;
 @property(nonatomic,strong)IBOutlet UILabel *shortName;

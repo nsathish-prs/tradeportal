@@ -10,5 +10,4 @@
 
 @interface SettingsViewController : UITableViewController <UIActionSheetDelegate, UIAlertViewDelegate,UITabBarDelegate,UITabBarControllerDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate>
 
--(IBAction)showAction;
 @end

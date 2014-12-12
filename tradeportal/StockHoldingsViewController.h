@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *stockCode;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(weak,nonatomic)NSString *cAccount;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+
 - (void)LoadStocksForAccount:(NSString *)account ;
 - (IBAction)SearchStocks:(id)sender;
 @end

@@ -2,7 +2,7 @@
 //  AmendOrderViewController.m
 //  tradeportal
 //
-//  Created by intern on 13/11/14.
+//  Created by Nagarajan Sathish on 13/11/14.
 //
 //
 
@@ -27,10 +27,11 @@ DataModel *dm;
 NSInteger qty ;
 CGFloat price;
 NSUserDefaults *getOrder;
+
+#pragma mark - View Delegates
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setGroupingSeparator:@","];
     [numberFormatter setGroupingSize:3];
@@ -42,13 +43,11 @@ NSUserDefaults *getOrder;
     [priceFormatter setMaximumFractionDigits:3];
     [priceFormatter setMinimumFractionDigits:3];
     
-    
     self.view.backgroundColor=[UIColor clearColor];
     orderBook.view.alpha=0.5f;
     spinner.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height/2);
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
     [mainWindow addSubview:spinner];
-    
     
     orderQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.orderQty intValue]]];
     orderPrice.text = [priceFormatter stringFromNumber:[NSNumber numberWithDouble:[order.orderPrice doubleValue]]];
@@ -56,7 +55,6 @@ NSUserDefaults *getOrder;
     
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapGesture:)];
     singleTapGestureRecognizer.cancelsTouchesInView = NO;
-    
     [self.amendView addGestureRecognizer:singleTapGestureRecognizer];
 }
 
@@ -66,17 +64,16 @@ NSUserDefaults *getOrder;
 
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-}
-
+#pragma mark - Dismiss View
 
 - (IBAction)cancelAmend:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.view endEditing:YES];
     orderBook.view.alpha = 1.0f;
 }
+
+
+#pragma mark - Invoke Amend Service
 
 - (IBAction)confirmAmend:(id)sender {
     qty = [nQty.text integerValue];
@@ -109,13 +106,9 @@ NSUserDefaults *getOrder;
             [toast dismissWithClickedButtonIndex:0 animated:YES];
         });
     }
-    
-    
-    
 }
 
 -(void)checkStatus{
-    
     self.parseURL = @"checkStatus";
     NSString *soapRequest = [NSString stringWithFormat:
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -146,6 +139,8 @@ NSUserDefaults *getOrder;
     }
 }
 
+#pragma mark - Connection Delegates
+
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
     [buffer setLength:0];
 }
@@ -159,12 +154,9 @@ NSUserDefaults *getOrder;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
-    
-    
+    [spinner stopAnimating];
 }
-
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
-    
     //NSLog(@"\n\nDone with bytes %lu", (unsigned long)[buffer length]);
     NSMutableString *theXML =
     [[NSMutableString alloc] initWithBytes:[buffer mutableBytes]
@@ -182,8 +174,9 @@ NSUserDefaults *getOrder;
     [parser setDelegate:self];
     [parser parse];
     [spinner stopAnimating];
-    
 }
+
+#pragma mark - XML Parser 
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
@@ -191,7 +184,6 @@ NSUserDefaults *getOrder;
     //parse the data
     if ([parseURL isEqualToString:@"amendOrder"]){
         if([elementName isEqualToString:@"AmendOrderResult"]){
-            ////NSLog(@"%@",[attributeDict description]);
             resultFound=NO;
         }
         if ([elementName isEqualToString:@"z:row"]) {
@@ -206,7 +198,6 @@ NSUserDefaults *getOrder;
         }
     }else if ([parseURL isEqualToString:@"checkStatus"]){
         if([elementName isEqualToString:@"GetOrderStatusResult"]){
-            ////NSLog(@"%@",[attributeDict description]);
             resultFound=NO;
         }
         if ([elementName isEqualToString:@"z:row"]) {

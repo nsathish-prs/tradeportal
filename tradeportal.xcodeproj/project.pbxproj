@@ -23,8 +23,6 @@
 		EC2DA0951A038B94008A40BE /* IFIS_Logo_2014_new_launch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EC2DA0931A038B93008A40BE /* IFIS_Logo_2014_new_launch.jpg */; };
 		EC2DA0AA1A086EF7008A40BE /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2DA0A81A086EF7008A40BE /* ChangePasswordViewController.m */; };
 		EC2DA0B01A087151008A40BE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC2DA0AF1A087151008A40BE /* CoreData.framework */; };
-		EC2DA0B71A0883AD008A40BE /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2DA0B41A0883AD008A40BE /* AnimatedTransitioning.m */; };
-		EC2DA0B81A0883AD008A40BE /* TransitionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2DA0B61A0883AD008A40BE /* TransitionDelegate.m */; };
 		EC43B26319E4F7EB0014DDA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26219E4F7EB0014DDA5 /* UIKit.framework */; };
 		EC43B26519E4F7EB0014DDA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26419E4F7EB0014DDA5 /* Foundation.framework */; };
 		EC43B26719E4F7EB0014DDA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26619E4F7EB0014DDA5 /* CoreGraphics.framework */; };
@@ -66,6 +64,7 @@
 		ECCA88321A3936CB0071859D /* hand_share.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88311A3936CB0071859D /* hand_share.png */; };
 		ECCA88361A39476F0071859D /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88351A39476E0071859D /* Launch Screen.xib */; };
 		ECCA88381A3A95D70071859D /* ic_action_group.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88371A3A95D70071859D /* ic_action_group.png */; };
+		ECCA883A1A3AC2430071859D /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88391A3AC2430071859D /* MainStoryboard_iPad.storyboard */; };
 		ECD0669719EBD24E0070332A /* trade.png in Resources */ = {isa = PBXBuildFile; fileRef = ECD0669919EBD24E0070332A /* trade.png */; };
 		ECD39DDE1A08E0C20084A30D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */; };
 		ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF46A6519EB6AAA00A053CB /* RadioButton.m */; };
@@ -106,10 +105,6 @@
 		EC2DA0A71A086EF7008A40BE /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		EC2DA0A81A086EF7008A40BE /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		EC2DA0AF1A087151008A40BE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		EC2DA0B31A0883AD008A40BE /* AnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedTransitioning.h; sourceTree = "<group>"; };
-		EC2DA0B41A0883AD008A40BE /* AnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransitioning.m; sourceTree = "<group>"; };
-		EC2DA0B51A0883AD008A40BE /* TransitionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionDelegate.h; sourceTree = "<group>"; };
-		EC2DA0B61A0883AD008A40BE /* TransitionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionDelegate.m; sourceTree = "<group>"; };
 		EC43B25E19E4F7EB0014DDA5 /* tradeportal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeportal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC43B26219E4F7EB0014DDA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EC43B26419E4F7EB0014DDA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -165,6 +160,7 @@
 		ECCA88311A3936CB0071859D /* hand_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand_share.png; sourceTree = "<group>"; };
 		ECCA88351A39476E0071859D /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		ECCA88371A3A95D70071859D /* ic_action_group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_action_group.png; sourceTree = "<group>"; };
+		ECCA88391A3AC2430071859D /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MainStoryboard_iPad.storyboard; path = ../MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		ECD0669819EBD24E0070332A /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/trade.png; sourceTree = "<group>"; };
 		ECD39DDC1A08E0C10084A30D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
@@ -219,10 +215,6 @@
 				ECA6BBD61A31A23100814734 /* Reachability.m */,
 				ECF46A6419EB6AAA00A053CB /* RadioButton.h */,
 				ECF46A6519EB6AAA00A053CB /* RadioButton.m */,
-				EC2DA0B31A0883AD008A40BE /* AnimatedTransitioning.h */,
-				EC2DA0B41A0883AD008A40BE /* AnimatedTransitioning.m */,
-				EC2DA0B51A0883AD008A40BE /* TransitionDelegate.h */,
-				EC2DA0B61A0883AD008A40BE /* TransitionDelegate.m */,
 				EC43B27119E4F7EB0014DDA5 /* AppDelegate.h */,
 				EC43B27219E4F7EB0014DDA5 /* AppDelegate.m */,
 				EC6B8F9819F669B800AA17B8 /* DataModel.h */,
@@ -294,14 +286,15 @@
 		EC43B26819E4F7EB0014DDA5 /* tradeportal */ = {
 			isa = PBXGroup;
 			children = (
-				EC9DA94A1A10AD4B00615ACF /* StockHoldings */,
-				EC9DA9451A1075B100615ACF /* Settings */,
+				ECCA88391A3AC2430071859D /* MainStoryboard_iPad.storyboard */,
 				EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */,
-				EC27EF8419FF324D00464E27 /* Trade */,
 				EC27EF8519FF328500464E27 /* Common */,
 				EC27EF8719FF331F00464E27 /* Login */,
-				EC43B26919E4F7EB0014DDA5 /* Supporting Files */,
+				EC27EF8419FF324D00464E27 /* Trade */,
 				EC27EF8619FF32F800464E27 /* OrderBook */,
+				EC9DA94A1A10AD4B00615ACF /* StockHoldings */,
+				EC9DA9451A1075B100615ACF /* Settings */,
+				EC43B26919E4F7EB0014DDA5 /* Supporting Files */,
 			);
 			path = tradeportal;
 			sourceTree = "<group>";
@@ -474,6 +467,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECCA883A1A3AC2430071859D /* MainStoryboard_iPad.storyboard in Resources */,
 				ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */,
 				EC2DA0921A038936008A40BE /* IFIS_Logo_2014_new_launch.png in Resources */,
 				EC490A021A37F9D5007B0C62 /* IFIS_Logo_2014_new_launch@2x.png in Resources */,
@@ -542,9 +536,7 @@
 			files = (
 				EC73C08219E7B50000C45DB8 /* orderEntryViewController.m in Sources */,
 				EC2DA0AA1A086EF7008A40BE /* ChangePasswordViewController.m in Sources */,
-				EC2DA0B71A0883AD008A40BE /* AnimatedTransitioning.m in Sources */,
 				EC9DA94D1A10AD7F00615ACF /* StockHoldingsViewController.m in Sources */,
-				EC2DA0B81A0883AD008A40BE /* TransitionDelegate.m in Sources */,
 				EC43B26F19E4F7EB0014DDA5 /* main.m in Sources */,
 				EC9DA9531A10B0C700615ACF /* StockHoldingsDataModel.m in Sources */,
 				EC27EF8019FDE78600464E27 /* OrderBookDetailsViewController.m in Sources */,

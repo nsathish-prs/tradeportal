@@ -24,24 +24,25 @@ DataModel *dm;
 @synthesize spinner,userID,password,nPassword,cPassword,buffer,parser,parseURL,conn,settings;
 bool dataFound=NO;
 
+#pragma mark - View Delegates
+
 - (void)viewDidLoad {
     self.view.backgroundColor=[UIColor clearColor];
     settings.view.alpha=0.5f;
-
     [super viewDidLoad];
     userID.text = dm.userID;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - TextField Delegates
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     [self.view endEditing:YES];
     return YES;
 }
+
+#pragma mark - Invoke Change password Service
+
 - (IBAction)changePassword:(id)sender {
     BOOL flag=TRUE;
     if([userID.text isEqualToString:@""]){
@@ -104,6 +105,8 @@ bool dataFound=NO;
 }
 
 
+#pragma mark - Connection Delegates
+
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
     [buffer setLength:0];
 }
@@ -140,6 +143,9 @@ bool dataFound=NO;
     [parser parse];
     [spinner stopAnimating];
 }
+
+
+#pragma mark - XML Parser Delegates
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
@@ -186,6 +192,9 @@ bool dataFound=NO;
 -(void) parser:(NSXMLParser *) parser didEndElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName{
 }
+
+#pragma mark - Dismiss View
+
 - (IBAction)dismissView:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
     settings.view.alpha = 1.0f;

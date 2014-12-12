@@ -2,7 +2,7 @@
 //  AmendOrderViewController.h
 //  tradeportal
 //
-//  Created by intern on 13/11/14.
+//  Created by Nagarajan Sathish on 13/11/14.
 //
 //
 

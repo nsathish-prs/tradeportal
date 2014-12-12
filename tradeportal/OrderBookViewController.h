@@ -20,13 +20,13 @@
 
 @property(nonatomic,assign) NSMutableArray *orders;
 @property(assign, nonatomic)NSMutableArray *orderList;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITextField *searchBar;
-@property (weak, nonatomic) IBOutlet UIButton *orderBy;
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
+
 -(void)loadOrders;
-- (IBAction)indexChanged:(UISegmentedControl *)sender;
 -(void)reloadTableData;
+
+- (IBAction)indexChanged:(UISegmentedControl *)sender;
 - (IBAction)stockSearch:(id)sender;
 @end

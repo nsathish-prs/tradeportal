@@ -2,7 +2,7 @@
 //  ClientAccountViewController.m
 //  tradeportal
 //
-//  Created by intern on 8/12/14.
+//  Created by Nagarajan Sathish on 8/12/14.
 //
 //
 
@@ -24,8 +24,11 @@
 
 @implementation ClientAccountViewController
 
-@synthesize clientAccountOrder,clientAccountStock,buffer,parser,parseURL,conn,tableView,searchAccount,clientAccountView,accountTableView;
+@synthesize clientAccountOrder,clientAccountStock,buffer,parser,parseURL,conn,tableView,searchAccount,clientAccountView;
 DataModel *dm;
+
+#pragma mark - View Delegates
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor clearColor];
@@ -38,6 +41,12 @@ DataModel *dm;
     [self.clientAccountView addGestureRecognizer:singleTapGestureRecognizer];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [dm.accountList removeAllObjects];
+    dm.accountList =[[[dm.accountDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] mutableCopy];
+    
+}
+
 -(void)handleSingleTapGesture:(UITapGestureRecognizer *)tapGestureRecognizer{
     [self dismissViewControllerAnimated:YES completion:nil];
     clientAccountStock.view.alpha = 1.0f;
@@ -48,10 +57,11 @@ DataModel *dm;
     [self.view endEditing:YES];
 }
 
+#pragma mark - Textfield Delegate
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma mark - Table View
@@ -90,7 +100,7 @@ DataModel *dm;
     
 }
 
-
+#pragma mark - Search Account
 
 -(IBAction)SearchAccount{
     dm.accountList =[[[dm.accountDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] mutableCopy];
@@ -107,14 +117,4 @@ DataModel *dm;
     [tableView reloadData];
 }
 
-- (IBAction)AccountPicker:(id)sender {
-    [searchAccount becomeFirstResponder];
-    [self SearchAccount];
-    
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    return YES;
-}
 @end

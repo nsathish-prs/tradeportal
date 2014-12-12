@@ -25,21 +25,18 @@
 
 @implementation StockHoldingsViewController
 
-@synthesize buffer,parseURL,parser,conn,clientAccount,stockCode,tableView,cAccount;
+@synthesize buffer,parseURL,parser,conn,clientAccount,stockCode,tableView,cAccount,spinner;
 DataModel *dm;
+
+#pragma mark - View Delegates
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     stockArray = [[NSMutableArray alloc]init];
     stockList = [[NSMutableArray alloc]init];
-    
-    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - View Delegates
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self.view endEditing:YES];
@@ -52,17 +49,13 @@ DataModel *dm;
 {
     return 1;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [stockList count];
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     StockHoldingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
     if(cell == nil){
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"Cell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
@@ -76,22 +69,18 @@ DataModel *dm;
         [[cell stockCode] setText:[[stockList objectAtIndex:[indexPath row]]stockCode]];
         [[cell location] setText:[[stockList objectAtIndex:[indexPath row]]stockLocation]];
         [[cell totalStock] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[stockList objectAtIndex:[indexPath row]]totalStock] intValue]]]];
-
     }
     return cell;
 }
-
-
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UITableViewCell *header = [tableView dequeueReusableCellWithIdentifier:@"tableHeader"];
     return header;
 }
-
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 38.0;
 }
 
-#pragma mark - Load Stocks
+#pragma mark - Connection Delegates
 
 
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
@@ -107,8 +96,7 @@ DataModel *dm;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
-
-    
+    [spinner stopAnimating];
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
@@ -131,6 +119,8 @@ DataModel *dm;
     [parser parse];
     
 }
+
+#pragma mark -XML Parser
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
@@ -182,13 +172,11 @@ DataModel *dm;
         }
         resultFound=YES;
     }
+    [spinner stopAnimating];
 }
 
-
-
-
-
 #pragma mark - Load Stocks
+
 - (void)LoadStocksForAccount:(NSString *)account {
     self.parseURL = @"loadStocks";
     NSString *soapRequest = [NSString stringWithFormat:
@@ -218,7 +206,10 @@ DataModel *dm;
     if (conn) {
         buffer = [NSMutableData data];
     }
+    [spinner startAnimating];
 }
+
+#pragma mark -Search Stocks
 
 - (IBAction)SearchStocks:(id)sender {
     [stockList removeAllObjects];
@@ -228,13 +219,24 @@ DataModel *dm;
     }
     else
     {
-        
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(SELF.stockCode contains[c] %@) or (SELF.stockName contains[c] %@)", searchText, searchText];
         [stockList addObjectsFromArray:[stockArray filteredArrayUsingPredicate:predicate]];
     }
     [tableView reloadData];
 }
 
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (!([self.tableView numberOfRowsInSection:0]>0)) {
+        return NO;
+    }
+    return YES;
+}
+
+
+
+
+#pragma mark -Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

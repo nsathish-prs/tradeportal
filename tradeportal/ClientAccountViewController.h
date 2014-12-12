@@ -2,7 +2,7 @@
 //  ClientAccountViewController.h
 //  tradeportal
 //
-//  Created by intern on 8/12/14.
+//  Created by Nagarajan Sathish on 8/12/14.
 //
 //
 
@@ -16,7 +16,6 @@
 @property(nonatomic,strong)IBOutlet orderEntryViewController *clientAccountOrder;
 
 @property (weak, nonatomic) IBOutlet UIView *clientAccountView;
-@property (weak, nonatomic) IBOutlet UIView *accountTableView;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchAccount;

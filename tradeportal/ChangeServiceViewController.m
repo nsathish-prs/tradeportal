@@ -2,7 +2,7 @@
 //  ChangeServiceViewController.m
 //  tradeportal
 //
-//  Created by intern on 8/12/14.
+//  Created by Nagarajan Sathish on 8/12/14.
 //
 //
 
@@ -17,6 +17,9 @@
 
 @synthesize url,protocol,ip,domain,path,settings,service;
 DataModel *dm;
+
+#pragma mark - View Delegates
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -43,18 +46,15 @@ DataModel *dm;
     }
 }
 
+#pragma mark - TextField Delegates
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     [self.view endEditing:YES];
     return YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
+#pragma mark - Reset Data
 
 - (IBAction)setDefault:(id)sender {
     [dm resetService ];
@@ -67,6 +67,9 @@ DataModel *dm;
                                    userInfo:nil
                                     repeats:NO];
 }
+
+
+#pragma mark - Save Data
 
 - (IBAction)saveChanges:(id)sender {
     
@@ -108,6 +111,8 @@ DataModel *dm;
 
     [self dismissView:sender];
 }
+
+#pragma mark - Dismiss View
 
 - (IBAction)dismissView:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];

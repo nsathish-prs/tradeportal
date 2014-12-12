@@ -26,16 +26,13 @@
 @implementation OrderBookViewController
 
 
-@synthesize orders = _orders,buffer,parseURL,parser,conn,spinner,orderList=_orderList,statusDict, searchBar,orderBy,searchBtn;
+@synthesize orders = _orders,buffer,parseURL,parser,conn,orderList=_orderList,statusDict, searchBar,searchBtn;
 OrderBookModel *obm;
 DataModel *dm;
 
+#pragma mark - View Delegates
+
 -(void)viewDidLoad{
-    searchBar.delegate=self;
-    
-    
-    
-    
     statusDict = [[NSDictionary alloc] initWithObjectsAndKeys:
                   @"CXL",@"Cancelled",
                   @"CHG",@"Changed",
@@ -52,67 +49,20 @@ DataModel *dm;
                   @"CXL",@"Part Cancelled",
                   nil];
     
-    
     orders = [[NSMutableArray alloc]init];
     orderList= [[NSMutableArray alloc]init];
-    
-    self.tableView.estimatedRowHeight = 44.0;
+    self.tableView.estimatedRowHeight = 40.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    
-    spinner.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height/2);
-    UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
-    [mainWindow addSubview:spinner];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
     refreshControl.tintColor = iRELOAD;
     [refreshControl addTarget:self action:@selector(reloadTableData) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
+    [self.refreshControl beginRefreshing];
     [self searchBar].hidden = TRUE;
-    [self orderBy].hidden = TRUE;
     [self reloadTableData];
     [super viewDidLoad];
-
 }
-
--(void)reloadTableData{
-    [orderList removeAllObjects];
-    [orders removeAllObjects];
-    [self loadOrders];
-}
-
-- (IBAction)stockSearch:(id)sender {
-    [self.segmentedControl setSelectedSegmentIndex:0];
-    [orders removeAllObjects];
-    [orders addObjectsFromArray:orderList];
-    [self.tableView reloadData];
-    [self segmentedControl].hidden = TRUE;
-    [self searchBtn].hidden = TRUE;
-    //[self orderBy].hidden = FALSE;
-    [self searchBar].hidden = FALSE;
-    [searchBar becomeFirstResponder];
-}
-
-
-- (IBAction)hideSearch:(id)sender {
-    [self segmentedControl].hidden = FALSE;
-    [self searchBtn].hidden = FALSE;
-    [self orderBy].hidden = TRUE;
-    [self searchBar].hidden = TRUE;
-    [self searchBar].text = @"";
-    [[self segmentedControl]setSelectedSegmentIndex:-1];
-    //    [orders removeAllObjects];
-    //    [orders addObjectsFromArray:orderList];
-    //    [self.tableView reloadData];
-    [self.navigationController.navigationBar endEditing:YES];
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if(textField == searchBar){
-        [self hideSearch:self];
-    }
-    return YES;
-}
-
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController.navigationBar endEditing:YES];
@@ -120,10 +70,7 @@ DataModel *dm;
     [orders addObjectsFromArray:orderList];
     [self.tableView reloadData];
     [[self segmentedControl]setSelectedSegmentIndex:0];
-    
     [super viewWillAppear:animated];
-
-    //    [self reloadTableData];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -135,21 +82,55 @@ DataModel *dm;
     [super viewDidAppear:animated];
 }
 
+#pragma mark - Reload Order List
+
+-(void)reloadTableData{
+    [orderList removeAllObjects];
+    [orders removeAllObjects];
+    [self loadOrders];
+}
+
+#pragma mark - TextField Delegate
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if(textField == searchBar){
+        [self hideSearch:self];
+    }
+    return YES;
+}
 
 #pragma mark - Search
+
+- (IBAction)stockSearch:(id)sender {
+    [self.segmentedControl setSelectedSegmentIndex:0];
+    [orders removeAllObjects];
+    [orders addObjectsFromArray:orderList];
+    [self.tableView reloadData];
+    [self segmentedControl].hidden = TRUE;
+    [self searchBtn].hidden = TRUE;
+    [self searchBar].hidden = FALSE;
+    [searchBar becomeFirstResponder];
+}
+
+- (IBAction)hideSearch:(id)sender {
+    [self segmentedControl].hidden = FALSE;
+    [self searchBtn].hidden = FALSE;
+    [self searchBar].hidden = TRUE;
+    [self searchBar].text = @"";
+    [[self segmentedControl]setSelectedSegmentIndex:-1];
+    [self.navigationController.navigationBar endEditing:YES];
+}
 
 -(IBAction)searchOrderList:(id)sender
 {
     if ([searchBar.text isEqualToString:@""]) {
         [orders removeAllObjects];
         [orders addObjectsFromArray:orderList];
-        
     } else {
         NSString *searchText = searchBar.text;
         [orders removeAllObjects];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(stockCode contains[cd] %@) or (desc contains[cd] %@) or (clientAccount contains[cd] %@)", searchText,searchText,searchText];
         [orders addObjectsFromArray:[orderList filteredArrayUsingPredicate:predicate]];
-        
     }
     [self.tableView reloadData];
 }
@@ -165,8 +146,6 @@ DataModel *dm;
 {
     return [orders count];
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -220,7 +199,7 @@ DataModel *dm;
 }
 
 
-#pragma mark - Service
+#pragma mark - Invoke Order List Service
 
 -(void)loadOrders{
     
@@ -249,14 +228,13 @@ DataModel *dm;
     [orders removeAllObjects];
     [orderList removeAllObjects];
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-    spinner.hidesWhenStopped=YES;
-    [spinner startAnimating];
     if (conn) {
         buffer = [NSMutableData data];
     }
     
 }
 
+#pragma mark - Connection Delegates
 
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
     [buffer setLength:0];
@@ -272,13 +250,10 @@ DataModel *dm;
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
     [self.tableView reloadData];
-    [spinner stopAnimating];
     [self.refreshControl endRefreshing];
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
-    
-    //NSLog(@"\n\nDone with bytes %lu", (unsigned long)[buffer length]);
     NSMutableString *theXML =
     [[NSMutableString alloc] initWithBytes:[buffer mutableBytes]
                                     length:[buffer length]
@@ -296,8 +271,10 @@ DataModel *dm;
     parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
     [parser parse];
-    
 }
+
+
+#pragma mark - XML Parser
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
@@ -306,10 +283,8 @@ DataModel *dm;
     if ([parseURL isEqualToString:@"getOrders"]) {
         
         if([elementName isEqualToString:@"GetOrderByUserIDResult"]){
-            ////NSLog(@"%@",[attributeDict description]);
             resultFound=NO;
         }
-        
         if ([elementName isEqualToString:@"z:row"]) {
             resultFound=YES;
             OrderBookModel *order = [[OrderBookModel alloc]init];
@@ -332,14 +307,11 @@ DataModel *dm;
             //Add arrribute value to array
             [orderList addObject:order];
             [orders addObject:order];
-            
             [self.tableView reloadData];
-            
         }
-        [spinner stopAnimating];
         [self.refreshControl endRefreshing];
+        [self.segmentedControl setSelectedSegmentIndex:0];
     }
-    
 }
 
 
@@ -352,27 +324,25 @@ DataModel *dm;
             flag=TRUE;
         }
         else if([[string substringToIndex:1] isEqualToString:@"E"]){
-            //NSLog(@"E error");
             msg = @"User has logged on elsewhere!";
-            
             [self dismissViewControllerAnimated:YES completion:nil];
             [[self navigationController]popToRootViewControllerAnimated:YES];
-            
             flag=TRUE;
         }
         if (flag) {
-            
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [toast show];
             int duration = 1.5;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [toast dismissWithClickedButtonIndex:0 animated:YES];
             });
-            
         }
         resultFound=YES;
     }
 }
+
+
+#pragma mark - Segmented Control
 
 -(IBAction)indexChanged:(UISegmentedControl *)sender
 {
@@ -383,7 +353,6 @@ DataModel *dm;
             [orders addObjectsFromArray:orderList];
             [self.tableView reloadData];
             break;
-            
         case 1:
             [orders removeAllObjects];
             for(OrderBookModel *ob in orderList){
@@ -407,6 +376,7 @@ DataModel *dm;
     }
 }
 
+#pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

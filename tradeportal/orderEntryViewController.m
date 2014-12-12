@@ -25,9 +25,6 @@
 @property(strong,nonatomic)NSString *type;
 @property(strong,nonatomic)NSString *route;
 @property(strong,nonatomic)NSString *side;
-
-
-
 @property(strong, nonatomic) NSMutableArray *searchStockNameList;
 @property(strong, nonatomic) NSMutableArray *searchStockList;
 
@@ -37,39 +34,21 @@
 
 @synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange,buffer,conn,parser,parseURL,submit,marketEx,spinner,btnSelect,container,flag;
 
-//UIView *container;
 DataModel *dm;
 UIButton *label1, *label2;
 RadioButton *rb1, *rb2;
 
+#pragma mark - View Delegates
 
 - (void)viewDidLoad {
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     [super viewDidLoad];
     [self reloadData];
-    _pickerViewContainer.hidden = YES;
-    
-
-//        [self.tabBarController setDelegate:self];
-    //Picker View
     accountDict =[[NSMutableDictionary alloc]init];
-    //[accountDict setValue:@"" forKey:@"Select Account"];
-    
     [self loadAccountListfor:dm.userID withSession:dm.sessionID];
     marketEx = @"SGX";
-    //    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-    //                                                       [UIFont fontWithName:@"Helvetica Neue" size:11.0f], UITextAttributeFont,
-    //                                                       [UIColor whiteColor], UITextAttributeTextColor,
-    //                                                       [UIColor whiteColor], UITextAttributeTextShadowColor,
-    //                                                       [NSValue valueWithUIOffset:UIOffsetMake(0.0f, 1.0f)], UITextAttributeTextShadowOffset,
-    //                                                       nil] forState:UIControlStateNormal];
-    //
-    //Radio Button
-    
-    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-        //        container = [[UIView alloc] initWithFrame:CGRectMake(150, 170, 150, 30)];
         label1  =[[UIButton alloc] initWithFrame:CGRectMake(35, 15, 40, 20)];
         label1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [label1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -88,9 +67,8 @@ RadioButton *rb1, *rb2;
         rb1.frame = CGRectMake(10,15,22,22);
         rb2.frame = CGRectMake(80,15,22,22);
         
-        _pickerViewContainer.frame = CGRectMake(6, 556, 308, 208);
-    } else {
-        //        container = [[UIView alloc] initWithFrame:CGRectMake(400, 250, 150, 30)];
+    }
+    else {
         label1 =[[UIButton alloc] initWithFrame:CGRectMake(30, 5, 60, 20)];
         label1.backgroundColor = [UIColor clearColor];
 //        label1.font = [UIFont fontWithName:@"Helvetica Neue" size:17.0f];
@@ -105,44 +83,15 @@ RadioButton *rb1, *rb2;
         rb1.frame = CGRectMake(0,0,33,33);
         rb2.frame = CGRectMake(80,0,33,33);
         
-        _pickerViewContainer.frame = CGRectMake(404, 840, 492, 350);
     }
     [self.view addSubview:container];
     [container addSubview:rb1];
     [container addSubview:rb2];
     [RadioButton addObserverForGroupId:@"first group" observer:self];
-    container.hidden=NO;
     [label1 setTitle:@"Buy" forState:UIControlStateNormal];
     [container addSubview:label1];
     [label2 setTitle:@"Sell" forState:UIControlStateNormal];
     [container addSubview:label2];
-    [rb1 handleButtonTap:self];
-    
-    btnSelect.layer.borderWidth = 5;
-    btnSelect.layer.borderColor = [[UIColor lightTextColor] CGColor];
-    btnSelect.layer.cornerRadius = 5;
-}
--(IBAction)radioLabel:(id)sender{
-    if (sender == label1) {
-        [rb1 handleButtonTap:self];
-    } else {
-        [rb2 handleButtonTap:self];
-    }
-}
-
--(void)reloadData{
-    self.searchStockNameList = [[NSMutableArray alloc]init];
-    self.searchStockList = [[NSMutableArray alloc]init];
-    shortName.text = @" ";
-    lotSize.text = @"";
-    change.text = @"";
-    lastPrice.text = @"";
-    bidPrice.text = @"";
-    askPrice.text = @"";
-    [btnSelect setTitle:@"" forState:UIControlStateNormal];
-    price.text = @"";
-    quantity.text = @"";
-    exchange.text = @"";
     [rb1 handleButtonTap:self];
 }
 
@@ -158,6 +107,53 @@ RadioButton *rb1, *rb2;
         [self.tabBarController setSelectedIndex: 1];
     }
     flag=false;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
+
+#pragma mark -  RadioButton
+
+-(void)radioButtonSelectedAtIndex:(NSUInteger)index inGroup:(NSString *)groupId{
+    if (index == 0) {
+        [submit setTitle:@"BUY" forState:UIControlStateNormal];
+        submit.backgroundColor = iGREEN;
+        self.side = @"1";
+    }
+    else if (index == 1){
+        [submit setTitle:@"SELL" forState:UIControlStateNormal];
+        submit.backgroundColor = iRED;
+        self.side =@"2";
+    }
+    
+    //NSLog(@"changed to %lu in %@",(unsigned long)index,groupId);
+}
+
+-(IBAction)radioLabel:(id)sender{
+    if (sender == label1) {
+        [rb1 handleButtonTap:self];
+    } else {
+        [rb2 handleButtonTap:self];
+    }
+}
+
+#pragma mark - Clear Data
+-(void)reloadData{
+    self.searchStockNameList = [[NSMutableArray alloc]init];
+    self.searchStockList = [[NSMutableArray alloc]init];
+    shortName.text = @" ";
+    lotSize.text = @"";
+    change.text = @"";
+    lastPrice.text = @"";
+    bidPrice.text = @"";
+    askPrice.text = @"";
+    [btnSelect setTitle:@"" forState:UIControlStateNormal];
+    price.text = @"";
+    quantity.text = @"";
+    exchange.text = @"";
+    [rb1 handleButtonTap:self];
 }
 
 #pragma mark - TextField Delegates
@@ -178,20 +174,6 @@ RadioButton *rb1, *rb2;
     
     return YES;
 }
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self.view endEditing:YES];
-    [self.viewButton endEditing:YES];
-}
-
--(void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed{
-    
-}
--(void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
-    
-    //[viewController.view setNeedsDisplay];
-}
-
 
 
 
@@ -293,8 +275,6 @@ RadioButton *rb1, *rb2;
     return YES;
 }
 
-
-
 -(void)filterContentForSearch:(NSString *)searchText scope:(NSString *)scope{
     //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
     //self.searchStockList = [self.stocklList filteredArrayUsingPredicate:predicate];
@@ -330,20 +310,13 @@ RadioButton *rb1, *rb2;
     }
 }
 
+#pragma mark - Connection Delegates
+
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
     [buffer setLength:0];
 }
 -(void) connection:(NSURLConnection *) connection didReceiveData:(NSData *) data {
     [buffer appendData:data];
-}
--(void) connection:(NSURLConnection *) connection didFailWithError:(NSError *) error {
-    //    UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:error.localizedDescription delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-    //    [toast show];
-    //    int duration = 1.5;
-    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //        [toast dismissWithClickedButtonIndex:0 animated:YES];
-    //    });
-    //
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
@@ -367,6 +340,8 @@ RadioButton *rb1, *rb2;
     [spinner stopAnimating];
 }
 
+#pragma mark -XML Parser
+
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
     
@@ -382,12 +357,10 @@ RadioButton *rb1, *rb2;
             parseURL = @"accountList";
         }
     }
-    
     //parse the data
     if ([parseURL isEqualToString:@"searchBar"]) {
         
         if ([elementName isEqualToString:@"z:row"]) {
-            //Add arrribute value to array
             [self.searchStockList addObject:[attributeDict objectForKey:@"RicCode"]];
             [self.searchStockNameList addObject:[attributeDict objectForKey:@"ShortName"]];
         }
@@ -415,7 +388,6 @@ RadioButton *rb1, *rb2;
             exchange.text = [attributeDict objectForKey:@"EXCHANGE"];
             self.currency = [attributeDict objectForKey:@"CURRENCY_NAME"];
             self.exchangeRate = [attributeDict objectForKey:@"EXCHANGE_RATE"];
-            
         }
     }
     else if ([parseURL isEqualToString:@"accountList"]) {
@@ -423,89 +395,10 @@ RadioButton *rb1, *rb2;
         if ([elementName isEqualToString:@"z:row"]) {
             [accountDict setValue:[attributeDict objectForKey:@"TRADE_ACC_ID"] forKey:[attributeDict objectForKey:@"TRADE_ACC_NAME"]];
             accountList =[[[accountDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] mutableCopy];
-            [[self picker]reloadAllComponents];
         }
-        
     }
 }
 
-
-#pragma mark -  RadioButton
-
--(void)radioButtonSelectedAtIndex:(NSUInteger)index inGroup:(NSString *)groupId{
-    [self CancelPic:self];
-    if (index == 0) {
-        [submit setTitle:@"BUY" forState:UIControlStateNormal];
-        submit.backgroundColor = iGREEN;
-        self.side = @"1";
-    }
-    else if (index == 1){
-        [submit setTitle:@"SELL" forState:UIControlStateNormal];
-        submit.backgroundColor = iRED;
-        self.side =@"2";
-    }
-    
-    //NSLog(@"changed to %lu in %@",(unsigned long)index,groupId);
-}
-
-
-#pragma mark - pickerView
-
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    return 1;
-}
--(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return [accountList count];
-}
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return[accountList objectAtIndex:row];
-}
--(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    if (row == 0) {
-        [btnSelect setTitle:@"" forState:UIControlStateNormal];
-    }
-    else{
-        [btnSelect setTitle:[accountList objectAtIndex:row] forState:UIControlStateNormal];
-    }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)CancelPic:(id)sender {
-    [UIView beginAnimations:Nil context:NULL];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        //        _pickerViewContainer.frame = CGRectMake(11, 955, 300, 245);
-        _pickerViewContainer.hidden=YES;
-        [UIView setAnimationDuration:0.3];
-    }
-    
-    [UIView commitAnimations];
-    
-}
-
-
-- (IBAction)hideSearch:(id)sender {
-    [self.view endEditing:YES];
-}
-
-- (IBAction)accountPicker:(id)sender {
-    _pickerViewContainer.hidden=NO;
-    [self hideSearch:sender];
-    //    [UIView beginAnimations:Nil context:NULL];
-    //    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    //    {
-    //        _pickerViewContainer.frame = CGRectMake(11, 313, 300, 245);
-    //        [UIView setAnimationDuration:0.3];
-    //    }
-    //    [self.picker selectRow:0 inComponent:0 animated:YES];
-    //    [UIView commitAnimations];
-    
-}
 
 #pragma mark - Submit
 
@@ -538,6 +431,9 @@ RadioButton *rb1, *rb2;
     }
 }
 
+
+#pragma mark - Segue
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     [self.view endEditing:YES];
     if ([[segue identifier] isEqualToString:@"clientAccount"]) {
@@ -562,51 +458,5 @@ RadioButton *rb1, *rb2;
         vc.exchangeRate = self.exchangeRate;
     }
 }
-
-
-//#pragma mark - DropDown
-//
-//- (IBAction)selectClicked:(id)sender {
-//    NSArray * arr = [[NSArray alloc] init];
-//    arr = [NSArray arrayWithObjects:@"Buy", @"Sell",nil];
-//    NSArray * arrImage = [[NSArray alloc] init];
-//    //arrImage = [NSArray arrayWithObjects:[nil];
-//    if(dropDown == nil) {
-//        CGFloat f = 75;
-//        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :arr :arrImage :@"down"];
-//        dropDown.delegate = self;
-//    }
-//    else {
-//        [dropDown hideDropDown:sender];
-//        [self rel];
-//    }
-//}
-//
-//- (IBAction)accounts:(id)sender {
-//    NSArray * arr = [[NSArray alloc] init];
-//    arr = [NSArray arrayWithObjects:@"Account 1", @"Account 2",@"Account 3",nil];
-//    NSArray * arrImage = [[NSArray alloc] init];
-//    //arrImage = [NSArray arrayWithObjects:[nil];
-//    if(dropDown == nil) {
-//        CGFloat f = 75;
-//        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :arr :arrImage :@"down"];
-//        dropDown.delegate = self;
-//    }
-//    else {
-//        [dropDown hideDropDown:sender];
-//        [self rel];
-//    }
-//}
-//
-//
-//- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
-//    [self rel];
-//}
-//
-//-(void)rel{
-//    //    [dropDown release];
-//    dropDown = nil;
-//}
-
 
 @end

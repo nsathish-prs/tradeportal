@@ -29,19 +29,11 @@
 DataModel *dm;
 @synthesize uname1,upwd,buffer,parser,conn,error,spinner1,parseURL;
 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark - View Delegates
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //uname.text = dm.userID;
     dm.accountList = [[NSMutableArray alloc]init];
     dm.accountDict = [[NSMutableDictionary alloc]init];
 }
@@ -51,27 +43,16 @@ DataModel *dm;
     [super viewWillAppear:animated];
     
 }
+
+#pragma mark - TextField Delegate
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [uname1 resignFirstResponder];
     [upwd resignFirstResponder];
     return YES;
 }
 
-- (void)viewDidUnload
-{
-    //    [btnSelect release];
-    [super viewDidUnload];
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return YES;
-    }
-}
+#pragma mark - Invoke Login Service
 
 -(IBAction)login:(id)sender{
     name = uname1.text;
@@ -122,7 +103,7 @@ DataModel *dm;
         [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
         
         conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-        spinner1.hidesWhenStopped=YES;
+//        spinner1.hidesWhenStopped=YES;
         [spinner1 startAnimating];
         
         if (conn) {
@@ -131,7 +112,7 @@ DataModel *dm;
     }
 }
 
-#pragma mark - Account List
+#pragma mark - Invoke Account List Service
 
 -(void)loadAccountListfor:(NSString *)user withSession:(NSString *)session{
     parseURL = @"accountList";
@@ -164,6 +145,7 @@ DataModel *dm;
     }
 }
 
+#pragma mark - Connection Delegates
 
 -(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *) response {
     [buffer setLength:0];
@@ -178,6 +160,7 @@ DataModel *dm;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
+    [spinner1 stopAnimating];
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
@@ -199,6 +182,8 @@ DataModel *dm;
     [parser parse];
     [spinner1 stopAnimating];
 }
+
+#pragma mark - XML Parser
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
@@ -261,7 +246,8 @@ DataModel *dm;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [toast dismissWithClickedButtonIndex:0 animated:YES];
             });
-            
+            [spinner1 stopAnimating];
+
         }
         resultFound=YES;
     }
@@ -271,21 +257,7 @@ DataModel *dm;
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName{
 }
 
--(IBAction)buttonClicked:(UIButton*) button {
-    //    LoginViewController *lvc;
-    //    ChangePasswordViewController *cvc;
-    //    dm.toView=cvc;
-    //    dm.fromView = lvc;
-    //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-    //    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"ChangePasswordViewController"];
-    //
-    //    vc.view.backgroundColor = [UIColor clearColor];
-    //    self.view.alpha = 0.5f;
-    //    [vc setTransitioningDelegate:transitionController];
-    //    vc.modalPresentationStyle= UIModalPresentationCustom;
-    //    [self presentViewController:vc animated:YES completion:nil];
-    
-}
+#pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

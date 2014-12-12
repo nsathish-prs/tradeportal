@@ -112,7 +112,7 @@
                                     <outlet property="delegate" destination="2" id="XuE-oE-IyL"/>
                                 </connections>
                             </textField>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mE9-sD-Ciy">
+                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mE9-sD-Ciy">
                                 <rect key="frame" x="303" y="273" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -472,7 +472,7 @@
                         <subviews>
                             <searchBar autoresizesSubviews="NO" contentMode="redraw" misplaced="YES" barStyle="blackTranslucent" searchBarStyle="prominent" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="ouV-cD-sYC">
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                                 </variation>
@@ -524,7 +524,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
-                                            <action selector="CancelPic:" destination="nMi-14-soS" eventType="touchDown" id="CHV-46-RLN"/>
                                             <outlet property="delegate" destination="nMi-14-soS" id="lLV-Xi-pYn"/>
                                         </connections>
                                     </textField>
@@ -554,7 +553,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
-                                            <action selector="CancelPic:" destination="nMi-14-soS" eventType="touchDown" id="Uhu-vW-G0X"/>
                                             <outlet property="delegate" destination="nMi-14-soS" id="zwH-2u-ecS"/>
                                         </connections>
                                     </textField>
@@ -577,11 +575,16 @@
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.BorderWidth">
+                                                <real key="value" value="0.10000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.BorderColor">
+                                                <color key="value" white="0.0" alpha="0.37" colorSpace="calibratedWhite"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="accountPicker:" destination="nMi-14-soS" eventType="touchUpInside" id="pwV-NB-zW2"/>
                                             <segue destination="5rD-PK-KFG" kind="presentation" identifier="clientAccount" modalPresentationStyle="overFullScreen" modalTransitionStyle="coverVertical" id="1TF-F4-7TG"/>
                                         </connections>
                                     </button>
@@ -1231,10 +1234,11 @@
                                     <color key="backgroundColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="0.75" colorSpace="calibratedRGB"/>
                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                                     <connections>
                                         <action selector="hideSearch:" destination="uiD-Q1-sZq" eventType="editingDidEnd" id="tGR-6x-pGC"/>
                                         <action selector="searchOrderList:" destination="uiD-Q1-sZq" eventType="editingChanged" id="pjm-aC-IfC"/>
+                                        <outlet property="delegate" destination="uiD-Q1-sZq" id="vrB-Ph-tKS"/>
                                     </connections>
                                 </textField>
                             </subviews>
@@ -1270,14 +1274,9 @@
                         <outlet property="searchBar" destination="WOI-uC-jW6" id="7MC-ES-4sl"/>
                         <outlet property="searchBtn" destination="Pv3-GB-bCy" id="Vc1-0s-idn"/>
                         <outlet property="segmentedControl" destination="MKk-iz-4LK" id="zb6-3x-Fpf"/>
-                        <outlet property="spinner" destination="vNe-fe-0DY" id="KUb-QH-SBj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wXr-Q3-j8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="vNe-fe-0DY">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </activityIndicatorView>
             </objects>
             <point key="canvasLocation" x="1447.5" y="895"/>
         </scene>
@@ -1669,7 +1668,6 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <action selector="amendOrder:" destination="P3t-9b-7dj" eventType="touchUpInside" id="N74-wF-xCr"/>
                                             <segue destination="xFq-GB-WLJ" kind="presentation" identifier="Amend" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="FwV-oT-0Jh"/>
                                         </connections>
                                     </button>
@@ -2075,7 +2073,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Domain" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAp-2b-dFK">
                                         <rect key="frame" x="26" y="109" width="250" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="1lR-d9-mWT" id="ksV-PY-Ke4"/>
                                         </connections>
@@ -2083,7 +2081,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Service" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Yn-A0-BVA">
                                         <rect key="frame" x="26" y="147" width="250" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="1lR-d9-mWT" id="t15-JU-QcA"/>
                                         </connections>
@@ -2134,7 +2132,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ip" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOc-ex-wwn">
                                         <rect key="frame" x="26" y="71" width="250" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="1lR-d9-mWT" id="VU6-11-9jm"/>
                                         </connections>
@@ -3161,6 +3159,9 @@
                                     <outlet property="delegate" destination="LEM-NR-0P5" id="fCt-re-VLi"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3xl-pZ-24L">
+                                <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -3170,11 +3171,14 @@
                             <constraint firstItem="YEM-uq-QcF" firstAttribute="leading" secondItem="5nd-p4-e0N" secondAttribute="leadingMargin" id="aer-1C-bkB"/>
                             <constraint firstItem="YEM-uq-QcF" firstAttribute="bottom" secondItem="CEU-r0-LmH" secondAttribute="top" id="bi0-W0-XIV"/>
                             <constraint firstItem="YEM-uq-QcF" firstAttribute="top" secondItem="j55-7f-nUq" secondAttribute="bottom" constant="1" id="euN-bD-0KK"/>
+                            <constraint firstAttribute="centerX" secondItem="3xl-pZ-24L" secondAttribute="centerX" id="kb7-m9-lf2"/>
+                            <constraint firstAttribute="centerY" secondItem="3xl-pZ-24L" secondAttribute="centerY" constant="-0.5" id="rO7-qj-7wM"/>
                             <constraint firstItem="j55-7f-nUq" firstAttribute="leading" secondItem="5nd-p4-e0N" secondAttribute="leadingMargin" id="yPf-J3-MD3"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="YEM-uq-QcF"/>
+                                <exclude reference="3xl-pZ-24L"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="51M-B7-PeU"/>
@@ -3184,11 +3188,14 @@
                                 <exclude reference="aer-1C-bkB"/>
                                 <exclude reference="bi0-W0-XIV"/>
                                 <exclude reference="euN-bD-0KK"/>
+                                <exclude reference="kb7-m9-lf2"/>
+                                <exclude reference="rO7-qj-7wM"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="YEM-uq-QcF"/>
+                                <include reference="3xl-pZ-24L"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="51M-B7-PeU"/>
@@ -3198,12 +3205,15 @@
                                 <include reference="aer-1C-bkB"/>
                                 <include reference="bi0-W0-XIV"/>
                                 <include reference="euN-bD-0KK"/>
+                                <include reference="kb7-m9-lf2"/>
+                                <include reference="rO7-qj-7wM"/>
                             </mask>
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Account" image="ic_action_group.png" id="wyu-wA-EX8"/>
                     <connections>
                         <outlet property="clientAccount" destination="d4w-Mb-UTk" id="OHP-6R-5pC"/>
+                        <outlet property="spinner" destination="3xl-pZ-24L" id="W7k-Lg-cpP"/>
                         <outlet property="stockCode" destination="lYM-Ka-C0J" id="e0X-0q-Yb7"/>
                         <outlet property="tableView" destination="YEM-uq-QcF" id="eBC-0z-zoV"/>
                     </connections>
@@ -3249,9 +3259,6 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
-                                        <variation key="widthClass=compact" fixedFrame="YES">
-                                            <rect key="frame" x="0.0" y="32" width="384" height="425"/>
-                                        </variation>
                                         <connections>
                                             <outlet property="dataSource" destination="5rD-PK-KFG" id="1Jr-Rx-F5F"/>
                                             <outlet property="delegate" destination="5rD-PK-KFG" id="4Ul-EM-kgk"/>
@@ -3260,40 +3267,82 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Account" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dwb-XG-DCd">
                                         <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <variation key="widthClass=compact" fixedFrame="YES">
-                                            <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
-                                        </variation>
+                                        <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                                         <connections>
                                             <action selector="SearchAccount" destination="5rD-PK-KFG" eventType="editingChanged" id="VKj-xn-CE9"/>
+                                            <outlet property="delegate" destination="5rD-PK-KFG" id="ysB-yH-RhS"/>
                                         </connections>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.62" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="68s-HN-tLs" secondAttribute="bottom" constant="-1" id="Qxi-A7-QDs"/>
+                                    <constraint firstItem="dwb-XG-DCd" firstAttribute="top" secondItem="8Dk-bf-EJR" secondAttribute="top" constant="6" id="TZ7-Vd-Jsn"/>
+                                    <constraint firstAttribute="trailing" secondItem="68s-HN-tLs" secondAttribute="trailing" id="Tjy-RI-zsK"/>
+                                    <constraint firstItem="68s-HN-tLs" firstAttribute="leading" secondItem="8Dk-bf-EJR" secondAttribute="leading" id="UlI-dX-VQR"/>
+                                    <constraint firstItem="dwb-XG-DCd" firstAttribute="leading" secondItem="8Dk-bf-EJR" secondAttribute="leading" constant="4" id="cfm-pP-GDg"/>
+                                    <constraint firstAttribute="trailing" secondItem="dwb-XG-DCd" secondAttribute="trailing" constant="6" id="mwO-KG-NEG"/>
+                                    <constraint firstItem="68s-HN-tLs" firstAttribute="top" secondItem="dwb-XG-DCd" secondAttribute="bottom" constant="6" id="sPm-2s-gmD"/>
+                                </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="68s-HN-tLs"/>
                                         <exclude reference="dwb-XG-DCd"/>
                                     </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="TZ7-Vd-Jsn"/>
+                                        <exclude reference="cfm-pP-GDg"/>
+                                        <exclude reference="mwO-KG-NEG"/>
+                                        <exclude reference="Qxi-A7-QDs"/>
+                                        <exclude reference="Tjy-RI-zsK"/>
+                                        <exclude reference="UlI-dX-VQR"/>
+                                        <exclude reference="sPm-2s-gmD"/>
+                                    </mask>
                                 </variation>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="7" y="95" width="384" height="455"/>
+                                <variation key="widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="68s-HN-tLs"/>
                                         <include reference="dwb-XG-DCd"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="TZ7-Vd-Jsn"/>
+                                        <include reference="cfm-pP-GDg"/>
+                                        <include reference="mwO-KG-NEG"/>
+                                        <include reference="Qxi-A7-QDs"/>
+                                        <include reference="Tjy-RI-zsK"/>
+                                        <include reference="UlI-dX-VQR"/>
+                                        <include reference="sPm-2s-gmD"/>
                                     </mask>
                                 </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8Dk-bf-EJR" firstAttribute="leading" secondItem="mKj-4U-KxI" secondAttribute="leadingMargin" constant="-9" id="6yR-5V-Rou"/>
+                            <constraint firstItem="u3R-BA-sNa" firstAttribute="top" secondItem="8Dk-bf-EJR" secondAttribute="bottom" constant="50" id="MUY-oX-x6V"/>
+                            <constraint firstItem="8Dk-bf-EJR" firstAttribute="top" secondItem="qok-1Q-bkb" secondAttribute="bottom" constant="75" id="OZI-4z-hfb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8Dk-bf-EJR" secondAttribute="trailing" constant="-7" id="Z16-pM-hna"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="8Dk-bf-EJR"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="6yR-5V-Rou"/>
+                                <exclude reference="OZI-4z-hfb"/>
+                                <exclude reference="Z16-pM-hna"/>
+                                <exclude reference="MUY-oX-x6V"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="8Dk-bf-EJR"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="6yR-5V-Rou"/>
+                                <include reference="OZI-4z-hfb"/>
+                                <include reference="Z16-pM-hna"/>
+                                <include reference="MUY-oX-x6V"/>
                             </mask>
                         </variation>
                     </view>
@@ -3305,7 +3354,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRC-Ck-e9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1801.5" y="-48"/>
+            <point key="canvasLocation" x="1801.5" y="-51"/>
         </scene>
         <!--Order Book Scene-->
         <scene sceneID="CZa-96-gxT">
