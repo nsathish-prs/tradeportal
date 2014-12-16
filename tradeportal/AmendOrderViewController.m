@@ -22,7 +22,7 @@
 @end
 
 @implementation AmendOrderViewController
-@synthesize orderPrice,orderQty,matchQty,nQty,nPrice,spinner,buffer,parser,parseURL,conn,order,orderBook,amendView;
+@synthesize orderPrice,orderQty,matchQty,nQty,nPrice,spinner,buffer,parser,parseURL,conn,order,orderBook,amendView,orderBookDetails;
 DataModel *dm;
 NSInteger qty ;
 CGFloat price;
@@ -44,7 +44,7 @@ NSUserDefaults *getOrder;
     [priceFormatter setMinimumFractionDigits:3];
     
     self.view.backgroundColor=[UIColor clearColor];
-    orderBook.view.alpha=0.5f;
+    orderBookDetails.view.alpha=0.5f;
     spinner.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height/2);
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
     [mainWindow addSubview:spinner];
@@ -69,7 +69,7 @@ NSUserDefaults *getOrder;
 - (IBAction)cancelAmend:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.view endEditing:YES];
-    orderBook.view.alpha = 1.0f;
+    orderBookDetails.view.alpha = 1.0f;
 }
 
 
@@ -188,7 +188,9 @@ NSUserDefaults *getOrder;
         }
         if ([elementName isEqualToString:@"z:row"]) {
             [self dismissViewControllerAnimated:YES completion:nil];
-            [orderBook.navigationController popViewControllerAnimated:YES];
+            [orderBookDetails.navigationController popViewControllerAnimated:YES];
+            [orderBook reloadTableData];
+            [orderBook.view setNeedsDisplay];
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"Order Amended Successfully!" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [toast show];
             int duration = 1.5;

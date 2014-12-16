@@ -22,7 +22,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelAmend;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property(strong,nonatomic)OrderBookModel *order;
-@property(nonatomic,strong)IBOutlet OrderBookDetailsViewController *orderBook;
+@property(nonatomic,strong)IBOutlet OrderBookDetailsViewController *orderBookDetails;
+@property(nonatomic,strong)IBOutlet OrderBookViewController *orderBook;
+
 @property (weak, nonatomic) IBOutlet UIView *amendView;
 
 - (IBAction)cancelAmend:(id)sender;

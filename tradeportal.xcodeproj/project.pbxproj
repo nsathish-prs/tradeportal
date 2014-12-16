@@ -59,6 +59,7 @@
 		ECA6BBD71A31A23100814734 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA6BBD61A31A23100814734 /* Reachability.m */; };
 		ECA6BBDA1A35458600814734 /* ClientAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA6BBD91A35458600814734 /* ClientAccountViewController.m */; };
 		ECA6BBDD1A35B2DF00814734 /* ChangeServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */; };
+		ECBA60461A3E9FBF00B670BA /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBA60451A3E9FBF00B670BA /* DetailViewController.m */; };
 		ECBC4BDD1A2DACFA00CD6E60 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */; };
 		ECCA882E1A3934B30071859D /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA882D1A3934B30071859D /* settings.png */; };
 		ECCA88321A3936CB0071859D /* hand_share.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88311A3936CB0071859D /* hand_share.png */; };
@@ -156,6 +157,8 @@
 		ECA6BBD91A35458600814734 /* ClientAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientAccountViewController.m; sourceTree = "<group>"; };
 		ECA6BBDB1A35B2DF00814734 /* ChangeServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeServiceViewController.h; sourceTree = "<group>"; };
 		ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeServiceViewController.m; sourceTree = "<group>"; };
+		ECBA60441A3E9FBF00B670BA /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		ECBA60451A3E9FBF00B670BA /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		ECCA882D1A3934B30071859D /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		ECCA88311A3936CB0071859D /* hand_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand_share.png; sourceTree = "<group>"; };
 		ECCA88351A39476E0071859D /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
@@ -339,6 +342,8 @@
 				ECD39DDD1A08E0C20084A30D /* SettingsViewController.m */,
 				ECA6BBDB1A35B2DF00814734 /* ChangeServiceViewController.h */,
 				ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */,
+				ECBA60441A3E9FBF00B670BA /* DetailViewController.h */,
+				ECBA60451A3E9FBF00B670BA /* DetailViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -554,6 +559,7 @@
 				EC27EF8A19FF3A8900464E27 /* OrderBookModel.m in Sources */,
 				ECA6BBDA1A35458600814734 /* ClientAccountViewController.m in Sources */,
 				ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */,
+				ECBA60461A3E9FBF00B670BA /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -820,7 +826,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -839,7 +845,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};

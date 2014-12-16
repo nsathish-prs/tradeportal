@@ -293,7 +293,8 @@ CGFloat price;
         
         AmendOrderViewController *vc = (AmendOrderViewController *)segue.destinationViewController;
         vc.order = order;
-        vc.orderBook = self;
+        vc.orderBookDetails = self;
+        vc.orderBook = orderBook;
     }
 }
 

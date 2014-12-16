@@ -27,8 +27,11 @@ bool dataFound=NO;
 #pragma mark - View Delegates
 
 - (void)viewDidLoad {
-    self.view.backgroundColor=[UIColor clearColor];
-    settings.view.alpha=0.5f;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        self.view.backgroundColor=[UIColor clearColor];
+        settings.view.alpha=0.5f;
+    }
     [super viewDidLoad];
     userID.text = dm.userID;
 }
@@ -120,7 +123,7 @@ bool dataFound=NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
-
+    
     
 }
 

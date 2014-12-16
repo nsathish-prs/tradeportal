@@ -22,9 +22,11 @@ DataModel *dm;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.view.backgroundColor=[UIColor clearColor];
-    settings.view.alpha=0.5f;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        self.view.backgroundColor=[UIColor clearColor];
+        settings.view.alpha=0.5f;
+    }
     [self loadData];
 }
 -(void)loadData{
@@ -86,7 +88,7 @@ DataModel *dm;
             [url setObject:@"" forKey:@"domain"];
         }
         else{
-        [url setObject:[NSString stringWithString:domain.text] forKey:@"domain"];
+            [url setObject:[NSString stringWithString:domain.text] forKey:@"domain"];
         }
     }
     if (![protocol.text isEqualToString:@""]) {
@@ -94,7 +96,7 @@ DataModel *dm;
             [url setObject:@"" forKey:@"protocol"];
         }
         else{
-        [url setObject:[NSString stringWithString:protocol.text] forKey:@"protocol"];
+            [url setObject:[NSString stringWithString:protocol.text] forKey:@"protocol"];
         }
     }
     if (![service.text isEqualToString:@""]) {
@@ -102,14 +104,16 @@ DataModel *dm;
             [url setObject:@"" forKey:@"service"];
         }
         else{
-        [url setObject:[NSString stringWithString:protocol.text] forKey:@"service"];
+            [url setObject:[NSString stringWithString:service.text] forKey:@"service"];
         }
     }
     [url writeToFile: path atomically:YES];
     dm.serviceURL = [NSString stringWithFormat:@"%@://%@%@/%@",[url objectForKey:@"protocol"],[url objectForKey:@"ip"],[url objectForKey:@"domain"],[url objectForKey:@"service"]];
     //    NSLog(@"%@",dm.serviceURL);
-
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
     [self dismissView:sender];
+    }
 }
 
 #pragma mark - Dismiss View

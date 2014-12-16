@@ -10,6 +10,7 @@
 #import "DataModel.h"
 #import "ChangePasswordViewController.h"
 #import "ChangeServiceViewController.h"
+#import "DetailViewController.h"
 
 @interface SettingsViewController ()
 
@@ -19,6 +20,7 @@
 @implementation SettingsViewController
 
 DataModel *dm;
+@synthesize detailViewController;
 
 #pragma mark - View Delegates
 
@@ -70,6 +72,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
             [self showAction];
         }
     }
+    else if (indexPath.section == 1){
+        if(indexPath.row == 0 ){
+            [self performSegueWithIdentifier:@"changePass" sender:self];
+        }
+        else if(indexPath.row == 1 ){
+            [self performSegueWithIdentifier:@"changeService" sender:self];
+        }
+    }
 }
 
 #pragma mark - TextField Delegates
@@ -84,13 +94,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"changePass"]) {
-        ChangePasswordViewController *vc = (ChangePasswordViewController *)segue.destinationViewController;
-        vc.settings = self;
-    }
-    if ([[segue identifier] isEqualToString:@"changeService"]) {
-        ChangeServiceViewController *vc = (ChangeServiceViewController *)segue.destinationViewController;
-        vc.settings = self;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        
+        if ([[segue identifier] isEqualToString:@"changePass"]) {
+            ChangePasswordViewController *vc = (ChangePasswordViewController *)segue.destinationViewController;
+            vc.settings = self;
+        }
+        if ([[segue identifier] isEqualToString:@"changeService"]) {
+            ChangeServiceViewController *vc = (ChangeServiceViewController *)segue.destinationViewController;
+            vc.settings = self;
+        }
     }
 }
 

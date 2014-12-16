@@ -79,7 +79,7 @@ DataModel *dm;
     }
     if(flag){
         parseURL = @"login";
-
+        
         NSString *soapRequest = [NSString stringWithFormat:
                                  @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                                  "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
@@ -91,7 +91,7 @@ DataModel *dm;
                                  "</AuthenticateUser>"
                                  "</soap:Body>"
                                  "</soap:Envelope>", name,password,sessionID];
-//        NSLog(@"\nSoapRequest is %@" , soapRequest);
+        //        NSLog(@"\nSoapRequest is %@" , soapRequest);
         NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=AuthenticateUser"];
         NSURL *url =[NSURL URLWithString:urls];
         NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -103,7 +103,7 @@ DataModel *dm;
         [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
         
         conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-//        spinner1.hidesWhenStopped=YES;
+        //        spinner1.hidesWhenStopped=YES;
         [spinner1 startAnimating];
         
         if (conn) {
@@ -126,7 +126,7 @@ DataModel *dm;
                              "</GetTradeAccount>"
                              "</soap:Body>"
                              "</soap:Envelope>",session,user];
-//    NSLog(@"SoapRequest is %@" , soapRequest);
+    //    NSLog(@"SoapRequest is %@" , soapRequest);
     NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetTradeAccount"];
     NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -136,8 +136,8 @@ DataModel *dm;
     [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
-        [dm.accountList removeAllObjects];
-        [dm.accountDict removeAllObjects];
+    [dm.accountList removeAllObjects];
+    [dm.accountDict removeAllObjects];
     
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     if (conn) {
@@ -175,7 +175,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-//    NSLog(@"\n\nSoap Response is %@",theXML);
+    //    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -247,7 +247,7 @@ DataModel *dm;
                 [toast dismissWithClickedButtonIndex:0 animated:YES];
             });
             [spinner1 stopAnimating];
-
+            
         }
         resultFound=YES;
     }
@@ -261,10 +261,13 @@ DataModel *dm;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"changeService"]) {
-        
-        ChangeServiceViewController *vc = (ChangeServiceViewController *)segue.destinationViewController;
-        vc.settings = self;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        if ([[segue identifier] isEqualToString:@"changeService"]) {
+            
+            ChangeServiceViewController *vc = (ChangeServiceViewController *)segue.destinationViewController;
+            vc.settings = self;
+        }
     }
 }
 
