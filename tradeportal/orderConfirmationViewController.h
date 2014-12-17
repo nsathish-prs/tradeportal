@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "orderEntryViewController.h"
 
-@interface orderConfirmationViewController : UIViewController<UITextFieldDelegate,NSXMLParserDelegate,UITabBarControllerDelegate,UITabBarDelegate>
+@interface orderConfirmationViewController : UIViewController<UITextFieldDelegate,NSXMLParserDelegate,UITabBarControllerDelegate,UITabBarDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong)IBOutlet UILabel *clientAccount;
 @property(nonatomic,strong)IBOutlet UILabel *stockCode;
@@ -43,6 +43,7 @@
 @property(nonatomic,strong)IBOutlet NSString *exchangeRate;
 
 @property(nonatomic,strong)IBOutlet orderEntryViewController *orderEntry;
+@property (strong, nonatomic) IBOutletCollection(UITableViewCell) NSArray *cells;
 
 - (IBAction)confirmPassword:(id)sender;
 - (IBAction)cancelOrder:(id)sender;

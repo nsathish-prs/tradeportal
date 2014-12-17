@@ -28,22 +28,24 @@
 @property(strong, nonatomic) NSMutableArray *searchStockNameList;
 @property(strong, nonatomic) NSMutableArray *searchStockList;
 
+
 @end
 
 @implementation orderEntryViewController
 
-@synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange,buffer,conn,parser,parseURL,submit,marketEx,spinner,btnSelect,container,flag;
+@synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange,buffer,conn,parser,parseURL,submit,marketEx,spinner,btnSelect,container,flag,originalView;
 
 DataModel *dm;
 UIButton *label1, *label2;
 RadioButton *rb1, *rb2;
-
+CGRect newFrame;
 #pragma mark - View Delegates
 
 - (void)viewDidLoad {
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     [super viewDidLoad];
     [self reloadData];
+    originalView = self.view;
     accountDict =[[NSMutableDictionary alloc]init];
     [self loadAccountListfor:dm.userID withSession:dm.sessionID];
     marketEx = @"SGX";
@@ -54,7 +56,7 @@ RadioButton *rb1, *rb2;
         [label1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         label1.backgroundColor = [UIColor clearColor];
         [label1 addTarget:self action:@selector(radioLabel:) forControlEvents:UIControlEventTouchDown];
-
+        
         label2 =[[UIButton alloc] initWithFrame:CGRectMake(105, 15, 40, 20)];
         label2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [label2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -69,19 +71,23 @@ RadioButton *rb1, *rb2;
         
     }
     else {
-        label1 =[[UIButton alloc] initWithFrame:CGRectMake(30, 5, 60, 20)];
+        label1 =[[UIButton alloc] initWithFrame:CGRectMake(88, 17, 60, 20)];
+        label1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [label1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         label1.backgroundColor = [UIColor clearColor];
-//        label1.font = [UIFont fontWithName:@"Helvetica Neue" size:17.0f];
+        [label1 addTarget:self action:@selector(radioLabel:) forControlEvents:UIControlEventTouchDown];
         
-        label2 =[[UIButton alloc] initWithFrame:CGRectMake(110, 5, 60, 20)];
+        label2 =[[UIButton alloc] initWithFrame:CGRectMake(203, 17, 60, 20)];
+        label2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [label2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         label2.backgroundColor = [UIColor clearColor];
-//        label2.font = [UIFont fontWithName:@"Helvetica Neue" size:17.0f];
+        [label2 addTarget:self action:@selector(radioLabel:) forControlEvents:UIControlEventTouchDown];
         
         rb1 = [[RadioButton alloc] initWithGroupId:@"first group" index:0];
         rb2 = [[RadioButton alloc] initWithGroupId:@"first group" index:1];
         
-        rb1.frame = CGRectMake(0,0,33,33);
-        rb2.frame = CGRectMake(80,0,33,33);
+        rb1.frame = CGRectMake(55,10,33,33);
+        rb2.frame = CGRectMake(170,10,33,33);
         
     }
     [self.view addSubview:container];
@@ -145,7 +151,7 @@ RadioButton *rb1, *rb2;
     self.searchStockList = [[NSMutableArray alloc]init];
     shortName.text = @" ";
     lotSize.text = @"";
-    change.text = @"";
+    change.text = @"-";
     lastPrice.text = @"";
     bidPrice.text = @"";
     askPrice.text = @"";
@@ -232,7 +238,7 @@ RadioButton *rb1, *rb2;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         NSString *searchText = [self.searchStockList objectAtIndex:indexPath.row];
         [self.searchDisplayController setActive:NO animated:YES];
-        //NSLog(@"Selected Row Index Path : %@",searchText);
+//        NSLog(@"Selected Row Index Path : %@",indexPath);
         parseURL = @"";
         self.stockCode = searchText;
         NSString *soapRequest = [NSString stringWithFormat:
@@ -244,7 +250,7 @@ RadioButton *rb1, *rb2;
                                  "</GetRicInfoFromDatabase>"
                                  "</soap:Body>"
                                  "</soap:Envelope>", searchText];
-        //NSLog(@"SoapRequest is %@" , soapRequest);
+        //        NSLog(@"SoapRequest is %@" , soapRequest);
         
         NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetRicInfoFromDatabase"];
         NSURL *url =[NSURL URLWithString:urls];
@@ -264,20 +270,55 @@ RadioButton *rb1, *rb2;
         if (conn) {
             buffer = [NSMutableData data];
         }
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            self.view = originalView;
+        }
     }
 }
 
+
 #pragma mark - SearchBar
 
+-(IBAction)dismissFirstResponder:(id)sender{
+    [self.view endEditing:YES];
+    [self.navigationController.navigationBar endEditing:YES];
+    originalView.alpha = 1.0f;
+}
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    originalView.alpha = 0.5f;
+}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    originalView.alpha = 1.0f;
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller  didShowSearchResultsTableView:(UITableView *)tableView
+{
+    if (OSVersionIsAtLeastiOS7() && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) { // These are custom methods I have in my .pch file
+        if (([originalView isEqual:self.view])) {
+            self.view = controller.searchResultsTableView;
+            controller.searchResultsTableView.contentInset = UIEdgeInsetsMake(70, 0, 0, 0);
+            [self.searchDisplayController.searchBar becomeFirstResponder];
+
+        }
+    }
+}
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
+    if ([searchString isEqualToString:@""]) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            self.view = originalView;
+        }
+    }
+    else{
     [self filterContentForSearch:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    }
     return YES;
 }
 
 -(void)filterContentForSearch:(NSString *)searchText scope:(NSString *)scope{
-    //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
-    //self.searchStockList = [self.stocklList filteredArrayUsingPredicate:predicate];
     parseURL = @"";
     NSString *soapRequest = [NSString stringWithFormat:
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -292,7 +333,7 @@ RadioButton *rb1, *rb2;
                              "</SearchCounterByName>"
                              "</soap:Body>"
                              "</soap:Envelope>", searchText,marketEx];
-    //NSLog(@"SoapRequest is %@" , soapRequest);
+    //    NSLog(@"SoapRequest is %@" , soapRequest);
     NSURL *url =[NSURL URLWithString:@"http://ifis.com.sg/CodeDbWS/Service.asmx?op=SearchCounterByName"];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -332,7 +373,7 @@ RadioButton *rb1, *rb2;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //    NSLog(@"\n\nSoap Response is %@",theXML);
+    //        NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -340,7 +381,7 @@ RadioButton *rb1, *rb2;
     [spinner stopAnimating];
 }
 
-#pragma mark -XML Parser
+#pragma mark - XML Parser
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
@@ -378,7 +419,7 @@ RadioButton *rb1, *rb2;
             
             shortName.text = [attributeDict objectForKey:@"SHORT_NAME"];
             lotSize.text = [attributeDict objectForKey:@"LOT_SIZE"];
-            change.text = [attributeDict objectForKey:@""];
+            //            change.text = [attributeDict objectForKey:@""];
             CGFloat lPrice = [[attributeDict objectForKey:@"LAST_DONE_PRICE"] floatValue];
             lastPrice.text = [priceFormatter stringFromNumber:[NSNumber numberWithFloat:lPrice]];
             CGFloat bPrice = [[attributeDict objectForKey:@"BID_PRICE"] floatValue];
@@ -437,7 +478,7 @@ RadioButton *rb1, *rb2;
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     [self.view endEditing:YES];
     if ([[segue identifier] isEqualToString:@"clientAccount"]) {
-        
+        [self dismissFirstResponder:self];
         ClientAccountViewController *vc = (ClientAccountViewController *)segue.destinationViewController;
         vc.clientAccountOrder = self;
     }
@@ -458,5 +499,7 @@ RadioButton *rb1, *rb2;
         vc.exchangeRate = self.exchangeRate;
     }
 }
+
+
 
 @end

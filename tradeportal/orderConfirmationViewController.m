@@ -12,6 +12,7 @@
 #import "OrderBookViewController.h"
 
 @interface orderConfirmationViewController ()
+
 @property (strong, nonatomic) NSURLConnection *conn;
 @property (strong, nonatomic) NSMutableData *buffer;
 @property (strong, nonatomic) NSXMLParser *parser;
@@ -22,7 +23,7 @@
 
 @implementation orderConfirmationViewController
 
-@synthesize conn,parser,buffer,parseURL,orderEntry,orderPrice,clientAccount,shortName,stockCode,qty,totalAmount,currency,type,routeDest,orderPriceValue,clientAccountValue,shortNameValue,stockCodeValue,qtyValue,totalAmountValue,currencyValue,typeValue,routeDestValue,side,exchange,orderType,exchangeRate,timeInForce,currencyCode,spinner,amt;
+@synthesize conn,parser,buffer,parseURL,orderEntry,orderPrice,clientAccount,shortName,stockCode,qty,totalAmount,currency,type,routeDest,orderPriceValue,clientAccountValue,shortNameValue,stockCodeValue,qtyValue,totalAmountValue,currencyValue,typeValue,routeDestValue,side,exchange,orderType,exchangeRate,timeInForce,currencyCode,spinner,amt,cells;
 
 DataModel *dm;
 NSString *userID;
@@ -88,6 +89,17 @@ NSString *userID;
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self.view endEditing:YES];
     return YES;
+}
+
+#pragma mark - Table View Delegates
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 9;
 }
 
 #pragma mark - Invoke Confirm Order Service

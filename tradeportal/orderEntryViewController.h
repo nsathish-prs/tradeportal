@@ -37,6 +37,7 @@
 @property(nonatomic,strong)NSString *marketEx;
 @property (weak, nonatomic) IBOutlet UIView *container;
 @property(assign,nonatomic)BOOL flag;
+@property (strong, nonatomic) IBOutlet UIView *originalView;
 
 
 @end
