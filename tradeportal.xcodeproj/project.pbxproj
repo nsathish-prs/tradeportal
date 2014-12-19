@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EC03041F19F4B28A00868028 /* orderConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC03041E19F4B28A00868028 /* orderConfirmationViewController.m */; };
+		EC1185841A43C15100278C02 /* Icon-120-4.png in Resources */ = {isa = PBXBuildFile; fileRef = EC1185831A43C15100278C02 /* Icon-120-4.png */; };
 		EC27EF7D19F90B0100464E27 /* OrderBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */; };
 		EC27EF8019FDE78600464E27 /* OrderBookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF7F19FDE78500464E27 /* OrderBookDetailsViewController.m */; };
 		EC27EF8319FE438000464E27 /* OrderBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF8219FE438000464E27 /* OrderBookTableViewCell.m */; };
@@ -86,6 +87,7 @@
 /* Begin PBXFileReference section */
 		EC03041D19F4B28A00868028 /* orderConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderConfirmationViewController.h; sourceTree = "<group>"; };
 		EC03041E19F4B28A00868028 /* orderConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = orderConfirmationViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		EC1185831A43C15100278C02 /* Icon-120-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-4.png"; sourceTree = "<group>"; };
 		EC27EF7B19F90B0100464E27 /* OrderBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OrderBookViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OrderBookViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EC27EF7E19FDE78500464E27 /* OrderBookDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookDetailsViewController.h; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 		ECF9F66F19E54C4D005B56A3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EC1185831A43C15100278C02 /* Icon-120-4.png */,
 				ECCA88311A3936CB0071859D /* hand_share.png */,
 				ECCA882D1A3934B30071859D /* settings.png */,
 				EC490A061A37FAE9007B0C62 /* Images.xcassets */,
@@ -489,6 +492,7 @@
 				EC27EF9B1A01E21800464E27 /* icon-company-documents-large.png in Resources */,
 				EC27EF9A1A01E21200464E27 /* order_book.png in Resources */,
 				EC4909FF1A37F9D5007B0C62 /* Icon.png in Resources */,
+				EC1185841A43C15100278C02 /* Icon-120-4.png in Resources */,
 				EC4909FD1A37F9D5007B0C62 /* Icon-Small.png in Resources */,
 				EC4909FE1A37F9D5007B0C62 /* Icon-Small@2x.png in Resources */,
 				EC4909FC1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,

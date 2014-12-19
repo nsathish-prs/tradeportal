@@ -62,7 +62,7 @@
                                     <constraint firstAttribute="width" secondItem="gT2-jr-5Be" secondAttribute="height" multiplier="165:82" id="X5A-Lv-F2c"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="edw" borderStyle="roundedRect" placeholder="Username" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1f3-L4-ar2">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jo1" borderStyle="roundedRect" placeholder="Username" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1f3-L4-ar2">
                                 <rect key="frame" x="46" y="368" width="508" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="1f3-L4-ar2" secondAttribute="height" multiplier="47:6" id="Xm4-A7-boF"/>
@@ -171,7 +171,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLk-DY-qkM">
                                         <rect key="frame" x="272" y="0.0" width="30" height="30"/>
-                                        <state key="normal" title="X">
+                                        <state key="normal" title=" X ">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -2057,7 +2057,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ugj-eY-upk">
                                         <rect key="frame" x="272" y="0.0" width="30" height="30"/>
-                                        <state key="normal" title="X">
+                                        <state key="normal" title=" X ">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -3389,7 +3389,7 @@
         <image name="trade.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="qbV-ih-y85"/>
         <segue reference="etN-fU-Owv"/>
-        <segue reference="1Mc-8a-tad"/>
     </inferredMetricsTieBreakers>
 </document>

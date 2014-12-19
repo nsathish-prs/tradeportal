@@ -36,6 +36,22 @@
       "scale" : "2x"
     },
     {
+      "orientation" : "landscape",
+      "idiom" : "ipad",
+      "extent" : "full-screen",
+      "minimum-system-version" : "7.0",
+      "filename" : "IFIS_Logo_2014_new_launch@2x-7.png",
+      "scale" : "1x"
+    },
+    {
+      "orientation" : "landscape",
+      "idiom" : "ipad",
+      "extent" : "full-screen",
+      "minimum-system-version" : "7.0",
+      "filename" : "IFIS_Logo_2014_new_launch@2x-8.png",
+      "scale" : "2x"
+    },
+    {
       "orientation" : "portrait",
       "idiom" : "iphone",
       "extent" : "full-screen",
@@ -55,6 +71,34 @@
       "extent" : "full-screen",
       "filename" : "IFIS_Logo_2014_new_launch@2x-1.png",
       "subtype" : "retina4",
+      "scale" : "2x"
+    },
+    {
+      "orientation" : "landscape",
+      "idiom" : "ipad",
+      "extent" : "to-status-bar",
+      "filename" : "IFIS_Logo_2014_new_launch@2x-9.png",
+      "scale" : "1x"
+    },
+    {
+      "orientation" : "landscape",
+      "idiom" : "ipad",
+      "extent" : "full-screen",
+      "filename" : "IFIS_Logo_2014_new_launch@2x-11.png",
+      "scale" : "1x"
+    },
+    {
+      "orientation" : "landscape",
+      "idiom" : "ipad",
+      "extent" : "to-status-bar",
+      "filename" : "IFIS_Logo_2014_new_launch@2x-10.png",
+      "scale" : "2x"
+    },
+    {
+      "orientation" : "landscape",
+      "idiom" : "ipad",
+      "extent" : "full-screen",
+      "filename" : "IFIS_Logo_2014_new_launch@2x-12.png",
       "scale" : "2x"
     }
   ],

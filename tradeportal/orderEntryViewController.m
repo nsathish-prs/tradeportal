@@ -172,13 +172,29 @@ CGRect newFrame;
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    NSArray  *arrayOfString = [newString componentsSeparatedByString:@"."];
     
-    if ([arrayOfString count] > 2 )
-        return NO;
+    NSCharacterSet* numberCharSet;
+    if (textField == price) {
+        numberCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
+            NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+            NSArray  *arrayOfString = [newString componentsSeparatedByString:@"."];
+            if ([arrayOfString count] > 2 )
+                return NO;
+    }
+    else{
+        numberCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    }
+    for (int i = 0; i < [string length]; ++i)
+    {
+        unichar c = [string characterAtIndex:i];
+        if (![numberCharSet characterIsMember:c])
+        {
+            return NO;
+        }
+    }
     
     return YES;
+    
 }
 
 
@@ -238,7 +254,7 @@ CGRect newFrame;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         NSString *searchText = [self.searchStockList objectAtIndex:indexPath.row];
         [self.searchDisplayController setActive:NO animated:YES];
-//        NSLog(@"Selected Row Index Path : %@",indexPath);
+        //        NSLog(@"Selected Row Index Path : %@",indexPath);
         parseURL = @"";
         self.stockCode = searchText;
         NSString *soapRequest = [NSString stringWithFormat:
@@ -300,7 +316,7 @@ CGRect newFrame;
             self.view = controller.searchResultsTableView;
             controller.searchResultsTableView.contentInset = UIEdgeInsetsMake(70, 0, 0, 0);
             [self.searchDisplayController.searchBar becomeFirstResponder];
-
+            
         }
     }
 }
@@ -313,7 +329,7 @@ CGRect newFrame;
         }
     }
     else{
-    [self filterContentForSearch:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+        [self filterContentForSearch:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
     }
     return YES;
 }

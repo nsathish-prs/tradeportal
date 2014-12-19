@@ -67,7 +67,7 @@ BOOL resultFound;
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     self.window.hidden = YES;
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reset) userInfo:nil repeats:NO];
+    timer = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(reset) userInfo:nil repeats:NO];
     [application ignoreSnapshotOnNextApplicationLaunch];
 }
 

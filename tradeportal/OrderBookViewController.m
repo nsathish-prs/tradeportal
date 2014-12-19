@@ -188,6 +188,9 @@ DataModel *dm;
         [[cell quantity] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[orders objectAtIndex:[indexPath row]]orderQty] intValue]]]];
         [[cell qtyFilled] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[orders objectAtIndex:[indexPath row]]qtyFilled] intValue]]]];
         [[cell status] setText:[statusDict valueForKey:[[orders objectAtIndex:[indexPath row]]status]]];
+        [[cell orderDate] setText:[NSDateFormatter localizedStringFromDate:[[orders objectAtIndex:[indexPath row]]orderDate] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle]];
+        [[cell avgPrice] setText:[[orders objectAtIndex:[indexPath row]]avgPrice]];
+
     }
     return cell;
 }
@@ -206,7 +209,6 @@ DataModel *dm;
 #pragma mark - Invoke Order List Service
 
 -(void)loadOrders{
-    
     self.parseURL = @"getOrders";
     NSString *soapRequest = [NSString stringWithFormat:
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -235,7 +237,6 @@ DataModel *dm;
     if (conn) {
         buffer = [NSMutableData data];
     }
-    
 }
 
 #pragma mark - Connection Delegates
@@ -285,7 +286,6 @@ DataModel *dm;
     
     //parse the data
     if ([parseURL isEqualToString:@"getOrders"]) {
-        
         if([elementName isEqualToString:@"GetOrderByUserIDResult"]){
             resultFound=NO;
         }
