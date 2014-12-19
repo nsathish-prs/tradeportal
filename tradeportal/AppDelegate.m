@@ -13,7 +13,9 @@
 #import "Reachability.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
 
-@implementation AppDelegate
+@implementation AppDelegate{
+    UIViewController *rootView;
+}
 
 @synthesize window = _window,timer,conn,parser,parseURL,buffer,url,hostReachability,internetReachability,wifiReachability,privacyScreen;
 DataModel *dm;
@@ -58,13 +60,14 @@ BOOL resultFound;
     dm.serviceURL = [NSString stringWithFormat:@"%@://%@%@/%@",[url objectForKey:@"protocol"],[url objectForKey:@"ip"],[url objectForKey:@"domain"],[url objectForKey:@"service"]];
     //    NSLog(@"%@",dm.serviceURL);
     
+    rootView = self.window.rootViewController;
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     self.window.hidden = YES;
-    timer = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(reset) userInfo:nil repeats:NO];
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reset) userInfo:nil repeats:NO];
     [application ignoreSnapshotOnNextApplicationLaunch];
 }
 
@@ -78,7 +81,13 @@ BOOL resultFound;
     dm.sessionID=@"";
     //dm.userID=@"";
     dm.password=@"";
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
     self.window.rootViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil]instantiateInitialViewController];
+    }
+    else{
+        self.window.rootViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:nil]instantiateInitialViewController];
+    }
     
 }
 

@@ -116,8 +116,12 @@ DataModel *dm;
     [self segmentedControl].hidden = FALSE;
     [self searchBtn].hidden = FALSE;
     [self searchBar].hidden = TRUE;
+    if ([[self searchBar].text isEqualToString:@""]) {
+        [[self segmentedControl]setSelectedSegmentIndex:0];
+    } else {
+        [[self segmentedControl]setSelectedSegmentIndex:-1];
+    }
     [self searchBar].text = @"";
-    [[self segmentedControl]setSelectedSegmentIndex:-1];
     [self.navigationController.navigationBar endEditing:YES];
 }
 
@@ -214,7 +218,7 @@ DataModel *dm;
                              "</GetOrderByUserID>"
                              "</soap:Body>"
                              "</soap:Envelope>", dm.sessionID,dm.userID];
-//    NSLog(@"SoapRequest is %@" , soapRequest);
+    //    NSLog(@"SoapRequest is %@" , soapRequest);
     NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetOrderByUserID"];
     NSURL *url =[NSURL URLWithString:urls];
     //    NSLog(@"%@",url);
@@ -264,7 +268,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-//    NSLog(@"\n\nSoap Response is %@",theXML);
+    //    NSLog(@"\n\nSoap Response is %@",theXML);
     [orderList removeAllObjects];
     [orders removeAllObjects];
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];

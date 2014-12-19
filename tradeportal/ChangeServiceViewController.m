@@ -28,6 +28,7 @@ DataModel *dm;
         settings.view.alpha=0.5f;
     }
     [self loadData];
+    NSLog(@"%@",self.presentingViewController);
 }
 -(void)loadData{
     
@@ -45,6 +46,10 @@ DataModel *dm;
         ip.placeholder = [url objectForKey:@"ip"];
         domain.placeholder = [url objectForKey:@"domain"];
         service.placeholder = [url objectForKey:@"service"];
+        protocol.text = @"";
+        ip.text = @"";
+        domain.text = @"";
+        service.text = @"";
     }
 }
 
@@ -63,11 +68,11 @@ DataModel *dm;
     [self loadData];
     dm.serviceURL = [NSString stringWithFormat:@"%@://%@%@/%@",[url objectForKey:@"protocol"],[url objectForKey:@"ip"],[url objectForKey:@"domain"],[url objectForKey:@"service"]];
     //    NSLog(@"%@",dm.serviceURL);
-    [NSTimer scheduledTimerWithTimeInterval:1.0
-                                     target:self
-                                   selector:@selector(dismissView:)
-                                   userInfo:nil
-                                    repeats:NO];
+//    [NSTimer scheduledTimerWithTimeInterval:1.0
+//                                     target:self
+//                                   selector:@selector(dismissView:)
+//                                   userInfo:nil
+//                                    repeats:NO];
 }
 
 
@@ -114,6 +119,7 @@ DataModel *dm;
     {
     [self dismissView:sender];
     }
+    [self loadData];
 }
 
 #pragma mark - Dismiss View

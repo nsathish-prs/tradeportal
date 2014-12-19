@@ -25,8 +25,10 @@
 @synthesize orderPrice,orderQty,matchQty,nQty,nPrice,spinner,buffer,parser,parseURL,conn,order,orderBook,amendView,orderBookDetails;
 DataModel *dm;
 NSInteger qty ;
+NSInteger y ;
 CGFloat price;
 NSUserDefaults *getOrder;
+
 
 #pragma mark - View Delegates
 
@@ -61,8 +63,6 @@ NSUserDefaults *getOrder;
 -(void)handleSingleTapGesture:(UITapGestureRecognizer *)tapGestureRecognizer{
     [self.view endEditing:YES];
 }
-
-
 
 #pragma mark - Dismiss View
 

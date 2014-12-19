@@ -65,11 +65,18 @@ NSString *userID;
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.35f];
     CGRect frame = self.view.frame;
-    frame.origin.y = -100;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        frame.origin.y = -100;
+    }
+    else{
+        frame.origin.y = -250;
+    }
     [self.view setFrame:frame];
     [UIView commitAnimations];
     return YES;
 }
+
 
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     [self hideKeyboard:textField];
@@ -90,6 +97,9 @@ NSString *userID;
     [self.view endEditing:YES];
     return YES;
 }
+
+
+
 
 #pragma mark - Table View Delegates
 
@@ -253,7 +263,7 @@ NSString *userID;
         }
     }
     if (![msg isEqualToString:@""]) {
-                UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [toast show];
         int duration = 1.5;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

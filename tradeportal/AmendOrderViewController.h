@@ -11,7 +11,7 @@
 #import "OrderBookModel.h"
 
 
-@interface AmendOrderViewController : UIViewController<NSXMLParserDelegate>
+@interface AmendOrderViewController : UIViewController<NSXMLParserDelegate,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *orderQty;
 @property (weak, nonatomic) IBOutlet UILabel *orderPrice;
