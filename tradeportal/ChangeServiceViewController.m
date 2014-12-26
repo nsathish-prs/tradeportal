@@ -28,7 +28,7 @@ DataModel *dm;
         settings.view.alpha=0.5f;
     }
     [self loadData];
-    NSLog(@"%@",self.presentingViewController);
+    
 }
 -(void)loadData{
     
@@ -131,6 +131,6 @@ DataModel *dm;
 
 - (IBAction)dismissView:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
-    settings.view.alpha = 1.0f;
+    [[self navigationController]popToRootViewControllerAnimated:YES];
 }
 @end

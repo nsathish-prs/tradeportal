@@ -198,6 +198,16 @@ CGRect newFrame;
 }
 
 
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    if ([textField isEqual:quantity]) {
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setGroupingSeparator:@","];
+        [numberFormatter setGroupingSize:3];
+        [numberFormatter setUsesGroupingSeparator:YES];
+        quantity.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[(quantity.text) intValue]]];
+    }
+    return YES;
+}
 
 #pragma mark - Account List
 

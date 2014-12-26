@@ -189,7 +189,7 @@ DataModel *dm;
         [[cell qtyFilled] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[orders objectAtIndex:[indexPath row]]qtyFilled] intValue]]]];
         [[cell status] setText:[statusDict valueForKey:[[orders objectAtIndex:[indexPath row]]status]]];
         [[cell orderDate] setText:[NSDateFormatter localizedStringFromDate:[[orders objectAtIndex:[indexPath row]]orderDate] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle]];
-        [[cell avgPrice] setText:[[orders objectAtIndex:[indexPath row]]avgPrice]];
+        [[cell avgPrice] setText:[priceFormatter stringFromNumber:[NSNumber numberWithDouble:[[[orders objectAtIndex:[indexPath row]]avgPrice] doubleValue]]]];;
 
     }
     return cell;

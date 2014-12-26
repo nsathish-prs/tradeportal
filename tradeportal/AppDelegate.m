@@ -12,6 +12,7 @@
 #import "DataModel.h"
 #import "Reachability.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
+#import <Parse/Parse.h>
 
 @implementation AppDelegate{
     UIViewController *rootView;
@@ -20,10 +21,22 @@
 @synthesize window = _window,timer,conn,parser,parseURL,buffer,url,hostReachability,internetReachability,wifiReachability,privacyScreen;
 DataModel *dm;
 BOOL resultFound;
+PFInstallation *currentInstallation;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     dm = [[DataModel alloc]init];
+    
+    //Push
+    
+    [Parse setApplicationId:@"HU0qn8GzJtEcd8yG3jAIJladASf26G4XyG7HdGQ9"
+                  clientKey:@"VnTO5C3p5p1NPMIZlmN1N72qCw6rl3jR9SzmHMbL"];
+    
+    UIUserNotificationType types = UIUserNotificationTypeBadge |
+    UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    
+    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
     
     // Network
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
@@ -58,10 +71,47 @@ BOOL resultFound;
     }
     //load from savedStock example int value
     dm.serviceURL = [NSString stringWithFormat:@"%@://%@%@/%@",[url objectForKey:@"protocol"],[url objectForKey:@"ip"],[url objectForKey:@"domain"],[url objectForKey:@"service"]];
-    //    NSLog(@"%@",dm.serviceURL);
+//        NSLog(@"%@",dm.serviceURL);
     
     rootView = self.window.rootViewController;
+    
+//    UILocalNotification *locationNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    
     return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    UIApplicationState state = [application applicationState];
+    if (state == UIApplicationStateActive) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reminder" message:notification.alertBody delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        [alert show];
+    }
+    
+    // Set icon badge number to zero
+    application.applicationIconBadgeNumber = 0;
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
+    currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    currentInstallation.channels = @[@""];
+    [currentInstallation saveInBackground];
+//    NSLog(@"%@",currentInstallation);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+    NSLog(@"Failed to get token, error: %@", error);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -83,7 +133,7 @@ BOOL resultFound;
     dm.password=@"";
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-    self.window.rootViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil]instantiateInitialViewController];
+        self.window.rootViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil]instantiateInitialViewController];
     }
     else{
         self.window.rootViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:nil]instantiateInitialViewController];
@@ -99,11 +149,13 @@ BOOL resultFound;
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    }
+    
+        application.applicationIconBadgeNumber = 0;
+    currentInstallation.badge = 0;
+}
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    //    NSLog(@"applicationDidBecomeActive\n%lu",(unsigned long)[dm.userID length]);
     self.window.hidden = NO;
     [timer invalidate];
 }

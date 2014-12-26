@@ -44,6 +44,9 @@ DataModel *dm;
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+}
 #pragma mark - TextField Delegate
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
