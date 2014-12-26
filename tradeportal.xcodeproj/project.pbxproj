@@ -62,6 +62,9 @@
 		ECA6BBDD1A35B2DF00814734 /* ChangeServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */; };
 		ECBA60461A3E9FBF00B670BA /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBA60451A3E9FBF00B670BA /* DetailViewController.m */; };
 		ECBC4BDD1A2DACFA00CD6E60 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */; };
+		ECCA18AC1A4D559F00FC7A8F /* Icon-120-i3.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA18A91A4D559F00FC7A8F /* Icon-120-i3.png */; };
+		ECCA18AD1A4D559F00FC7A8F /* Icon-120-i2.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA18AA1A4D559F00FC7A8F /* Icon-120-i2.png */; };
+		ECCA18AE1A4D559F00FC7A8F /* Icon-120-i1.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA18AB1A4D559F00FC7A8F /* Icon-120-i1.png */; };
 		ECCA882E1A3934B30071859D /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA882D1A3934B30071859D /* settings.png */; };
 		ECCA88321A3936CB0071859D /* hand_share.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88311A3936CB0071859D /* hand_share.png */; };
 		ECCA88361A39476F0071859D /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88351A39476E0071859D /* Launch Screen.xib */; };
@@ -161,6 +164,9 @@
 		ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeServiceViewController.m; sourceTree = "<group>"; };
 		ECBA60441A3E9FBF00B670BA /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		ECBA60451A3E9FBF00B670BA /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		ECCA18A91A4D559F00FC7A8F /* Icon-120-i3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-i3.png"; sourceTree = "<group>"; };
+		ECCA18AA1A4D559F00FC7A8F /* Icon-120-i2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-i2.png"; sourceTree = "<group>"; };
+		ECCA18AB1A4D559F00FC7A8F /* Icon-120-i1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-i1.png"; sourceTree = "<group>"; };
 		ECCA882D1A3934B30071859D /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		ECCA88311A3936CB0071859D /* hand_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand_share.png; sourceTree = "<group>"; };
 		ECCA88351A39476E0071859D /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
@@ -368,6 +374,9 @@
 		ECF9F66F19E54C4D005B56A3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				ECCA18A91A4D559F00FC7A8F /* Icon-120-i3.png */,
+				ECCA18AA1A4D559F00FC7A8F /* Icon-120-i2.png */,
+				ECCA18AB1A4D559F00FC7A8F /* Icon-120-i1.png */,
 				EC1185831A43C15100278C02 /* Icon-120-4.png */,
 				ECCA88311A3936CB0071859D /* hand_share.png */,
 				ECCA882D1A3934B30071859D /* settings.png */,
@@ -476,11 +485,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECCA883A1A3AC2430071859D /* MainStoryboard_iPad.storyboard in Resources */,
+				ECCA18AD1A4D559F00FC7A8F /* Icon-120-i2.png in Resources */,
 				ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */,
 				EC2DA0921A038936008A40BE /* IFIS_Logo_2014_new_launch.png in Resources */,
 				EC490A021A37F9D5007B0C62 /* IFIS_Logo_2014_new_launch@2x.png in Resources */,
 				EC490A031A37F9D5007B0C62 /* order-history.png in Resources */,
 				EC73C06619E635E000C45DB8 /* ThomsonReutersLogo.jpg in Resources */,
+				ECCA18AC1A4D559F00FC7A8F /* Icon-120-i3.png in Resources */,
 				ECCA882E1A3934B30071859D /* settings.png in Resources */,
 				EC27EFAC1A03434100464E27 /* IFIS_Logo_2014_new copy.png in Resources */,
 				EC27EFA01A02083E00464E27 /* btn_cancel.gif in Resources */,
@@ -491,6 +502,7 @@
 				EC4909FB1A37F9D5007B0C62 /* Icon-120.png in Resources */,
 				EC27EF9B1A01E21800464E27 /* icon-company-documents-large.png in Resources */,
 				EC27EF9A1A01E21200464E27 /* order_book.png in Resources */,
+				ECCA18AE1A4D559F00FC7A8F /* Icon-120-i1.png in Resources */,
 				EC4909FF1A37F9D5007B0C62 /* Icon.png in Resources */,
 				EC1185841A43C15100278C02 /* Icon-120-4.png in Resources */,
 				EC4909FD1A37F9D5007B0C62 /* Icon-Small.png in Resources */,

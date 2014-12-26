@@ -197,6 +197,28 @@ CGRect newFrame;
     
 }
 
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setGroupingSeparator:@","];
+    [numberFormatter setGroupingSize:3];
+    [numberFormatter setUsesGroupingSeparator:YES];
+    
+    NSNumberFormatter *priceFormatter = [[NSNumberFormatter alloc] init];
+    [priceFormatter setGroupingSeparator:@","];
+    [priceFormatter setGroupingSize:3];
+    [priceFormatter setDecimalSeparator:@"."];
+    [priceFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [priceFormatter setMaximumFractionDigits:3];
+    [priceFormatter setMinimumFractionDigits:3];
+    
+    if (textField == quantity) {
+        quantity.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[quantity.text intValue]]];
+    }
+    if (textField == price) {
+    price.text = [priceFormatter stringFromNumber:[NSNumber numberWithDouble:[price.text doubleValue]]];
+    }
+}
+
 
 
 #pragma mark - Account List
