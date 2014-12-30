@@ -1086,7 +1086,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.67450980390000004" green="0.71764705880000002" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.66274509803921566" green="0.72156862745098038" blue="0.19215686274509805" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="tintColor" red="0.67450980390000004" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="NpW-45-FqG" firstAttribute="top" secondItem="MxS-If-9zK" secondAttribute="topMargin" constant="-5" id="0DJ-lQ-Ozz"/>
@@ -1185,10 +1185,10 @@
                                 </accessibility>
                                 <gestureRecognizers/>
                                 <connections>
+                                    <outlet property="account" destination="Npy-xa-vX1" id="EdJ-db-2B6"/>
                                     <outlet property="price" destination="7wD-NJ-WD2" id="DbE-R4-Fin"/>
                                     <outlet property="qtyFilled" destination="ld9-iv-eF2" id="CKT-9T-Wt5"/>
                                     <outlet property="quantity" destination="dNc-xV-xoH" id="JhZ-a2-6nB"/>
-                                    <outlet property="side" destination="Npy-xa-vX1" id="qVx-gN-qEA"/>
                                     <outlet property="status" destination="cwL-FL-4Gt" id="9le-Mg-VSH"/>
                                     <outlet property="stockCode" destination="bZG-qT-tuF" id="aYb-81-yRx"/>
                                     <segue destination="P3t-9b-7dj" kind="show" identifier="orderDetail" id="kAx-nl-tBR"/>

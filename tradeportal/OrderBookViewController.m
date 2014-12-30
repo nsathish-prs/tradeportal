@@ -170,7 +170,7 @@ DataModel *dm;
         NSMutableString *stock = [[[orders objectAtIndex:[indexPath row]]stockCode]mutableCopy];
         UIColor *textColor = [[UIColor alloc]init];
         //        [[cell stockCode] setText:[[orders objectAtIndex:[indexPath row]]stockCode]];
-        [[cell side] setText:[[orders objectAtIndex:[indexPath row]]clientAccount]];
+        [[cell account] setText:[[orders objectAtIndex:[indexPath row]]clientAccount]];
         if([[[orders objectAtIndex:[indexPath row]]side] isEqualToString:@"Buy"]){
             [stock appendString:@" (B)"];
             textColor = iGREEN;
@@ -189,13 +189,14 @@ DataModel *dm;
         [[cell qtyFilled] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[orders objectAtIndex:[indexPath row]]qtyFilled] intValue]]]];
         [[cell status] setText:[statusDict valueForKey:[[orders objectAtIndex:[indexPath row]]status]]];
         [[cell orderDate] setText:[NSDateFormatter localizedStringFromDate:[[orders objectAtIndex:[indexPath row]]orderDate] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle]];
-        [[cell avgPrice] setText:[[orders objectAtIndex:[indexPath row]]avgPrice]];
+        [[cell refNo] setText:[[orders objectAtIndex:[indexPath row]]refNo]];
     }
+    [cell setBackgroundColor:[UIColor clearColor]];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (!(exeOrderList.count == 0)) {
+    if (!((exeOrderList.count == 0) || (orders.count == 0))) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"refNo contains[cd] %@", [[orders objectAtIndex:[indexPath row]]refNo]];
         NSArray *dummy =[exeOrderList filteredArrayUsingPredicate:predicate];
         if (dummy.count == 0) {
@@ -293,7 +294,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //    NSLog(@"\n\nSoap Response is %@",theXML);
+        NSLog(@"\n\nSoap Response is %@",theXML);
     [orderList removeAllObjects];
     [orders removeAllObjects];
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
