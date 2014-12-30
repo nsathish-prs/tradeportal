@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "orderEntryViewController.h"
 
-@interface orderConfirmationViewController : UIViewController<UITextFieldDelegate,NSXMLParserDelegate,UITabBarControllerDelegate,UITabBarDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface orderConfirmationViewController : UIViewController<UITextFieldDelegate,NSXMLParserDelegate,UITabBarControllerDelegate,UITabBarDelegate>
 
 @property(nonatomic,strong)IBOutlet UILabel *clientAccount;
 @property(nonatomic,strong)IBOutlet UILabel *stockCode;

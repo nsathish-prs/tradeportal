@@ -43,6 +43,7 @@ CGRect newFrame;
 
 - (void)viewDidLoad {
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
+    dm.tabBarController = [self tabBarController];
     [super viewDidLoad];
     [self reloadData];
     originalView = self.view;
@@ -212,14 +213,18 @@ CGRect newFrame;
     [priceFormatter setMinimumFractionDigits:3];
     
     if (textField == quantity) {
-        quantity.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[quantity.text intValue]]];
+        quantity.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[[quantity.text stringByReplacingOccurrencesOfString:@"," withString:@""]intValue]]];
     }
     if (textField == price) {
     price.text = [priceFormatter stringFromNumber:[NSNumber numberWithDouble:[price.text doubleValue]]];
     }
 }
 
-
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (![[textField.text stringByReplacingOccurrencesOfString:@"," withString:@""]doubleValue] > 0) {
+        textField.text =@"";
+    }
+}
 
 #pragma mark - Account List
 
@@ -490,12 +495,14 @@ CGRect newFrame;
         msg = @"Please Select Account No";
     }
     else if(([price.text isEqualToString:@""])
-            || ([price.text isEqualToString:@"0"])){
+            || ([price.text isEqualToString:@"0.000"])){
         msg = @"Please enter price!";
+        price.text = @"";
     }
     else if(([quantity.text isEqualToString:@""])
             || ([quantity.text isEqualToString:@"0"])){
         msg = @"Please enter Quantity";
+        quantity.text = @"";
     }
     else{
         [self performSegueWithIdentifier:@"orderConfirmation" sender:sender];

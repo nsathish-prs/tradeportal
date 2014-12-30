@@ -65,6 +65,19 @@
 		ECCA18AC1A4D559F00FC7A8F /* Icon-120-i3.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA18A91A4D559F00FC7A8F /* Icon-120-i3.png */; };
 		ECCA18AD1A4D559F00FC7A8F /* Icon-120-i2.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA18AA1A4D559F00FC7A8F /* Icon-120-i2.png */; };
 		ECCA18AE1A4D559F00FC7A8F /* Icon-120-i1.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA18AB1A4D559F00FC7A8F /* Icon-120-i1.png */; };
+		ECCA18B01A4D70EB00FC7A8F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18AF1A4D70EB00FC7A8F /* AudioToolbox.framework */; };
+		ECCA18B21A4D70F400FC7A8F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18B11A4D70F400FC7A8F /* CFNetwork.framework */; };
+		ECCA18B41A4D710200FC7A8F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18B31A4D710200FC7A8F /* CoreLocation.framework */; };
+		ECCA18B61A4D710C00FC7A8F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18B51A4D710C00FC7A8F /* MobileCoreServices.framework */; };
+		ECCA18B81A4D711800FC7A8F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18B71A4D711800FC7A8F /* QuartzCore.framework */; };
+		ECCA18BA1A4D712100FC7A8F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18B91A4D712100FC7A8F /* Security.framework */; };
+		ECCA18BC1A4D712D00FC7A8F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18BB1A4D712D00FC7A8F /* StoreKit.framework */; };
+		ECCA18BE1A4D716100FC7A8F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18BD1A4D716000FC7A8F /* libz.dylib */; };
+		ECCA18C41A4D71D400FC7A8F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18BF1A4D71D400FC7A8F /* Bolts.framework */; };
+		ECCA18C51A4D71D400FC7A8F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18C01A4D71D400FC7A8F /* Parse.framework */; };
+		ECCA18C61A4D71D400FC7A8F /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18C11A4D71D400FC7A8F /* ParseCrashReporting.framework */; };
+		ECCA18C71A4D71D400FC7A8F /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18C21A4D71D400FC7A8F /* ParseFacebookUtils.framework */; };
+		ECCA18C81A4D71D400FC7A8F /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCA18C31A4D71D400FC7A8F /* ParseUI.framework */; };
 		ECCA882E1A3934B30071859D /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA882D1A3934B30071859D /* settings.png */; };
 		ECCA88321A3936CB0071859D /* hand_share.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88311A3936CB0071859D /* hand_share.png */; };
 		ECCA88361A39476F0071859D /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCA88351A39476E0071859D /* Launch Screen.xib */; };
@@ -167,6 +180,19 @@
 		ECCA18A91A4D559F00FC7A8F /* Icon-120-i3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-i3.png"; sourceTree = "<group>"; };
 		ECCA18AA1A4D559F00FC7A8F /* Icon-120-i2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-i2.png"; sourceTree = "<group>"; };
 		ECCA18AB1A4D559F00FC7A8F /* Icon-120-i1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-i1.png"; sourceTree = "<group>"; };
+		ECCA18AF1A4D70EB00FC7A8F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		ECCA18B11A4D70F400FC7A8F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		ECCA18B31A4D710200FC7A8F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		ECCA18B51A4D710C00FC7A8F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		ECCA18B71A4D711800FC7A8F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		ECCA18B91A4D712100FC7A8F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		ECCA18BB1A4D712D00FC7A8F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		ECCA18BD1A4D716000FC7A8F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		ECCA18BF1A4D71D400FC7A8F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = tradeportal/Bolts.framework; sourceTree = "<group>"; };
+		ECCA18C01A4D71D400FC7A8F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = tradeportal/Parse.framework; sourceTree = "<group>"; };
+		ECCA18C11A4D71D400FC7A8F /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = tradeportal/ParseCrashReporting.framework; sourceTree = "<group>"; };
+		ECCA18C21A4D71D400FC7A8F /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = tradeportal/ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		ECCA18C31A4D71D400FC7A8F /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseUI.framework; path = tradeportal/ParseUI.framework; sourceTree = "<group>"; };
 		ECCA882D1A3934B30071859D /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		ECCA88311A3936CB0071859D /* hand_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand_share.png; sourceTree = "<group>"; };
 		ECCA88351A39476E0071859D /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
@@ -186,6 +212,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECCA18C41A4D71D400FC7A8F /* Bolts.framework in Frameworks */,
+				ECCA18BE1A4D716100FC7A8F /* libz.dylib in Frameworks */,
+				ECCA18C71A4D71D400FC7A8F /* ParseFacebookUtils.framework in Frameworks */,
+				ECCA18BC1A4D712D00FC7A8F /* StoreKit.framework in Frameworks */,
+				ECCA18C61A4D71D400FC7A8F /* ParseCrashReporting.framework in Frameworks */,
+				ECCA18BA1A4D712100FC7A8F /* Security.framework in Frameworks */,
+				ECCA18B81A4D711800FC7A8F /* QuartzCore.framework in Frameworks */,
+				ECCA18B61A4D710C00FC7A8F /* MobileCoreServices.framework in Frameworks */,
+				ECCA18C51A4D71D400FC7A8F /* Parse.framework in Frameworks */,
+				ECCA18B41A4D710200FC7A8F /* CoreLocation.framework in Frameworks */,
+				ECCA18C81A4D71D400FC7A8F /* ParseUI.framework in Frameworks */,
+				ECCA18B21A4D70F400FC7A8F /* CFNetwork.framework in Frameworks */,
+				ECCA18B01A4D70EB00FC7A8F /* AudioToolbox.framework in Frameworks */,
 				ECA6BBD41A319C8400814734 /* SystemConfiguration.framework in Frameworks */,
 				EC9DA9471A107D6500615ACF /* libsqlite3.dylib in Frameworks */,
 				EC2DA0B01A087151008A40BE /* CoreData.framework in Frameworks */,
@@ -284,6 +323,19 @@
 		EC43B26119E4F7EB0014DDA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECCA18BF1A4D71D400FC7A8F /* Bolts.framework */,
+				ECCA18C01A4D71D400FC7A8F /* Parse.framework */,
+				ECCA18C11A4D71D400FC7A8F /* ParseCrashReporting.framework */,
+				ECCA18C21A4D71D400FC7A8F /* ParseFacebookUtils.framework */,
+				ECCA18C31A4D71D400FC7A8F /* ParseUI.framework */,
+				ECCA18BD1A4D716000FC7A8F /* libz.dylib */,
+				ECCA18BB1A4D712D00FC7A8F /* StoreKit.framework */,
+				ECCA18B91A4D712100FC7A8F /* Security.framework */,
+				ECCA18B71A4D711800FC7A8F /* QuartzCore.framework */,
+				ECCA18B51A4D710C00FC7A8F /* MobileCoreServices.framework */,
+				ECCA18B31A4D710200FC7A8F /* CoreLocation.framework */,
+				ECCA18B11A4D70F400FC7A8F /* CFNetwork.framework */,
+				ECCA18AF1A4D70EB00FC7A8F /* AudioToolbox.framework */,
 				ECA6BBD31A319C8400814734 /* SystemConfiguration.framework */,
 				EC9DA9461A107D6500615ACF /* libsqlite3.dylib */,
 				EC2DA0AF1A087151008A40BE /* CoreData.framework */,
@@ -461,7 +513,7 @@
 					};
 				};
 			};
-			buildConfigurationList = EC43B25819E4F7EA0014DDA5 /* Build configuration list for PBXProject "tradeportal" */;
+			buildConfigurationList = EC43B25819E4F7EA0014DDA5 /* Build configuration list for PBXProject "TradePortal" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -836,6 +888,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/tradeportal",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
 				INFOPLIST_FILE = "tradeportal/tradeportal-Info.plist";
@@ -855,6 +911,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/tradeportal",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tradeportal/tradeportal-Prefix.pch";
 				INFOPLIST_FILE = "tradeportal/tradeportal-Info.plist";
@@ -902,7 +962,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EC43B25819E4F7EA0014DDA5 /* Build configuration list for PBXProject "tradeportal" */ = {
+		EC43B25819E4F7EA0014DDA5 /* Build configuration list for PBXProject "TradePortal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EC43B29219E4F7EC0014DDA5 /* Debug */,

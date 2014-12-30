@@ -26,7 +26,7 @@
 @implementation OrderBookViewController
 
 
-@synthesize orders = _orders,buffer,parseURL,parser,conn,orderList=_orderList,statusDict, searchBar,searchBtn;
+@synthesize orders = _orders,buffer,parseURL,parser,conn,orderList=_orderList,statusDict, searchBar,searchBtn,exeOrderList;
 OrderBookModel *obm;
 DataModel *dm;
 
@@ -51,6 +51,7 @@ DataModel *dm;
     
     orders = [[NSMutableArray alloc]init];
     orderList= [[NSMutableArray alloc]init];
+    exeOrderList= [[NSMutableArray alloc]init];
     self.tableView.estimatedRowHeight = 40.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
@@ -75,9 +76,10 @@ DataModel *dm;
 
 -(void) viewDidAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if ([[[[[[self tabBarController]tabBar]items]objectAtIndex:1]badgeValue] isEqualToString:@"1"]) {
+    if (([[[[[[self tabBarController]tabBar]items]objectAtIndex:1]badgeValue]intValue ]> 0 )) {
         [self reloadTableData];
         [[[[[self tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:NULL];
+        dm.notificationFlag=-1;
     }
     [super viewDidAppear:animated];
 }
@@ -85,8 +87,6 @@ DataModel *dm;
 #pragma mark - Reload Order List
 
 -(void)reloadTableData{
-    [orderList removeAllObjects];
-    [orders removeAllObjects];
     [self loadOrders];
 }
 
@@ -190,9 +190,32 @@ DataModel *dm;
         [[cell status] setText:[statusDict valueForKey:[[orders objectAtIndex:[indexPath row]]status]]];
         [[cell orderDate] setText:[NSDateFormatter localizedStringFromDate:[[orders objectAtIndex:[indexPath row]]orderDate] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle]];
         [[cell avgPrice] setText:[[orders objectAtIndex:[indexPath row]]avgPrice]];
-
     }
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (!(exeOrderList.count == 0)) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"refNo contains[cd] %@", [[orders objectAtIndex:[indexPath row]]refNo]];
+        NSArray *dummy =[exeOrderList filteredArrayUsingPredicate:predicate];
+        if (dummy.count == 0) {
+            [cell setBackgroundColor:iBackColorGreen];
+        }
+        else if (![[[dummy objectAtIndex:0]status] isEqualToString:[[orders objectAtIndex:[indexPath row]]status]]) {
+            if ([[[orders objectAtIndex:[indexPath row]]status] rangeOfString:@"Cancel"].location == NSNotFound) {
+                [cell setBackgroundColor:iBackColorGreen];
+            }
+            else{
+                [cell setBackgroundColor:iBackColorRed];
+            }
+        }
+        else{
+            [cell setBackgroundColor:[UIColor clearColor]];
+        }
+    }
+    if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row){
+        [exeOrderList removeAllObjects];
+    }
 }
 
 
@@ -231,6 +254,7 @@ DataModel *dm;
     [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    [exeOrderList addObjectsFromArray:orderList];
     [orders removeAllObjects];
     [orderList removeAllObjects];
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];

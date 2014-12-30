@@ -263,6 +263,8 @@ NSUserDefaults *getOrder;
             //NSLog(@"E error");
             msg = @"User has logged on elsewhere!";
             [self dismissViewControllerAnimated:YES completion:nil];
+            [orderBookDetails dismissViewControllerAnimated:YES completion:nil];
+            [[orderBookDetails navigationController]popToRootViewControllerAnimated:YES];
             flag=TRUE;
         }
         if (flag) {

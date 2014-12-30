@@ -12,6 +12,7 @@
 #import "DataModel.h"
 #import "Reachability.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
+#import <Parse/Parse.h>
 
 @implementation AppDelegate{
     UIViewController *rootView;
@@ -20,17 +21,27 @@
 @synthesize window = _window,timer,conn,parser,parseURL,buffer,url,hostReachability,internetReachability,wifiReachability,privacyScreen;
 DataModel *dm;
 BOOL resultFound;
+PFInstallation *currentInstallation ;
+UITabBarController *tabbar;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     dm = [[DataModel alloc]init];
     
-    // Network
+    //Notification
+    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                    UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                             categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
+    
+    [Parse setApplicationId:@"WCdgYZ0jg3EezFCYu0XwvnsTcZnZIsABhA0ZTAaJ"
+                  clientKey:@"KuRknPFqUfogoQySWgbuy1ja1v3RhWI78KddWB52"];
+    // Network     //Change the host name here to change the server you want to monitor.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-    
-    //Change the host name here to change the server you want to monitor.
     NSString *remoteHostName = @"www.google.com";
-    
     self.hostReachability = [Reachability reachabilityWithHostName:remoteHostName];
     [self.hostReachability startNotifier];
     [self updateInterfaceWithReachability:self.hostReachability];
@@ -40,16 +51,12 @@ BOOL resultFound;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
     NSString *documentsDirectory = [paths objectAtIndex:0]; //2
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"TradePortal.plist"]; //3
-    
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    
     if (![fileManager fileExistsAtPath: path]) //4
     {
         NSString *bundle = [[NSBundle mainBundle] pathForResource:@"TradePortal" ofType:@"plist"]; //5
-        
         [fileManager copyItemAtPath:bundle toPath: path error:&error]; //6
     }
-    
     url = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
     BOOL oldIP= [url objectForKey:@"ip"]!=nil;
     if (!oldIP) {
@@ -59,10 +66,65 @@ BOOL resultFound;
     //load from savedStock example int value
     dm.serviceURL = [NSString stringWithFormat:@"%@://%@%@/%@",[url objectForKey:@"protocol"],[url objectForKey:@"ip"],[url objectForKey:@"domain"],[url objectForKey:@"service"]];
     //    NSLog(@"%@",dm.serviceURL);
-    
+    NSLog(@"%@",launchOptions);
     rootView = self.window.rootViewController;
     return YES;
 }
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
+    currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    currentInstallation.channels = @[ @"" ];
+    [currentInstallation saveInBackground];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+//    NSLog(@"%@",userInfo);
+    if ([userInfo objectForKey:@"id"]) {
+        dm.notificationFlag =[[userInfo objectForKey:@"id"]intValue];
+    }
+    if ([userInfo objectForKey:@"aps"]) {
+        NSString *msg = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [toast show];
+        int duration = 1.5;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [toast dismissWithClickedButtonIndex:0 animated:YES];
+        });
+    }
+//    NSLog(@"SelectedIndex: %lu",(unsigned long)((UITabBarController*)dm.tabBarController).selectedIndex);
+    tabbar = (UITabBarController*)((UITabBarController*)dm.tabBarController).selectedViewController;
+//    NSLog(@"Tabbar: %@",tabbar.viewControllers[0]);
+    if (((UITabBarController*)dm.tabBarController).selectedIndex != 1) {
+        [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:[NSString stringWithFormat:@"%d", [[[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]badgeValue]intValue]+1]];
+    }
+    else{
+        [tabbar.viewControllers[0] reloadTableData];
+    }
+//    if ([[userInfo objectForKey:@"aps"] objectForKey:@"badge"]) {
+//        NSInteger badgeNumber = [[[userInfo objectForKey:@"aps"] objectForKey:@"badge"] integerValue];
+//        NSLog(@"AppIcon: %d",[application applicationIconBadgeNumber]);
+//        [application setApplicationIconBadgeNumber:badgeNumber];
+//    }
+//    [PFPush handlePush:userInfo];
+}
+
+//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+//            if (buttonIndex == 0) {
+//            //confirm
+//                NSLog(@"SelectedIndex: %lu",(unsigned long)((UITabBarController*)dm.tabBarController).selectedIndex);
+//                UITabBarController *tabbar = (UITabBarController*)((UITabBarController*)dm.tabBarController).selectedViewController;
+//                NSLog(@"Tabbar: %@",tabbar.viewControllers[0]);
+//                if (((UITabBarController*)dm.tabBarController).selectedIndex != 1) {
+//                    [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:@"1"];
+//                }
+//                else{
+//                    [tabbar.viewControllers[0] reloadTableData];
+//                }
+//        }
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -83,7 +145,7 @@ BOOL resultFound;
     dm.password=@"";
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-    self.window.rootViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil]instantiateInitialViewController];
+        self.window.rootViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil]instantiateInitialViewController];
     }
     else{
         self.window.rootViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:nil]instantiateInitialViewController];
@@ -93,19 +155,23 @@ BOOL resultFound;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    
+    [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:@""];
     
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    }
+}
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     //    NSLog(@"applicationDidBecomeActive\n%lu",(unsigned long)[dm.userID length]);
     self.window.hidden = NO;
     [timer invalidate];
+    application.applicationIconBadgeNumber = 0;
+    currentInstallation.badge=0;
+    [currentInstallation saveInBackground];
+
 }
 
 - (void) reachabilityChanged:(NSNotification *)note

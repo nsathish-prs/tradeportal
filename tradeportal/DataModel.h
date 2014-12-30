@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface DataModel : NSObject{
     NSString *userID;
     NSString *sessionID;
@@ -17,13 +18,17 @@
     NSString *serviceURL;
     NSMutableArray *accountList;
     NSMutableDictionary *accountDict;
-
+    int notificationFlag;
+    UIViewController *tabBarController;
 }
 
 # define iGREEN [UIColor colorWithRed:64.0f/255.0f green:177.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
 # define iRED [UIColor colorWithRed:255.0f/255.0f green:110.0f/255.0f blue:118.0f/255.0f alpha:1.0f]
 # define iERROR [UIColor colorWithRed:200.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]
 # define iRELOAD [UIColor colorWithRed:179.0f/255.0f green:179.0f/255.0f blue:179.0f/255.0f alpha:1.0f]
+# define iBackColorGreen [UIColor colorWithRed:64.0f/255.0f green:177.0f/255.0f blue:64.0f/255.0f alpha:0.2f]
+# define iBackColorRed [UIColor colorWithRed:255.0f/255.0f green:110.0f/255.0f blue:118.0f/255.0f alpha:0.2f]
+
 #define OSVersionIsAtLeastiOS7()  ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)
 
 @property(strong,nonatomic)NSString *userID;
@@ -38,5 +43,7 @@
 @property(strong,nonatomic)NSString *serviceURL;
 @property(strong,nonatomic)NSMutableArray *accountList;
 @property(strong,nonatomic)NSMutableDictionary *accountDict;
+@property (assign, nonatomic) int notificationFlag;
+@property(nonatomic,strong)IBOutlet UIViewController *tabBarController;
 -(void)resetService;
 @end

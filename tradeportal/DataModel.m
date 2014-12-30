@@ -7,10 +7,11 @@
 //
 
 #import "DataModel.h"
+#import <Parse/Parse.h>
 
 @implementation DataModel
 
-@synthesize userID,password,sessionID,fromView,toView,ip,domain,protocol,service,serviceURL,accountDict,accountList;
+@synthesize userID,password,sessionID,fromView,toView,ip,domain,protocol,service,serviceURL,accountDict,accountList,notificationFlag,tabBarController;
 
 
 -(void)resetService{

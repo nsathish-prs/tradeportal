@@ -275,6 +275,7 @@ NSString *userID;
 #pragma mark - Invoke New Order Service
 
 -(void)newOrder{
+    qtyValue = [qtyValue stringByReplacingOccurrencesOfString:@"," withString:@""];
     NSString *soapRequest = [NSString stringWithFormat:
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                              "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"

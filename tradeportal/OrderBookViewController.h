@@ -15,11 +15,13 @@
 {
     NSMutableArray *orders;
     NSMutableArray *orderList;
+    NSMutableArray *exeOrderList;
 }
 
 
 @property(nonatomic,assign) NSMutableArray *orders;
 @property(assign, nonatomic)NSMutableArray *orderList;
+@property(strong, nonatomic)NSMutableArray *exeOrderList;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITextField *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
