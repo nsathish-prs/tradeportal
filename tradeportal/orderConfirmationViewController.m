@@ -44,7 +44,7 @@ NSString *userID;
     orderType=@"2";
     timeInForce=@"0";
     currencyCode=@"702";
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldShouldReturn:) name:UIKeyboardWillHideNotification object:nil];
     amt = [orderPriceValue floatValue]*[qtyValue integerValue];
     NSNumberFormatter *fmt = [[NSNumberFormatter alloc]init];
     [fmt setMaximumFractionDigits:2];

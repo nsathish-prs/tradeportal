@@ -44,6 +44,7 @@ CGRect newFrame;
 - (void)viewDidLoad {
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     dm.tabBarController = [self tabBarController];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldShouldReturn:) name:UIKeyboardWillHideNotification object:nil];
     [super viewDidLoad];
     [self reloadData];
     originalView = self.view;
@@ -108,7 +109,7 @@ CGRect newFrame;
     [super viewWillAppear:animated];
     
     if (flag) {
-        [[[[[self tabBarController]tabBar]items]objectAtIndex:1] setBadgeValue:@"1"];
+        [[[[[self tabBarController]tabBar]items]objectAtIndex:1] setBadgeValue:[NSString stringWithFormat:@"%d", [[[[[[self tabBarController]tabBar]items]objectAtIndex:1]badgeValue]intValue]+1]];
         
         [self.tabBarController setSelectedViewController:[[self.tabBarController viewControllers]objectAtIndex:1]];
         [self.tabBarController setSelectedIndex: 1];

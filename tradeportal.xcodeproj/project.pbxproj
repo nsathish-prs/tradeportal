@@ -36,6 +36,7 @@
 		EC43B28619E4F7EC0014DDA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26419E4F7EB0014DDA5 /* Foundation.framework */; };
 		EC43B28E19E4F7EC0014DDA5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC43B28C19E4F7EC0014DDA5 /* InfoPlist.strings */; };
 		EC43B29119E4F7EC0014DDA5 /* tradeportalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC43B29019E4F7EC0014DDA5 /* tradeportalTests.m */; };
+		EC4720761A539B6B00DC7665 /* book-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4720751A539B6B00DC7665 /* book-icons.png */; };
 		EC4909FB1A37F9D5007B0C62 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909E91A37F9D5007B0C62 /* Icon-120.png */; };
 		EC4909FC1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909EB1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png */; };
 		EC4909FD1A37F9D5007B0C62 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909ED1A37F9D5007B0C62 /* Icon-Small.png */; };
@@ -142,6 +143,7 @@
 		EC43B28D19E4F7EC0014DDA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC43B28F19E4F7EC0014DDA5 /* tradeportalTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tradeportalTests.h; sourceTree = "<group>"; };
 		EC43B29019E4F7EC0014DDA5 /* tradeportalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tradeportalTests.m; sourceTree = "<group>"; };
+		EC4720751A539B6B00DC7665 /* book-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "book-icons.png"; sourceTree = "<group>"; };
 		EC4909EA1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon-120.png"; sourceTree = "<group>"; };
 		EC4909EC1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon-iPad-Spotlight-iOS7@2x.png"; sourceTree = "<group>"; };
 		EC4909EE1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon-Small.png"; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 		ECF9F66F19E54C4D005B56A3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EC4720751A539B6B00DC7665 /* book-icons.png */,
 				ECCA18A91A4D559F00FC7A8F /* Icon-120-i3.png */,
 				ECCA18AA1A4D559F00FC7A8F /* Icon-120-i2.png */,
 				ECCA18AB1A4D559F00FC7A8F /* Icon-120-i1.png */,
@@ -547,6 +550,7 @@
 				ECCA882E1A3934B30071859D /* settings.png in Resources */,
 				EC27EFAC1A03434100464E27 /* IFIS_Logo_2014_new copy.png in Resources */,
 				EC27EFA01A02083E00464E27 /* btn_cancel.gif in Resources */,
+				EC4720761A539B6B00DC7665 /* book-icons.png in Resources */,
 				EC6C8E711A0A330D00A778D7 /* Search.png in Resources */,
 				ECCA88321A3936CB0071859D /* hand_share.png in Resources */,
 				EC490A071A37FAE9007B0C62 /* Images.xcassets in Resources */,

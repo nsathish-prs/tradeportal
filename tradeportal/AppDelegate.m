@@ -66,7 +66,6 @@ UITabBarController *tabbar;
     //load from savedStock example int value
     dm.serviceURL = [NSString stringWithFormat:@"%@://%@%@/%@",[url objectForKey:@"protocol"],[url objectForKey:@"ip"],[url objectForKey:@"domain"],[url objectForKey:@"service"]];
     //    NSLog(@"%@",dm.serviceURL);
-    NSLog(@"%@",launchOptions);
     rootView = self.window.rootViewController;
     return YES;
 }
@@ -81,9 +80,9 @@ UITabBarController *tabbar;
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
-//    NSLog(@"%@",userInfo);
+    //    NSLog(@"%@",userInfo);
     if ([userInfo objectForKey:@"id"]) {
-        dm.notificationFlag =[[userInfo objectForKey:@"id"]intValue];
+        [[userInfo objectForKey:@"id"]intValue];
     }
     if ([userInfo objectForKey:@"aps"]) {
         NSString *msg = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
@@ -94,37 +93,19 @@ UITabBarController *tabbar;
             [toast dismissWithClickedButtonIndex:0 animated:YES];
         });
     }
-//    NSLog(@"SelectedIndex: %lu",(unsigned long)((UITabBarController*)dm.tabBarController).selectedIndex);
-    tabbar = (UITabBarController*)((UITabBarController*)dm.tabBarController).selectedViewController;
-//    NSLog(@"Tabbar: %@",tabbar.viewControllers[0]);
-    if (((UITabBarController*)dm.tabBarController).selectedIndex != 1) {
-        [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:[NSString stringWithFormat:@"%d", [[[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]badgeValue]intValue]+1]];
+    if ([[userInfo objectForKey:@"id"]intValue]==1){
+        //    NSLog(@"SelectedIndex: %lu",(unsigned long)((UITabBarController*)dm.tabBarController).selectedIndex);
+        tabbar = (UITabBarController*)((UITabBarController*)dm.tabBarController).selectedViewController;
+        //    NSLog(@"Tabbar: %@",tabbar.viewControllers[0]);
+        if (((UITabBarController*)dm.tabBarController).selectedIndex != 1) {
+            [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:[NSString stringWithFormat:@"%d", [[[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]badgeValue]intValue]+1]];
+        }
+        else{
+            [tabbar.viewControllers[0] reloadTableData];
+        }
     }
-    else{
-        [tabbar.viewControllers[0] reloadTableData];
-    }
-//    if ([[userInfo objectForKey:@"aps"] objectForKey:@"badge"]) {
-//        NSInteger badgeNumber = [[[userInfo objectForKey:@"aps"] objectForKey:@"badge"] integerValue];
-//        NSLog(@"AppIcon: %d",[application applicationIconBadgeNumber]);
-//        [application setApplicationIconBadgeNumber:badgeNumber];
-//    }
-//    [PFPush handlePush:userInfo];
+        //    [PFPush handlePush:userInfo];
 }
-
-//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-//            if (buttonIndex == 0) {
-//            //confirm
-//                NSLog(@"SelectedIndex: %lu",(unsigned long)((UITabBarController*)dm.tabBarController).selectedIndex);
-//                UITabBarController *tabbar = (UITabBarController*)((UITabBarController*)dm.tabBarController).selectedViewController;
-//                NSLog(@"Tabbar: %@",tabbar.viewControllers[0]);
-//                if (((UITabBarController*)dm.tabBarController).selectedIndex != 1) {
-//                    [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:@"1"];
-//                }
-//                else{
-//                    [tabbar.viewControllers[0] reloadTableData];
-//                }
-//        }
-//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -155,7 +136,7 @@ UITabBarController *tabbar;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:@""];
+    [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:NULL];
     
 }
 
@@ -171,7 +152,7 @@ UITabBarController *tabbar;
     application.applicationIconBadgeNumber = 0;
     currentInstallation.badge=0;
     [currentInstallation saveInBackground];
-
+    
 }
 
 - (void) reachabilityChanged:(NSNotification *)note

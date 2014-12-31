@@ -48,7 +48,7 @@ DataModel *dm;
                   @"CHG",@"Part Changed",
                   @"CXL",@"Part Cancelled",
                   nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldShouldReturn:) name:UIKeyboardWillHideNotification object:nil];
     orders = [[NSMutableArray alloc]init];
     orderList= [[NSMutableArray alloc]init];
     exeOrderList= [[NSMutableArray alloc]init];
@@ -79,7 +79,7 @@ DataModel *dm;
     if (([[[[[[self tabBarController]tabBar]items]objectAtIndex:1]badgeValue]intValue ]> 0 )) {
         [self reloadTableData];
         [[[[[self tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:NULL];
-        dm.notificationFlag=-1;
+        
     }
     [super viewDidAppear:animated];
 }
@@ -93,9 +93,7 @@ DataModel *dm;
 #pragma mark - TextField Delegate
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if(textField == searchBar){
-        [self hideSearch:self];
-    }
+    [self hideSearch:self];
     return YES;
 }
 
@@ -294,7 +292,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-        NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [orderList removeAllObjects];
     [orders removeAllObjects];
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
@@ -352,7 +350,7 @@ DataModel *dm;
             msg = @"Some Technical Error...\nPlease Try again...";
             flag=TRUE;
         }
-        else if([[string substringToIndex:1] isEqualToString:@"E"]){
+        else if([[string substringToIndex:1] isEqualToString:@"E  "]){
             msg = @"User has logged on elsewhere!";
             [self dismissViewControllerAnimated:YES completion:nil];
             [[self navigationController]popToRootViewControllerAnimated:YES];

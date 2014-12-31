@@ -36,7 +36,7 @@ DataModel *dm;
     [super viewDidLoad];
     dm.accountList = [[NSMutableArray alloc]init];
     dm.accountDict = [[NSMutableDictionary alloc]init];
-    [[[[[self tabBarController]tabBar]items]objectAtIndex:1] setBadgeValue:@"1"];
+    
 
 }
 

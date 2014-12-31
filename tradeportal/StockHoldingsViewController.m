@@ -34,6 +34,7 @@ DataModel *dm;
     [super viewDidLoad];
     stockArray = [[NSMutableArray alloc]init];
     stockList = [[NSMutableArray alloc]init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldShouldReturn:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 #pragma mark - View Delegates

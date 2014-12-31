@@ -18,7 +18,6 @@
     NSString *serviceURL;
     NSMutableArray *accountList;
     NSMutableDictionary *accountDict;
-    int notificationFlag;
     UIViewController *tabBarController;
 }
 
@@ -43,7 +42,6 @@
 @property(strong,nonatomic)NSString *serviceURL;
 @property(strong,nonatomic)NSMutableArray *accountList;
 @property(strong,nonatomic)NSMutableDictionary *accountDict;
-@property (assign, nonatomic) int notificationFlag;
 @property(nonatomic,strong)IBOutlet UIViewController *tabBarController;
 -(void)resetService;
 @end

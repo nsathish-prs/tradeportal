@@ -3693,7 +3693,7 @@
         <scene sceneID="o47-Qp-oaM">
             <objects>
                 <navigationController storyboardIdentifier="OrderBookViewController" automaticallyAdjustsScrollViewInsets="NO" id="UHP-Fc-FjZ" userLabel="Order Book Scene" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Order Book" image="order_book.png" id="Mig-Os-wKS"/>
+                    <tabBarItem key="tabBarItem" title="Order Book" image="book-icons.png" id="Mig-Os-wKS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hQN-c1-9dt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -4116,8 +4116,8 @@
         <image name="IFIS_Logo_2014_new.jpg" width="342" height="147"/>
         <image name="Search.png" width="25" height="25"/>
         <image name="ThomsonReutersLogo.jpg" width="187" height="49"/>
+        <image name="book-icons.png" width="25" height="25"/>
         <image name="ic_action_group.png" width="25" height="25"/>
-        <image name="order_book.png" width="25" height="25"/>
         <image name="settings.png" width="25" height="25"/>
         <image name="trade.png" width="25" height="25"/>
     </resources>

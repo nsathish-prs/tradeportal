@@ -34,6 +34,7 @@ NSUserDefaults *getOrder;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setGroupingSeparator:@","];
     [numberFormatter setGroupingSize:3];

@@ -11,7 +11,7 @@
 
 @implementation DataModel
 
-@synthesize userID,password,sessionID,fromView,toView,ip,domain,protocol,service,serviceURL,accountDict,accountList,notificationFlag,tabBarController;
+@synthesize userID,password,sessionID,fromView,toView,ip,domain,protocol,service,serviceURL,accountDict,accountList,tabBarController;
 
 
 -(void)resetService{
