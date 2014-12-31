@@ -23,11 +23,12 @@ DataModel *dm;
 BOOL resultFound;
 PFInstallation *currentInstallation ;
 UITabBarController *tabbar;
+UIImageView *imageView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     dm = [[DataModel alloc]init];
-    
+
     //Notification
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                     UIUserNotificationTypeBadge |
@@ -112,6 +113,11 @@ UITabBarController *tabbar;
     self.window.hidden = YES;
     timer = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(reset) userInfo:nil repeats:NO];
     [application ignoreSnapshotOnNextApplicationLaunch];
+    imageView = [[UIImageView alloc]initWithFrame:[self.window frame]];
+    [imageView setImage:[UIImage imageNamed:@"IFIS_Logo_2014_new_launch"]];
+    UIWindow *mainWindow = [[[UIApplication sharedApplication] windows] lastObject];
+    [mainWindow addSubview:imageView];
+//    [self.window addSubview:imageView];
 }
 
 - (void)reset{
@@ -147,12 +153,15 @@ UITabBarController *tabbar;
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     //    NSLog(@"applicationDidBecomeActive\n%lu",(unsigned long)[dm.userID length]);
+    if(imageView != nil) {
+        [imageView removeFromSuperview];
+        imageView = nil;
+    }
     self.window.hidden = NO;
     [timer invalidate];
     application.applicationIconBadgeNumber = 0;
     currentInstallation.badge=0;
     [currentInstallation saveInBackground];
-    
 }
 
 - (void) reachabilityChanged:(NSNotification *)note
@@ -165,14 +174,12 @@ UITabBarController *tabbar;
 
 - (void)updateInterfaceWithReachability:(Reachability *)reachability
 {
-    
     NetworkStatus netStatus = [reachability currentReachabilityStatus];
     NSString *msg;
-    
-    
     switch (netStatus)
     {
-        case NotReachable:        {
+        case NotReachable:
+        {
             msg = @"No Network Access";
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [toast show];
@@ -180,7 +187,6 @@ UITabBarController *tabbar;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [toast dismissWithClickedButtonIndex:0 animated:YES];
             });
-            
             //            NSLog(@"No Access");
             break;
         }
@@ -202,8 +208,6 @@ UITabBarController *tabbar;
             break;
         }
     }
-    
-    
 }
 
 - (id)fetchSSIDInfo

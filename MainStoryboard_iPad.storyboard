@@ -3197,7 +3197,7 @@
         <scene sceneID="7fq-ba-LUL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iYc-6m-dXd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="-1" title="Trade" image="trade.png" id="m3W-ec-bYF"/>
+                    <tabBarItem key="tabBarItem" tag="-1" title="Trade" image="trade-icons.png" id="m3W-ec-bYF"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nSP-pQ-lj2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -3540,7 +3540,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" image="ic_action_group.png" id="yfc-rO-mDY"/>
+                    <tabBarItem key="tabBarItem" title="Accounts" image="Accounts.png" id="yfc-rO-mDY"/>
                     <connections>
                         <outlet property="clientAccount" destination="oTY-Td-fkC" id="K71-jH-g8a"/>
                         <outlet property="spinner" destination="ze8-cv-vhq" id="nZV-qs-v7Y"/>
@@ -4113,16 +4113,16 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Accounts.png" width="25" height="22"/>
         <image name="IFIS_Logo_2014_new.jpg" width="342" height="147"/>
         <image name="Search.png" width="25" height="25"/>
         <image name="ThomsonReutersLogo.jpg" width="187" height="49"/>
         <image name="book-icons.png" width="25" height="25"/>
-        <image name="ic_action_group.png" width="25" height="25"/>
         <image name="settings.png" width="25" height="25"/>
-        <image name="trade.png" width="25" height="25"/>
+        <image name="trade-icons.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="XKS-rV-WEg"/>
         <segue reference="fWy-Ix-2lT"/>
-        <segue reference="kQG-nE-kbN"/>
     </inferredMetricsTieBreakers>
 </document>

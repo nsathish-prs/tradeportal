@@ -2768,7 +2768,7 @@
         <scene sceneID="9E3-AW-k4a">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eJU-lw-93w" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="-1" title="Trade" image="trade.png" id="OaU-2V-DOg"/>
+                    <tabBarItem key="tabBarItem" tag="-1" title="Trade" image="trade-icons.png" id="OaU-2V-DOg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vo3-Pg-16g">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -3212,7 +3212,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Account" image="ic_action_group.png" id="wyu-wA-EX8"/>
+                    <tabBarItem key="tabBarItem" title="Accounts" image="Accounts.png" id="wyu-wA-EX8"/>
                     <connections>
                         <outlet property="clientAccount" destination="d4w-Mb-UTk" id="OHP-6R-5pC"/>
                         <outlet property="spinner" destination="3xl-pZ-24L" id="W7k-Lg-cpP"/>
@@ -3380,13 +3380,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Accounts.png" width="25" height="22"/>
         <image name="IFIS_Logo_2014_new.jpg" width="342" height="147"/>
         <image name="Search.png" width="25" height="25"/>
         <image name="ThomsonReutersLogo.jpg" width="187" height="49"/>
         <image name="book-icons.png" width="25" height="25"/>
-        <image name="ic_action_group.png" width="25" height="25"/>
         <image name="settings.png" width="25" height="25"/>
-        <image name="trade.png" width="25" height="25"/>
+        <image name="trade-icons.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qbV-ih-y85"/>
