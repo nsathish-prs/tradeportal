@@ -69,11 +69,13 @@ DataModel *dm;
         [numberFormatter setGroupingSeparator:@","];
         [numberFormatter setGroupingSize:3];
         [numberFormatter setUsesGroupingSeparator:YES];
-        if([stockList count]>0){
-            [[cell stockName] setText:[[stockList objectAtIndex:[indexPath row]]stockName]];
-            [[cell stockCode] setText:[[stockList objectAtIndex:[indexPath row]]stockCode]];
-            [[cell location] setText:[[stockList objectAtIndex:[indexPath row]]stockLocation]];
-            [[cell totalStock] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[stockList objectAtIndex:[indexPath row]]totalStock] intValue]]]];
+        
+        [[cell stockName] setText:[[stockList objectAtIndex:[indexPath row]]stockName]];
+        [[cell stockCode] setText:[[stockList objectAtIndex:[indexPath row]]stockCode]];
+        [[cell location] setText:[[stockList objectAtIndex:[indexPath row]]stockLocation]];
+        [[cell totalStock] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[stockList objectAtIndex:[indexPath row]]totalStock] intValue]]]];
+        if (indexPath.row==3) {
+            cell.noResults.hidden=true;
         }
     }
     else{

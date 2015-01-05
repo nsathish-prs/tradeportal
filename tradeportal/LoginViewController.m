@@ -210,8 +210,8 @@ DataModel *dm;
             resultFound=NO;
         }
         if ([elementName isEqualToString:@"z:row"]) {
-            //        NSString* result = [attributeDict objectForKey:@"RESULT"];
-            //        //NSLog(@"%@",result);
+//            NSString* result = [attributeDict objectForKey:@"RESULT"];
+//            NSLog(@"%@",result);
             resultFound=YES;
             dm.userID=name;
             dm.password=password;

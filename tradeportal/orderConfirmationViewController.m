@@ -195,7 +195,7 @@ NSString *userID;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //    NSLog(@"\n\nSoap Response is %@",theXML);
+    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -243,7 +243,7 @@ NSString *userID;
             orderEntry.flag = true;
         }
         else{
-            if([[string substringToIndex:1] isEqualToString:@"E"]){
+            if([[string substringToIndex:1] isEqualToString:@"E  "]){
                 msg = @"User has logged on elsewhere!";
                 [self dismissViewControllerAnimated:YES completion:nil];
                 [[self navigationController]popToRootViewControllerAnimated:YES];
@@ -313,7 +313,7 @@ NSString *userID;
                              "</NewOrder>"
                              "</soap:Body>"
                              "</soap:Envelope>",dm.sessionID,clientAccountValue,stockCodeValue,[qtyValue intValue],[orderPriceValue floatValue],side,orderType,userID,exchange,timeInForce,currencyCode,userID,exchangeRate,currencyCode,exchange,1,0.0,0.0];
-    //    NSLog(@"SoapRequest is %@" , soapRequest);
+    NSLog(@"SoapRequest is %@" , soapRequest);
     NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=NewOrder"];
     NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];

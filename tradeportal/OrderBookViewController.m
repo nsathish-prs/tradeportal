@@ -190,7 +190,13 @@ DataModel *dm;
         [[cell status] setText:[statusDict valueForKey:[[orders objectAtIndex:[indexPath row]]status]]];
         [[cell orderDate] setText:[NSDateFormatter localizedStringFromDate:[[orders objectAtIndex:[indexPath row]]orderDate] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle]];
         [[cell refNo] setText:[[orders objectAtIndex:[indexPath row]]refNo]];
-    }else{
+        cell.userInteractionEnabled=YES;
+        if (indexPath.row==3) {
+            cell.noResults.hidden=true;
+        }
+    }
+    else
+    {
         [[cell stockCode] setText:@" "];
         [[cell price] setText:@" "];
         [[cell quantity] setText:@" "];
