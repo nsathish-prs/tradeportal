@@ -32,8 +32,15 @@ DataModel *dm;
 -(void)viewWillAppear:(BOOL)animated{
     self.view.alpha = 1.0f;
     [super viewWillAppear:animated];
+    
 }
 
+-(IBAction)dismissView{
+    dm.sessionID=@"";
+    dm.password=@"";
+    [self dismissViewControllerAnimated:NO completion:nil];
+    [[self navigationController]popToRootViewControllerAnimated:YES];
+}
 #pragma mark - Logout Action
 
 -(void)showAction{
@@ -48,7 +55,6 @@ DataModel *dm;
                                   cancelButtonTitle:cancelTitle
                                   destructiveButtonTitle:destructiveTitle
                                   otherButtonTitles:nil];
-    
     [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
@@ -69,7 +75,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     //    NSLog(@"%ld",(long)indexPath.section);
     if (indexPath.section == 0){
         if(indexPath.row == 0 ){
-            [self showAction];
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+            {
+                [self showAction];
+            }
+            else{
+                UIAlertView* logout = [[UIAlertView alloc] init];
+                logout.alertViewStyle = UIAlertViewStyleDefault;
+                [logout setDelegate:self];
+                [logout setMessage:@"Confirm to Logout"];
+                [logout addButtonWithTitle:@"Confirm"];
+                [logout addButtonWithTitle:@"Cancel"];
+                [logout show];
+            }
         }
     }
     else if (indexPath.section == 1){
@@ -79,6 +97,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         else if(indexPath.row == 1 ){
             [self performSegueWithIdentifier:@"changeService" sender:self];
         }
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        //confirm
+        [self dismissView];
     }
 }
 
@@ -96,7 +121,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-        
         if ([[segue identifier] isEqualToString:@"changePass"]) {
             ChangePasswordViewController *vc = (ChangePasswordViewController *)segue.destinationViewController;
             vc.settings = self;
@@ -107,6 +131,5 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         }
     }
 }
-
 
 @end

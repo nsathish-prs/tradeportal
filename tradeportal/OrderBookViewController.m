@@ -146,6 +146,9 @@ DataModel *dm;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if ([orders count]==0) {
+        return 4;
+    }
     return [orders count];
 }
 
@@ -163,12 +166,11 @@ DataModel *dm;
     [priceFormatter setMinimumFractionDigits:3];
     
     OrderBookTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"OrderBookTableViewCell"];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if([orders count]>0){
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         NSMutableString *stock = [[[orders objectAtIndex:[indexPath row]]stockCode]mutableCopy];
         UIColor *textColor = [[UIColor alloc]init];
         //        [[cell stockCode] setText:[[orders objectAtIndex:[indexPath row]]stockCode]];
-        [[cell account] setText:[[orders objectAtIndex:[indexPath row]]clientAccount]];
         if([[[orders objectAtIndex:[indexPath row]]side] isEqualToString:@"Buy"]){
             [stock appendString:@" (B)"];
             textColor = iGREEN;
@@ -178,9 +180,9 @@ DataModel *dm;
             textColor = iRED;
         }
         NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:stock];
-        //        NSLog(@"%lu\t%lu",(unsigned long)stock.length,(unsigned long)string.length);
         [string addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(stock.length-2, 1)];
         
+        [[cell account] setText:[[orders objectAtIndex:[indexPath row]]clientAccount]];
         [[cell stockCode] setAttributedText:string];
         [[cell price] setText:[priceFormatter stringFromNumber:[NSNumber numberWithDouble:[[[orders objectAtIndex:[indexPath row]]orderPrice] doubleValue]]]];
         [[cell quantity] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[orders objectAtIndex:[indexPath row]]orderQty] intValue]]]];
@@ -188,6 +190,19 @@ DataModel *dm;
         [[cell status] setText:[statusDict valueForKey:[[orders objectAtIndex:[indexPath row]]status]]];
         [[cell orderDate] setText:[NSDateFormatter localizedStringFromDate:[[orders objectAtIndex:[indexPath row]]orderDate] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle]];
         [[cell refNo] setText:[[orders objectAtIndex:[indexPath row]]refNo]];
+    }else{
+        [[cell stockCode] setText:@" "];
+        [[cell price] setText:@" "];
+        [[cell quantity] setText:@" "];
+        if (indexPath.row==3) {
+            cell.noResults.hidden=false;
+        }
+        [[cell account] setText:@" "];
+        [[cell qtyFilled] setText:@" "];
+        [[cell status] setText:@" "];
+        [[cell orderDate] setText:@" "];
+        [[cell refNo] setText:@" "];
+        cell.userInteractionEnabled=NO;
     }
     [cell setBackgroundColor:[UIColor clearColor]];
     return cell;
@@ -292,7 +307,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-//    NSLog(@"\n\nSoap Response is %@",theXML);
+    //    NSLog(@"\n\nSoap Response is %@",theXML);
     [orderList removeAllObjects];
     [orders removeAllObjects];
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];

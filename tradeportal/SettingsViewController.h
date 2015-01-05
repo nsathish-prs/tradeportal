@@ -12,5 +12,6 @@
 @interface SettingsViewController : UITableViewController <UIActionSheetDelegate, UIAlertViewDelegate,UITabBarDelegate,UITabBarControllerDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate>
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
+-(IBAction)dismissView;
 
 @end

@@ -19,16 +19,16 @@
 DataModel *dm;
 
 #pragma mark - View Delegates
-
+Boolean flag;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    flag =false;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         self.view.backgroundColor=[UIColor clearColor];
         settings.view.alpha=0.5f;
     }
     [self loadData];
-    NSLog(@"%@",self.presentingViewController);
 }
 -(void)loadData{
     
@@ -68,6 +68,7 @@ DataModel *dm;
     [self loadData];
     dm.serviceURL = [NSString stringWithFormat:@"%@://%@%@/%@",[url objectForKey:@"protocol"],[url objectForKey:@"ip"],[url objectForKey:@"domain"],[url objectForKey:@"service"]];
     //    NSLog(@"%@",dm.serviceURL);
+    flag=true;
     [NSTimer scheduledTimerWithTimeInterval:1.0
                                      target:self
                                    selector:@selector(dismissView:)
@@ -115,11 +116,8 @@ DataModel *dm;
     [url writeToFile: path atomically:YES];
     dm.serviceURL = [NSString stringWithFormat:@"%@://%@%@/%@",[url objectForKey:@"protocol"],[url objectForKey:@"ip"],[url objectForKey:@"domain"],[url objectForKey:@"service"]];
     //    NSLog(@"%@",dm.serviceURL);
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-    [self dismissView:sender];
-    }
     [self loadData];
+    flag = true;
     [NSTimer scheduledTimerWithTimeInterval:1.0
                                      target:self
                                    selector:@selector(dismissView:)
@@ -132,5 +130,12 @@ DataModel *dm;
 - (IBAction)dismissView:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
     settings.view.alpha = 1.0f;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && flag)
+    {
+        SettingsViewController *s = (SettingsViewController*)settings;
+        [s dismissView];
+        
+    }
+    
 }
 @end

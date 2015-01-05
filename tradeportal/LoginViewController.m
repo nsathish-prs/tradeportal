@@ -260,6 +260,9 @@ DataModel *dm;
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName{
 }
 
+-(void)dismissView{
+    
+}
 #pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

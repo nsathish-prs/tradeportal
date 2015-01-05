@@ -15,4 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *stockCode;
 @property (weak, nonatomic) IBOutlet UILabel *location;
 @property (weak, nonatomic) IBOutlet UILabel *totalStock;
+@property (weak, nonatomic) IBOutlet UILabel *noResults;
 @end

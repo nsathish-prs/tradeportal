@@ -10,7 +10,7 @@
 
 @implementation OrderBookTableViewCell
 
-@synthesize stockCode,account,qtyFilled,quantity,price,status,refNo;
+@synthesize stockCode,account,qtyFilled,quantity,price,status,refNo,noResults;
 - (void)awakeFromNib {
     // Initialization code
 }

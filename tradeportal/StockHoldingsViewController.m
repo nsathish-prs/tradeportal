@@ -52,6 +52,9 @@ DataModel *dm;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if ([stockList count]==0) {
+        return 4;
+    }
     return [stockList count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -61,16 +64,29 @@ DataModel *dm;
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"Cell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setGroupingSeparator:@","];
-    [numberFormatter setGroupingSize:3];
-    [numberFormatter setUsesGroupingSeparator:YES];
     if([stockList count]>0){
-        [[cell stockName] setText:[[stockList objectAtIndex:[indexPath row]]stockName]];
-        [[cell stockCode] setText:[[stockList objectAtIndex:[indexPath row]]stockCode]];
-        [[cell location] setText:[[stockList objectAtIndex:[indexPath row]]stockLocation]];
-        [[cell totalStock] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[stockList objectAtIndex:[indexPath row]]totalStock] intValue]]]];
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setGroupingSeparator:@","];
+        [numberFormatter setGroupingSize:3];
+        [numberFormatter setUsesGroupingSeparator:YES];
+        if([stockList count]>0){
+            [[cell stockName] setText:[[stockList objectAtIndex:[indexPath row]]stockName]];
+            [[cell stockCode] setText:[[stockList objectAtIndex:[indexPath row]]stockCode]];
+            [[cell location] setText:[[stockList objectAtIndex:[indexPath row]]stockLocation]];
+            [[cell totalStock] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[stockList objectAtIndex:[indexPath row]]totalStock] intValue]]]];
+        }
     }
+    else{
+        [[cell stockCode] setText:@" "];
+        [[cell stockName] setText:@" "];
+        if (indexPath.row==3) {
+            cell.noResults.hidden=false;
+        }
+        [[cell location] setText:@" "];
+        [[cell totalStock] setText:@" "];
+        cell.userInteractionEnabled=NO;
+    }
+    
     return cell;
 }
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -113,7 +129,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-//    NSLog(@"\n\nSoap Response is %@",theXML);
+    //    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -191,7 +207,7 @@ DataModel *dm;
                              "</GetCustodyStockLocationDetails>"
                              "</soap:Body>"
                              "</soap:Envelope>", dm.sessionID,account];
-//    NSLog(@"SoapRequest is %@" , soapRequest);
+    //    NSLog(@"SoapRequest is %@" , soapRequest);
     NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetCustodyStockLocationDetails"];
     NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];

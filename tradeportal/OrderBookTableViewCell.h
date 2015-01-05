@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *qtyFilled;
 @property (weak, nonatomic) IBOutlet UILabel *refNo;
 @property (weak, nonatomic) IBOutlet UILabel *orderDate;
+@property (weak, nonatomic) IBOutlet UILabel *noResults;
 
 @end

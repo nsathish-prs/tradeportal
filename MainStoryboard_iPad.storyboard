@@ -1198,7 +1198,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.67450980390000004" green="0.71764705880000002" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.66666666669999997" green="0.71764705880000002" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="tintColor" red="0.67450980390000004" green="0.71764705880000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="aiZ-KC-aX2" firstAttribute="leading" secondItem="kXE-yW-SnD" secondAttribute="leadingMargin" id="BCh-oM-aOQ"/>
@@ -1256,7 +1256,7 @@
                                     </variation>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="OrderBookTableViewCell" id="59E-Im-7Nw" customClass="OrderBookTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderBookTableViewCell" id="59E-Im-7Nw" customClass="OrderBookTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="59E-Im-7Nw" id="YWO-qZ-3hW">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1309,6 +1309,15 @@
                                             <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsB-vl-20i">
+                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="366" y="19" width="84" height="21"/>
+                                            </variation>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="M7I-VF-g4k" firstAttribute="leading" secondItem="YWO-qZ-3hW" secondAttribute="leadingMargin" constant="255" id="5Vd-1c-NBn"/>
@@ -1322,8 +1331,10 @@
                                         <constraint firstItem="Ryt-6W-2na" firstAttribute="centerX" secondItem="YWO-qZ-3hW" secondAttribute="leadingMargin" constant="570" id="Pb9-EZ-CEi"/>
                                         <constraint firstAttribute="centerY" secondItem="9ku-hU-XKy" secondAttribute="centerY" constant="-1" id="UEE-PB-Gjd"/>
                                         <constraint firstItem="DcO-O7-oLP" firstAttribute="leading" secondItem="YWO-qZ-3hW" secondAttribute="leadingMargin" constant="900" id="Wzo-KJ-Zhu"/>
+                                        <constraint firstAttribute="centerX" secondItem="hsB-vl-20i" secondAttribute="centerX" id="fEq-4O-bTt"/>
                                         <constraint firstAttribute="centerY" secondItem="M7I-VF-g4k" secondAttribute="centerY" id="fP3-Pr-tY2"/>
                                         <constraint firstItem="9ku-hU-XKy" firstAttribute="leading" secondItem="YWO-qZ-3hW" secondAttribute="leadingMargin" constant="115" id="j7c-k1-gYx"/>
+                                        <constraint firstAttribute="centerY" secondItem="hsB-vl-20i" secondAttribute="centerY" id="nus-rT-nyQ"/>
                                         <constraint firstAttribute="centerY" secondItem="hYh-YC-bdM" secondAttribute="centerY" id="sUW-qS-ouY"/>
                                         <constraint firstAttribute="centerY" secondItem="wkz-Y8-uL9" secondAttribute="centerY" constant="-1" id="t3w-vk-x3K"/>
                                         <constraint firstItem="hYh-YC-bdM" firstAttribute="centerX" secondItem="YWO-qZ-3hW" secondAttribute="leadingMargin" constant="810" id="tx1-D2-dJh"/>
@@ -1332,6 +1343,7 @@
                                         <mask key="subviews">
                                             <exclude reference="M7I-VF-g4k"/>
                                             <exclude reference="Ryt-6W-2na"/>
+                                            <exclude reference="hsB-vl-20i"/>
                                         </mask>
                                         <mask key="constraints">
                                             <exclude reference="Gbq-Gs-63G"/>
@@ -1339,8 +1351,10 @@
                                             <exclude reference="j7c-k1-gYx"/>
                                             <exclude reference="5Vd-1c-NBn"/>
                                             <exclude reference="fP3-Pr-tY2"/>
-                                            <exclude reference="Dzt-7l-Rc1"/>
+                                            <exclude reference="fEq-4O-bTt"/>
+                                            <exclude reference="nus-rT-nyQ"/>
                                             <exclude reference="7jt-cZ-6bP"/>
+                                            <exclude reference="Dzt-7l-Rc1"/>
                                             <exclude reference="t3w-vk-x3K"/>
                                             <exclude reference="sUW-qS-ouY"/>
                                             <exclude reference="GsF-yY-QuY"/>
@@ -1350,6 +1364,7 @@
                                         <mask key="subviews">
                                             <include reference="M7I-VF-g4k"/>
                                             <include reference="Ryt-6W-2na"/>
+                                            <include reference="hsB-vl-20i"/>
                                         </mask>
                                         <mask key="constraints">
                                             <include reference="Gbq-Gs-63G"/>
@@ -1357,8 +1372,10 @@
                                             <include reference="j7c-k1-gYx"/>
                                             <include reference="5Vd-1c-NBn"/>
                                             <include reference="fP3-Pr-tY2"/>
-                                            <include reference="Dzt-7l-Rc1"/>
+                                            <include reference="fEq-4O-bTt"/>
+                                            <include reference="nus-rT-nyQ"/>
                                             <include reference="7jt-cZ-6bP"/>
+                                            <include reference="Dzt-7l-Rc1"/>
                                             <include reference="t3w-vk-x3K"/>
                                             <include reference="sUW-qS-ouY"/>
                                             <include reference="GsF-yY-QuY"/>
@@ -1371,6 +1388,7 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="account" destination="M7I-VF-g4k" id="SVz-IR-HlN"/>
+                                    <outlet property="noResults" destination="hsB-vl-20i" id="Ni6-gO-KdZ"/>
                                     <outlet property="orderDate" destination="Kfp-01-aWb" id="hvJ-HY-BDw"/>
                                     <outlet property="price" destination="Ryt-6W-2na" id="I0s-og-lHu"/>
                                     <outlet property="qtyFilled" destination="hYh-YC-bdM" id="jCW-qX-0ZT"/>
@@ -3259,7 +3277,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.60392156862745094" green="0.6705882352941176" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.66666666669999997" green="0.71764705880000002" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="Dls-3h-8sZ" firstAttribute="leading" secondItem="nkb-ei-BuI" secondAttribute="leadingMargin" constant="8" id="893-Hb-adU"/>
                                                 <constraint firstItem="y28-NI-w6a" firstAttribute="centerY" secondItem="Dls-3h-8sZ" secondAttribute="centerY" id="8zI-4D-Bff"/>
@@ -3305,6 +3323,7 @@
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.66666666669999997" green="0.71764705880000002" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Cdd-Uv-gvN" customClass="StockHoldingsTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -3336,6 +3355,15 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7j-Si-sGi">
+                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="widthClass=regular" misplaced="YES">
+                                                        <rect key="frame" x="342" y="11" width="84" height="21"/>
+                                                    </variation>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -3343,7 +3371,9 @@
                                                 <constraint firstItem="naM-zA-B59" firstAttribute="leading" secondItem="Gx9-BX-fmA" secondAttribute="leadingMargin" constant="195" id="HVg-42-LkH"/>
                                                 <constraint firstAttribute="centerY" secondItem="942-Z3-AIU" secondAttribute="centerY" id="Jpy-gX-V6r"/>
                                                 <constraint firstAttribute="trailing" secondItem="xRH-So-BwG" secondAttribute="trailing" constant="300" id="PvQ-ad-Lb2"/>
+                                                <constraint firstAttribute="centerX" secondItem="W7j-Si-sGi" secondAttribute="centerX" id="aRv-h4-7nA"/>
                                                 <constraint firstItem="xRH-So-BwG" firstAttribute="centerY" secondItem="Xs7-mT-lko" secondAttribute="centerY" id="cao-Jj-67l"/>
+                                                <constraint firstAttribute="centerY" secondItem="W7j-Si-sGi" secondAttribute="centerY" id="iT2-Tz-Lmo"/>
                                                 <constraint firstItem="xRH-So-BwG" firstAttribute="centerY" secondItem="naM-zA-B59" secondAttribute="centerY" id="jaI-tt-TLe"/>
                                                 <constraint firstItem="942-Z3-AIU" firstAttribute="leading" secondItem="Gx9-BX-fmA" secondAttribute="leadingMargin" constant="8" id="mxw-jg-tEe"/>
                                                 <constraint firstItem="942-Z3-AIU" firstAttribute="centerY" secondItem="naM-zA-B59" secondAttribute="centerY" constant="-1" id="pmN-zX-JF9"/>
@@ -3354,11 +3384,14 @@
                                                     <exclude reference="xRH-So-BwG"/>
                                                     <exclude reference="Xs7-mT-lko"/>
                                                     <exclude reference="naM-zA-B59"/>
+                                                    <exclude reference="W7j-Si-sGi"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="Jpy-gX-V6r"/>
                                                     <exclude reference="mxw-jg-tEe"/>
                                                     <exclude reference="pmN-zX-JF9"/>
+                                                    <exclude reference="aRv-h4-7nA"/>
+                                                    <exclude reference="iT2-Tz-Lmo"/>
                                                     <exclude reference="cao-Jj-67l"/>
                                                     <exclude reference="jaI-tt-TLe"/>
                                                 </mask>
@@ -3369,11 +3402,14 @@
                                                     <include reference="xRH-So-BwG"/>
                                                     <include reference="Xs7-mT-lko"/>
                                                     <include reference="naM-zA-B59"/>
+                                                    <include reference="W7j-Si-sGi"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="Jpy-gX-V6r"/>
                                                     <include reference="mxw-jg-tEe"/>
                                                     <include reference="pmN-zX-JF9"/>
+                                                    <include reference="aRv-h4-7nA"/>
+                                                    <include reference="iT2-Tz-Lmo"/>
                                                     <include reference="cao-Jj-67l"/>
                                                     <include reference="jaI-tt-TLe"/>
                                                 </mask>
@@ -3381,6 +3417,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="location" destination="Xs7-mT-lko" id="Z7B-aL-tZ6"/>
+                                            <outlet property="noResults" destination="W7j-Si-sGi" id="v1C-bn-jW5"/>
                                             <outlet property="stockCode" destination="942-Z3-AIU" id="54X-MG-Pp6"/>
                                             <outlet property="stockName" destination="naM-zA-B59" id="lo9-8g-IFt"/>
                                             <outlet property="totalStock" destination="xRH-So-BwG" id="P7d-8r-LVS"/>
@@ -4113,12 +4150,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Accounts.png" width="25" height="22"/>
+        <image name="Accounts.png" width="30" height="26"/>
         <image name="IFIS_Logo_2014_new.jpg" width="342" height="147"/>
         <image name="Search.png" width="25" height="25"/>
         <image name="ThomsonReutersLogo.jpg" width="187" height="49"/>
         <image name="book-icons.png" width="25" height="25"/>
-        <image name="settings.png" width="25" height="25"/>
+        <image name="settings.png" width="30" height="30"/>
         <image name="trade-icons.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>

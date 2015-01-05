@@ -13,7 +13,7 @@
 @interface LoginViewController : UIViewController<UIGestureRecognizerDelegate,NSXMLParserDelegate>
 
 -(IBAction)login:(id)sender;
-
+-(void)dismissView;
 
 @property(nonatomic,weak)IBOutlet UITextField *uname1;
 @property(nonatomic,strong)IBOutlet UITextField *upwd;
