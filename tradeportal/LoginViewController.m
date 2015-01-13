@@ -220,7 +220,8 @@ DataModel *dm;
             dm.accountList = [[NSMutableArray alloc]init];
             dm.accountDict = [[NSMutableDictionary alloc]init];
             [self loadAccountListfor:dm.userID withSession:dm.sessionID];
-            
+            dm.currentInstallation.channels = @[ @"" , dm.userID ];
+            [dm.currentInstallation saveInBackground];
             [self performSegueWithIdentifier:@"ifisPortal" sender:self];
         }
     }

@@ -10,7 +10,8 @@
 #import "DataModel.h"
 #import "OrderBookViewController.h"
 #import "AmendOrderViewController.h"
-
+#import "OrderDetailsTableViewCell.h"
+#import "OrderDetailsModel.h"
 
 @interface OrderBookDetailsViewController (){
     BOOL resultFound;
@@ -25,7 +26,7 @@
 
 @implementation OrderBookDetailsViewController
 
-@synthesize order,refNo,clientAccount,stockCode,desc,exchange,status,orderQty,qtyFilled,orderPrice,avgPrice,orderDate,currency,options,edit,cancel,buffer,parser,parseURL,conn,spinner,orderBook,side,flag;
+@synthesize order,refNo,clientAccount,stockCode,desc,exchange,status,orderQty,qtyFilled,orderPrice,avgPrice,orderDate,currency,options,edit,cancel,buffer,parser,parseURL,conn,spinner,orderBook,side,flag,messages=_messages;
 DataModel *dm;
 bool tag;
 NSInteger qty ;
@@ -76,6 +77,8 @@ CGFloat price;
     spinner.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height/2);
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
     [mainWindow addSubview:spinner];
+    messages = [[NSMutableArray alloc]init];
+    [self loadMessages];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -86,6 +89,77 @@ CGFloat price;
     }
     [super viewWillAppear:animated];
 }
+
+
+#pragma mark - Table View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [messages count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    OrderDetailsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if([messages count]>0){
+        [[cell recId]setText:[[messages objectAtIndex:[indexPath row]]rec_Id]];
+        [[cell msg]setText:[[messages objectAtIndex:[indexPath row]]statusMessage]];
+        [[cell updatedBy]setText:[[messages objectAtIndex:[indexPath row]]updated_By]];
+    }
+    return cell;
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UITableViewCell *header = [tableView dequeueReusableCellWithIdentifier:@"tableHeader"];
+    return header;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 45.0;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 75.0;
+}
+
+#pragma mark - Invoke Order List Service
+
+-(void)loadMessages{
+    self.parseURL = @"loadMessages";
+    NSString *soapRequest = [NSString stringWithFormat:
+                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                             "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+                             "<soap:Body>"
+                             "<GetMessageLog xmlns=\"http://OMS/\">"
+                             "<UserSession>%@</UserSession>"
+                             "<POrderRecID>%d</POrderRecID>"
+                             "</GetMessageLog>"
+                             "</soap:Body>"
+                             "</soap:Envelope>", dm.sessionID,[order.refNo intValue]];
+    //    NSLog(@"SoapRequest is %@" , soapRequest);
+    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetMessageLog"];
+    NSURL *url =[NSURL URLWithString:urls];
+    //    NSLog(@"%@",url);
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [req addValue:@"http://OMS/GetMessageLog" forHTTPHeaderField:@"SOAPAction"];
+    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
+    [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    if (conn) {
+        buffer = [NSMutableData data];
+    }
+}
+
+
 
 #pragma mark - Cancel Order
 
@@ -175,7 +249,7 @@ CGFloat price;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-//    NSLog(@"\n\nSoap Response is %@",theXML);
+    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -192,7 +266,7 @@ CGFloat price;
     //parse the data
     if ([parseURL isEqualToString:@"cancelOrder"]) {
         if ([elementName isEqualToString:@"z:row"]) {
-            if([elementName isEqualToString:@"CancelOrderResult"]){
+            if([elementName isEqualToString:@"CancelOrderFixIncomeResult"]){
                 resultFound=NO;
             }
             else{
@@ -201,7 +275,7 @@ CGFloat price;
                 [orderBook reloadTableData];
                 [self.tabBarController setSelectedViewController:vc];
                 [self.navigationController popViewControllerAnimated:YES];
-                UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"Order Cancelled Successfully" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"Cancel Order request sent Successfully" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
                 [toast show];
                 int duration = 1.5;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -209,7 +283,17 @@ CGFloat price;
                 });
             }
         }
-    }else if ([parseURL isEqualToString:@"checkStatus"]){
+    }else if ([parseURL isEqualToString:@"loadMessages"]) {
+        if ([elementName isEqualToString:@"z:row"]) {
+            OrderDetailsModel *msgs = [[OrderDetailsModel alloc]init];
+            msgs.rec_Id= [attributeDict objectForKey:@"REC_ID"];
+            msgs.statusMessage = [attributeDict objectForKey:@"MESSAGE"];
+            msgs.updated_By = [attributeDict objectForKey:@"UPDATE_BY"];
+            [messages addObject:msgs];
+            [self.tableView reloadData];
+        }
+    }
+    else if ([parseURL isEqualToString:@"checkStatus"]){
         if([elementName isEqualToString:@"GetOrderStatusResult"]){
             ////NSLog(@"%@",[attributeDict description]);
             resultFound=NO;
@@ -220,26 +304,27 @@ CGFloat price;
                ||[[attributeDict objectForKey:@"ORDER_STATUS"] isEqualToString:@"5"]){
                 self.parseURL = @"cancelOrder";
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-                [dateFormatter setDateFormat:@"yyyyMMdd HH:mm:ss"];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
                 NSString *currentdate = [dateFormatter stringFromDate:[NSDate date]];
+                
+                NSString *data = [NSString stringWithFormat:@"UpdateBy=%@~RecID=%@~VoiceLog=~LastUpdateTime=%@~",dm.userID,order.refNo,currentdate];
                 NSString *soapRequest = [NSString stringWithFormat:
                                          @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                                          "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
                                          "<soap:Body>"
-                                         "<CancelOrder xmlns=\"http://OMS/\">"
+                                         "<CancelOrderFixIncome xmlns=\"http://OMS/\">"
                                          "<UserSession>%@</UserSession>"
-                                         "<RecID>%i</RecID>"
-                                         "<UpdateBy>%@</UpdateBy>"
-                                         "<LastUpdateTime>%@</LastUpdateTime>"
-                                         "</CancelOrder>"
+                                         "<strData>%@</strData>"
+                                         "<nVersion>%d</nVersion>"
+                                         "</CancelOrderFixIncome>"
                                          "</soap:Body>"
-                                         "</soap:Envelope>", dm.sessionID,[order.refNo intValue],dm.userID,currentdate];
-                //NSLog(@"SoapRequest is %@" , soapRequest);
-                NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=CancelOrder"];
+                                         "</soap:Envelope>", dm.sessionID,data,0];
+                NSLog(@"SoapRequest is %@" , soapRequest);
+                NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=CancelOrderFixIncome"];
                 NSURL *url =[NSURL URLWithString:urls];
                 NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
                 [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-                [req addValue:@"http://OMS/CancelOrder" forHTTPHeaderField:@"SOAPAction"];
+                [req addValue:@"http://OMS/CancelOrderFixIncome" forHTTPHeaderField:@"SOAPAction"];
                 NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
                 [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
                 [req setHTTPMethod:@"POST"];
@@ -264,7 +349,7 @@ CGFloat price;
             msg = @"Some Technical Error...\nPlease Try again...";
             flag1=TRUE;
         }
-        else if([[string substringToIndex:1] isEqualToString:@"E"]){
+        else if([[string substringToIndex:1] isEqualToString:@"E  "]){
             //NSLog(@"E error");
             msg = @"User has logged on elsewhere!";
             [self dismissViewControllerAnimated:YES completion:nil];

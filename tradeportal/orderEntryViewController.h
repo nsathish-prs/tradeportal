@@ -20,7 +20,12 @@
 }
 - (IBAction)submitOrder:(id)sender;
 -(void)reloadData;
+- (IBAction)selectPrice:(UIButton *)sender;
 
+
+@property (weak, nonatomic) IBOutlet UIButton *bidPriceButton;
+@property (weak, nonatomic) IBOutlet UIButton *askPriceButton;
+@property (weak, nonatomic) IBOutlet UIButton *lastPriceButton;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property(nonatomic,strong)IBOutlet UIButton *submit;

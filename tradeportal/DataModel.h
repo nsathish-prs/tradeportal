@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <Parse/Parse.h>
 
 @interface DataModel : NSObject{
     NSString *userID;
@@ -19,6 +19,7 @@
     NSMutableArray *accountList;
     NSMutableDictionary *accountDict;
     UIViewController *tabBarController;
+    PFInstallation *currentInstallation;
 }
 
 # define iGREEN [UIColor colorWithRed:64.0f/255.0f green:177.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
@@ -43,5 +44,6 @@
 @property(strong,nonatomic)NSMutableArray *accountList;
 @property(strong,nonatomic)NSMutableDictionary *accountDict;
 @property(nonatomic,strong)IBOutlet UIViewController *tabBarController;
+@property(nonatomic,strong) PFInstallation *currentInstallation ;
 -(void)resetService;
 @end

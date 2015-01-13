@@ -41,9 +41,9 @@ NSString *userID;
     currency.text = currencyValue;
     type.text = typeValue;
     routeDest.text = routeDestValue;
-    orderType=@"2";
+    orderType=@"1";
     timeInForce=@"0";
-    currencyCode=@"702";
+    currencyCode=@"SGD";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldShouldReturn:) name:UIKeyboardWillHideNotification object:nil];
     amt = [orderPriceValue floatValue]*[qtyValue integerValue];
     NSNumberFormatter *fmt = [[NSNumberFormatter alloc]init];
@@ -195,12 +195,12 @@ NSString *userID;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
     [parser parse];
-    [spinner stopAnimating];
+    
 }
 
 
@@ -227,7 +227,7 @@ NSString *userID;
     if ([elementName isEqualToString:@"CheckUserPwdResult"]) {
         _dataFound = @"checkUser";
     }
-    if ([elementName isEqualToString:@"NewOrderResult"]) {
+    if ([elementName isEqualToString:@"NewOrderFixIncomeResult"]) {
         _dataFound = @"newOrder";
     }
 }
@@ -241,6 +241,7 @@ NSString *userID;
             [[self navigationController]popViewControllerAnimated:YES];
             [orderEntry reloadData];
             orderEntry.flag = true;
+            
         }
         else{
             if([[string substringToIndex:1] isEqualToString:@"E  "]){
@@ -263,6 +264,7 @@ NSString *userID;
         }
     }
     if (![msg isEqualToString:@""]) {
+        [spinner stopAnimating];
         UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [toast show];
         int duration = 1.5;
@@ -276,49 +278,24 @@ NSString *userID;
 
 -(void)newOrder{
     qtyValue = [qtyValue stringByReplacingOccurrencesOfString:@"," withString:@""];
+    NSString *data = [NSString stringWithFormat:@"AlgoStartTime=~Exchange=%@~FI_PriceCode=7~ExchangeRate=1~AlPercent=~OrderSize=%@~VoiceLog=~UpdateBy=%@~SecCode=%@~ClientAccID=%@~SpecialInstruction=~FI_NumberAgent=5~ExtraCare=0~AlgoWouldQty=~FI_TaxPercent=2~BuySell=%@~Yield=0~ForceOrderStatus=%@~AlgoEndTime=~SecurityType=STOCK~OrderType=%@~FI_TaxType=CHAR~AltSymbol=~StockLocation=~TimeInForce=DAY~NumberOfDaysAccuredInterest=1~OrderPrice=%@~SettCurr=%@~FI_TotalNetCashAmount=4~FI_TaxAmount=3~FI_TotalAccuredInterst=8~TradeCurrency=%@~tradeOfficer=%@~AlgoWouldPrice=~FI_PriceType=6~ExpireDate=20150101~FI_TradeAmount=9~AlAuction=~AlgoStrategy=0~AlRelLimit=~AlBenchMark=~",exchange,qtyValue,userID,stockCodeValue,clientAccountValue,side,@"0",orderType,orderPriceValue,currencyCode,currencyCode,userID];
     NSString *soapRequest = [NSString stringWithFormat:
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                              "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
                              "<soap:Body>"
-                             "<NewOrder xmlns=\"http://OMS/\">"
+                             "<NewOrderFixIncome xmlns=\"http://OMS/\">"
                              "<UserSession>%@</UserSession>"
-                             "<TradeAccID>%@</TradeAccID>"
-                             "<Symbol>%@</Symbol>"
-                             "<Qty>%d</Qty>"
-                             "<Price>%f</Price>"
-                             "<Side>%@</Side>"
-                             "<OrderType>%@</OrderType>"
-                             "<TradeOfficer>%@</TradeOfficer>"
-                             "<Exchange>%@</Exchange>"
-                             "<TimeInForce>%@</TimeInForce>"
-                             "<SettlementCurr>%@</SettlementCurr>"
-                             "<SpecialInstruction></SpecialInstruction>"
-                             "<UpdateBy>%@</UpdateBy>"
-                             "<ExchRate>%@</ExchRate>"
-                             "<StockCurrency>%@</StockCurrency>"
-                             "<StockLocation>%@</StockLocation>"
-                             "<ForceOrderStatus>%d</ForceOrderStatus>"
-                             "<ISIN_Code></ISIN_Code>"
-                             "<ExtraCare></ExtraCare>"
-                             "<Strategy></Strategy>"
-                             "<VWAP_Start_Time></VWAP_Start_Time>"
-                             "<VWAP_End_Time></VWAP_End_Time>"
-                             "<Would_Quantity></Would_Quantity>"
-                             "<Would_Price></Would_Price>"
-                             "<ExpireDate></ExpireDate>"
-                             "<AlPercent>%f</AlPercent>"
-                             "<AlAuction></AlAuction>"
-                             "<AlRelLimit>%f</AlRelLimit>"
-                             "<AlBenchMark></AlBenchMark>"
-                             "</NewOrder>"
+                             "<strData>%@</strData>"
+                             "<nVersion>0</nVersion>"
+                             "</NewOrderFixIncome>"
                              "</soap:Body>"
-                             "</soap:Envelope>",dm.sessionID,clientAccountValue,stockCodeValue,[qtyValue intValue],[orderPriceValue floatValue],side,orderType,userID,exchange,timeInForce,currencyCode,userID,exchangeRate,currencyCode,exchange,1,0.0,0.0];
-    NSLog(@"SoapRequest is %@" , soapRequest);
-    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=NewOrder"];
+                             "</soap:Envelope>",dm.sessionID,data];
+//    NSLog(@"SoapRequest is %@" , soapRequest);
+    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=NewOrderFixIncome"];
     NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [req addValue:@"http://OMS/NewOrder" forHTTPHeaderField:@"SOAPAction"];
+    [req addValue:@"http://OMS/NewOrderFixIncome" forHTTPHeaderField:@"SOAPAction"];
     NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
     [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
     [req setHTTPMethod:@"POST"];

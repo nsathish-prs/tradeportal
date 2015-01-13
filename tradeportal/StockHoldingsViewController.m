@@ -69,8 +69,8 @@ DataModel *dm;
         [numberFormatter setGroupingSeparator:@","];
         [numberFormatter setGroupingSize:3];
         [numberFormatter setUsesGroupingSeparator:YES];
-        
-        [[cell stockName] setText:[[stockList objectAtIndex:[indexPath row]]stockName]];
+        NSString *stkName = [[[stockList objectAtIndex:[indexPath row]]stockName]capitalizedString];
+        [[cell stockName] setText:stkName];
         [[cell stockCode] setText:[[stockList objectAtIndex:[indexPath row]]stockCode]];
         [[cell location] setText:[[stockList objectAtIndex:[indexPath row]]stockLocation]];
         [[cell totalStock] setText:[numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[stockList objectAtIndex:[indexPath row]]totalStock] intValue]]]];

@@ -21,7 +21,6 @@
 @synthesize window = _window,timer,conn,parser,parseURL,buffer,url,hostReachability,internetReachability,wifiReachability,privacyScreen;
 DataModel *dm;
 BOOL resultFound;
-PFInstallation *currentInstallation ;
 UITabBarController *tabbar;
 UIImageView *imageView;
 
@@ -73,10 +72,10 @@ UIImageView *imageView;
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Store the deviceToken in the current installation and save it to Parse.
-    currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation setDeviceTokenFromData:deviceToken];
-    currentInstallation.channels = @[ @"" ];
-    [currentInstallation saveInBackground];
+    dm.currentInstallation = [PFInstallation currentInstallation];
+    [dm.currentInstallation setDeviceTokenFromData:deviceToken];
+    dm.currentInstallation.channels = @[ @"" ];
+    [dm.currentInstallation saveInBackground];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
@@ -160,8 +159,8 @@ UIImageView *imageView;
     self.window.hidden = NO;
     [timer invalidate];
     application.applicationIconBadgeNumber = 0;
-    currentInstallation.badge=0;
-    [currentInstallation saveInBackground];
+    dm.currentInstallation.badge=0;
+    [dm.currentInstallation saveInBackground];
 }
 
 - (void) reachabilityChanged:(NSNotification *)note

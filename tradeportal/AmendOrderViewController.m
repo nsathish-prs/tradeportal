@@ -169,7 +169,7 @@ NSUserDefaults *getOrder;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //    NSLog(@"\n\nSoap Response is %@",theXML);
+        NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -184,7 +184,7 @@ NSUserDefaults *getOrder;
     
     //parse the data
     if ([parseURL isEqualToString:@"amendOrder"]){
-        if([elementName isEqualToString:@"AmendOrderResult"]){
+        if([elementName isEqualToString:@"AmendOrderFixIncomeResult"]){
             resultFound=NO;
         }
         if ([elementName isEqualToString:@"z:row"]) {
@@ -192,7 +192,7 @@ NSUserDefaults *getOrder;
             [orderBookDetails.navigationController popViewControllerAnimated:YES];
             [orderBook reloadTableData];
             [orderBook.view setNeedsDisplay];
-            UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"Order Amended Successfully!" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"Amend Order request sent Successfully!" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [toast show];
             int duration = 1.5;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -209,33 +209,30 @@ NSUserDefaults *getOrder;
                ||[[attributeDict objectForKey:@"ORDER_STATUS"] isEqualToString:@"5"]){
                 self.parseURL = @"amendOrder";
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-                [dateFormatter setDateFormat:@"yyyyMMdd HH:mm:ss"];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
                 NSString *currentdate = [dateFormatter stringFromDate:[NSDate date]];
                 NSString *type;
                 if ([order.orderType isEqualToString:@"LIM"]) {
                     type = @"2";
                 }
+                NSString *data = [NSString stringWithFormat:@"OrderSize=%ld~OrderPrice=%f~ExpireDate=20141119~OrderType=LIM~TimeInForce=%@~LastUpdateTime=%@~RecID=%@~UpdateBy=%@~VoiceLog=~",(long)qty,price,currentdate,currentdate,order.refNo,dm.userID];
                 NSString *soapRequest = [NSString stringWithFormat:
                                          @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                                          "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
                                          "<soap:Body>"
-                                         "<AmendOrder xmlns=\"http://OMS/\">"
+                                         "<AmendOrderFixIncome xmlns=\"http://OMS/\">"
                                          "<UserSession>%@</UserSession>"
-                                         "<RecID>%d</RecID>"
-                                         "<Qty>%ld</Qty>"
-                                         "<Price>%f</Price>"
-                                         "<UpdateBy>%@</UpdateBy>"
-                                         "<LastUpdateTime>%@</LastUpdateTime>"
-                                         "<OrderType>%@</OrderType>"
-                                         "</AmendOrder>"
+                                         "<strData>%@</strData>"
+                                         "<nVersion>%d</nVersion>"
+                                         "</AmendOrderFixIncome>"
                                          "</soap:Body>"
-                                         "</soap:Envelope>", dm.sessionID,[order.refNo intValue],(long)qty,price,dm.userID,currentdate,type];
-//                NSLog(@"SoapRequest is %@" , soapRequest);
-                NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=AmendOrder"];
+                                         "</soap:Envelope>", dm.sessionID,data,0];
+                NSLog(@"SoapRequest is %@" , soapRequest);
+                NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=AmendOrderFixIncome"];
                 NSURL *url =[NSURL URLWithString:urls];
                 NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
                 [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-                [req addValue:@"http://OMS/AmendOrder" forHTTPHeaderField:@"SOAPAction"];
+                [req addValue:@"http://OMS/AmendOrderFixIncome" forHTTPHeaderField:@"SOAPAction"];
                 NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
                 [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
                 [req setHTTPMethod:@"POST"];
@@ -260,7 +257,7 @@ NSUserDefaults *getOrder;
             msg = @"Some Technical Error...\nPlease Try again...";
             flag=TRUE;
         }
-        else if([[string substringToIndex:1] isEqualToString:@"E"]){
+        else if([[string substringToIndex:1] isEqualToString:@"E  "]){
             //NSLog(@"E error");
             msg = @"User has logged on elsewhere!";
             [self dismissViewControllerAnimated:YES completion:nil];

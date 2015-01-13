@@ -164,6 +164,16 @@ CGRect newFrame;
     [rb1 handleButtonTap:self];
 }
 
+- (IBAction)selectPrice:(UIButton *)sender {
+    if (sender.tag == 11) {
+        price.text = bidPrice.text;
+    } else if (sender.tag == 12) {
+        price.text = askPrice.text;
+    } else if (sender.tag == 13) {
+        price.text = lastPrice.text;
+    }
+}
+
 #pragma mark - TextField Delegates
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{

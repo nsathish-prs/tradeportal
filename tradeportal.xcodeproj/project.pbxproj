@@ -41,6 +41,8 @@
 		EC47207A1A53A30800DC7665 /* Stock-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4720791A53A30800DC7665 /* Stock-icons.png */; };
 		EC4720801A53A77300DC7665 /* Stock-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EC47207F1A53A77300DC7665 /* Stock-icon.png */; };
 		EC4720841A53A9E000DC7665 /* Accounts.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4720831A53A9E000DC7665 /* Accounts.png */; };
+		EC4720871A5BD55800DC7665 /* OrderDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4720861A5BD55800DC7665 /* OrderDetailsTableViewCell.m */; };
+		EC47208A1A5BDBC300DC7665 /* OrderDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4720891A5BDBC300DC7665 /* OrderDetailsModel.m */; };
 		EC4909FB1A37F9D5007B0C62 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909E91A37F9D5007B0C62 /* Icon-120.png */; };
 		EC4909FC1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909EB1A37F9D5007B0C62 /* Icon-iPad-Spotlight-iOS7@2x.png */; };
 		EC4909FD1A37F9D5007B0C62 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909ED1A37F9D5007B0C62 /* Icon-Small.png */; };
@@ -152,6 +154,10 @@
 		EC4720791A53A30800DC7665 /* Stock-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Stock-icons.png"; sourceTree = "<group>"; };
 		EC47207F1A53A77300DC7665 /* Stock-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Stock-icon.png"; sourceTree = "<group>"; };
 		EC4720831A53A9E000DC7665 /* Accounts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Accounts.png; sourceTree = "<group>"; };
+		EC4720851A5BD55800DC7665 /* OrderDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsTableViewCell.h; sourceTree = "<group>"; };
+		EC4720861A5BD55800DC7665 /* OrderDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsTableViewCell.m; sourceTree = "<group>"; };
+		EC4720881A5BDBC300DC7665 /* OrderDetailsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsModel.h; sourceTree = "<group>"; };
+		EC4720891A5BDBC300DC7665 /* OrderDetailsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsModel.m; sourceTree = "<group>"; };
 		EC4909EA1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon-120.png"; sourceTree = "<group>"; };
 		EC4909EC1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon-iPad-Spotlight-iOS7@2x.png"; sourceTree = "<group>"; };
 		EC4909EE1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Icon-Small.png"; sourceTree = "<group>"; };
@@ -296,6 +302,10 @@
 				EC27EF8919FF3A8900464E27 /* OrderBookModel.m */,
 				EC502D991A14A051004ED0DA /* AmendOrderViewController.h */,
 				EC502D9A1A14A051004ED0DA /* AmendOrderViewController.m */,
+				EC4720851A5BD55800DC7665 /* OrderDetailsTableViewCell.h */,
+				EC4720861A5BD55800DC7665 /* OrderDetailsTableViewCell.m */,
+				EC4720881A5BDBC300DC7665 /* OrderDetailsModel.h */,
+				EC4720891A5BDBC300DC7665 /* OrderDetailsModel.m */,
 			);
 			name = OrderBook;
 			sourceTree = "<group>";
@@ -631,11 +641,13 @@
 				EC2DA0AA1A086EF7008A40BE /* ChangePasswordViewController.m in Sources */,
 				EC9DA94D1A10AD7F00615ACF /* StockHoldingsViewController.m in Sources */,
 				EC43B26F19E4F7EB0014DDA5 /* main.m in Sources */,
+				EC47208A1A5BDBC300DC7665 /* OrderDetailsModel.m in Sources */,
 				EC9DA9531A10B0C700615ACF /* StockHoldingsDataModel.m in Sources */,
 				EC27EF8019FDE78600464E27 /* OrderBookDetailsViewController.m in Sources */,
 				EC27EF8319FE438000464E27 /* OrderBookTableViewCell.m in Sources */,
 				ECD39DDE1A08E0C20084A30D /* SettingsViewController.m in Sources */,
 				EC27EF7D19F90B0100464E27 /* OrderBookViewController.m in Sources */,
+				EC4720871A5BD55800DC7665 /* OrderDetailsTableViewCell.m in Sources */,
 				EC43B27319E4F7EB0014DDA5 /* AppDelegate.m in Sources */,
 				EC43B27C19E4F7EB0014DDA5 /* LoginViewController.m in Sources */,
 				EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */,

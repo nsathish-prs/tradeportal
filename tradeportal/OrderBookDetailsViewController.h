@@ -10,9 +10,10 @@
 #import "OrderBookModel.h"
 #import "OrderBookViewController.h"
 
-@interface OrderBookDetailsViewController : UIViewController<UIAlertViewDelegate,NSXMLParserDelegate>{
-    
+@interface OrderBookDetailsViewController : UIViewController<UIAlertViewDelegate,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate>{
+    NSMutableArray *messages;
 }
+@property(nonatomic,assign) NSMutableArray *messages;
 
 @property (weak, nonatomic) IBOutlet UILabel *refNo;
 @property(nonatomic,strong) IBOutlet UILabel *clientAccount;
@@ -33,6 +34,7 @@
 @property(nonatomic,strong)IBOutlet OrderBookViewController *orderBook;
 @property(nonatomic,strong)OrderBookModel *order;
 @property(nonatomic,assign)Boolean flag;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)cancelOrder:(id)sender;
 

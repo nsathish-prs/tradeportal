@@ -11,14 +11,14 @@
 
 @implementation DataModel
 
-@synthesize userID,password,sessionID,fromView,toView,ip,domain,protocol,service,serviceURL,accountDict,accountList,tabBarController;
+@synthesize userID,password,sessionID,fromView,toView,ip,domain,protocol,service,serviceURL,accountDict,accountList,tabBarController,currentInstallation;
 
 
 -(void)resetService{
     ip = @"118.189.2.46";  //192.168.174.109 //
-    domain =  @":10901"; //7010 //10901
+    domain =  @":7010"; //7010 //10901
     protocol = @"http";
-    service = @"oms_portal/ws_rsOMS.asmx?"; //oms/ws_rsoms2.asmx? //oms_portal/ws_rsOMS.asmx?
+    service = @"oms/ws_rsoms2.asmx?"; //oms/ws_rsoms2.asmx? //oms_portal/ws_rsOMS.asmx?
 
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); //1
     NSString *documentsDirectory = [paths objectAtIndex:0]; //2

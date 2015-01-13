@@ -209,6 +209,7 @@ DataModel *dm;
         [[cell orderDate] setText:@" "];
         [[cell refNo] setText:@" "];
         cell.userInteractionEnabled=NO;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     [cell setBackgroundColor:[UIColor clearColor]];
     return cell;
@@ -371,7 +372,7 @@ DataModel *dm;
             msg = @"Some Technical Error...\nPlease Try again...";
             flag=TRUE;
         }
-        else if([[string substringToIndex:1] isEqualToString:@"E  "]){
+        else if([[string substringToIndex:1] isEqualToString:@"E"]){
             msg = @"User has logged on elsewhere!";
             [self dismissViewControllerAnimated:YES completion:nil];
             [[self navigationController]popToRootViewControllerAnimated:YES];
