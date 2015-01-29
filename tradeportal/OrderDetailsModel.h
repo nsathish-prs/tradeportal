@@ -2,7 +2,7 @@
 //  OrderDetailsModel.h
 //  TradePortal
 //
-//  Created by intern on 6/1/15.
+//  Created by Nagarajan Sathish on 6/1/15.
 //
 //
 

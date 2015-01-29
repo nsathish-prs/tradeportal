@@ -2,7 +2,7 @@
 //  DetailViewController.m
 //  tradeportal
 //
-//  Created by intern on 15/12/14.
+//  Created by Nagarajan Sathish on 15/12/14.
 //
 //
 

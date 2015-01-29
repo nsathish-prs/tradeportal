@@ -44,6 +44,11 @@ bool dataFound=NO;
     return YES;
 }
 
+-(IBAction)hideKeyboard:(id)sender{
+    [self.view endEditing:YES];
+}
+
+
 #pragma mark - Invoke Change password Service
 
 - (IBAction)changePassword:(id)sender {

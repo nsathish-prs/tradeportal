@@ -10,7 +10,7 @@
 #import "StockHoldingsTableViewCell.h"
 #import "ClientAccountViewController.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "OrderEntryModel.h"
 
 @interface StockHoldingsViewController (){
     BOOL resultFound;
@@ -27,6 +27,7 @@
 
 @synthesize buffer,parseURL,parser,conn,clientAccount,stockCode,tableView,cAccount,spinner;
 DataModel *dm;
+OrderEntryModel *em;
 
 #pragma mark - View Delegates
 
@@ -35,6 +36,10 @@ DataModel *dm;
     stockArray = [[NSMutableArray alloc]init];
     stockList = [[NSMutableArray alloc]init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldShouldReturn:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
 }
 
 #pragma mark - View Delegates
@@ -77,6 +82,7 @@ DataModel *dm;
         if (indexPath.row==3) {
             cell.noResults.hidden=true;
         }
+        cell.userInteractionEnabled=YES;
     }
     else{
         [[cell stockCode] setText:@" "];
@@ -91,6 +97,34 @@ DataModel *dm;
     
     return cell;
 }
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    em = [[OrderEntryModel alloc]init];
+    em.searchStock = [[stockList objectAtIndex:[indexPath row]]stockCode];
+    em.flag = true;
+    em.accountNumber = clientAccount.titleLabel.text;
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setGroupingSeparator:@","];
+    [numberFormatter setGroupingSize:3];
+    [numberFormatter setUsesGroupingSeparator:YES];
+    
+    if ([[[stockList objectAtIndex:[indexPath row]]totalStock] intValue]<0) {
+        em.action =@"BUY";
+        em.quantity = [numberFormatter stringFromNumber:[NSNumber numberWithInt:abs([[[stockList objectAtIndex:[indexPath row]]totalStock]intValue])]];
+    }
+    else{
+        em.action = @"SELL";
+        em.quantity = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[[[stockList objectAtIndex:[indexPath row]]totalStock]intValue]]];
+    }
+    NSLog(@"%@-%@-%@-%@",em.searchStock,em.action,em.accountNumber,em.quantity);
+    [self.tabBarController setSelectedViewController:[[self.tabBarController viewControllers]objectAtIndex:0]];
+    [self.tabBarController setSelectedIndex: 0];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+}
+
+
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UITableViewCell *header = [tableView dequeueReusableCellWithIdentifier:@"tableHeader"];
     return header;

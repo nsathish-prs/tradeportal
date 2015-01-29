@@ -11,7 +11,7 @@
 
 @implementation DataModel
 
-@synthesize userID,password,sessionID,fromView,toView,ip,domain,protocol,service,serviceURL,accountDict,accountList,tabBarController,currentInstallation;
+@synthesize userID,password,sessionID,fromView,toView,ip,domain,protocol,service,serviceURL,accountDict,accountList,tabBarController,currentInstallation,TR_Code,parseDeviceList,Installation,deviceDict,wifi;
 
 
 -(void)resetService{

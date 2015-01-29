@@ -22,11 +22,12 @@
 @property (strong, nonatomic) NSString *parseURL;
 @property (strong, nonatomic) NSURLConnection *conn;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner1;
 @end
 
 @implementation OrderBookDetailsViewController
 
-@synthesize order,refNo,clientAccount,stockCode,desc,exchange,status,orderQty,qtyFilled,orderPrice,avgPrice,orderDate,currency,options,edit,cancel,buffer,parser,parseURL,conn,spinner,orderBook,side,flag,messages=_messages;
+@synthesize order,refNo,clientAccount,stockCode,desc,exchange,status,orderQty,qtyFilled,orderPrice,avgPrice,orderDate,currency,options,edit,cancel,buffer,parser,parseURL,conn,spinner,spinner1,orderBook,side,flag,messages=_messages;
 DataModel *dm;
 bool tag;
 NSInteger qty ;
@@ -74,11 +75,14 @@ CGFloat price;
        ||[order.status isEqualToString:@"Part Changed"]){
         [options setHidden:NO];
     }
-    spinner.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height/2);
+    spinner1.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/4,[UIScreen mainScreen].bounds.size.height/2);
     UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
-    [mainWindow addSubview:spinner];
+    [mainWindow addSubview:spinner1];
+    
     messages = [[NSMutableArray alloc]init];
     [self loadMessages];
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -157,6 +161,7 @@ CGFloat price;
     if (conn) {
         buffer = [NSMutableData data];
     }
+    [spinner1 startAnimating];
 }
 
 
@@ -234,6 +239,7 @@ CGFloat price;
         [toast dismissWithClickedButtonIndex:0 animated:YES];
     });
     [spinner stopAnimating];
+    [spinner1 stopAnimating];
 }
 
 -(void) connectionDidFinishLoading:(NSURLConnection *) connection {
@@ -249,12 +255,12 @@ CGFloat price;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
     [parser parse];
-    [spinner stopAnimating];
+    
 }
 
 
@@ -281,6 +287,7 @@ CGFloat price;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [toast dismissWithClickedButtonIndex:0 animated:YES];
                 });
+                [spinner stopAnimating];
             }
         }
     }else if ([parseURL isEqualToString:@"loadMessages"]) {
@@ -291,11 +298,12 @@ CGFloat price;
             msgs.updated_By = [attributeDict objectForKey:@"UPDATE_BY"];
             [messages addObject:msgs];
             [self.tableView reloadData];
+            [spinner1 stopAnimating];
         }
     }
     else if ([parseURL isEqualToString:@"checkStatus"]){
         if([elementName isEqualToString:@"GetOrderStatusResult"]){
-            ////NSLog(@"%@",[attributeDict description]);
+            //NSLog(@"%@",[attributeDict description]);
             resultFound=NO;
         }
         if ([elementName isEqualToString:@"z:row"]) {
@@ -319,7 +327,7 @@ CGFloat price;
                                          "</CancelOrderFixIncome>"
                                          "</soap:Body>"
                                          "</soap:Envelope>", dm.sessionID,data,0];
-                NSLog(@"SoapRequest is %@" , soapRequest);
+//                NSLog(@"SoapRequest is %@" , soapRequest);
                 NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=CancelOrderFixIncome"];
                 NSURL *url =[NSURL URLWithString:urls];
                 NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -329,7 +337,6 @@ CGFloat price;
                 [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
                 [req setHTTPMethod:@"POST"];
                 [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
-                
                 self.conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
                 self.spinner.hidesWhenStopped=YES;
                 [spinner startAnimating];
@@ -366,6 +373,8 @@ CGFloat price;
             });
             
         }
+        [spinner stopAnimating];
+        [spinner1 stopAnimating];
         resultFound=YES;
     }
 }

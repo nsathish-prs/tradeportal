@@ -26,9 +26,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 
+
 -(void)loadOrders;
 -(void)reloadTableData;
 
+- (IBAction)capitalize:(id)sender;
 - (IBAction)indexChanged:(UISegmentedControl *)sender;
 - (IBAction)stockSearch:(id)sender;
+- (IBAction)sort:(UIButton *)sender;
 @end

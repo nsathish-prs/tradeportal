@@ -15,7 +15,7 @@
 @implementation ChangeServiceViewController
 
 
-@synthesize url,protocol,ip,domain,path,settings,service;
+@synthesize url,protocol,ip,domain,path,settings,service,spinner;
 DataModel *dm;
 
 #pragma mark - View Delegates
@@ -53,6 +53,10 @@ Boolean flag;
     }
 }
 
+-(IBAction)hideKeyboard:(id)sender{
+    [self.view endEditing:YES];
+}
+
 #pragma mark - TextField Delegates
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -64,6 +68,7 @@ Boolean flag;
 #pragma mark - Reset Data
 
 - (IBAction)setDefault:(id)sender {
+    [spinner startAnimating];
     [dm resetService ];
     [self loadData];
     dm.serviceURL = [NSString stringWithFormat:@"%@://%@%@/%@",[url objectForKey:@"protocol"],[url objectForKey:@"ip"],[url objectForKey:@"domain"],[url objectForKey:@"service"]];
@@ -80,7 +85,7 @@ Boolean flag;
 #pragma mark - Save Data
 
 - (IBAction)saveChanges:(id)sender {
-    
+    [spinner startAnimating];
     if (![ip.text isEqualToString:@""]) {
         if ([ip.text isEqualToString:@"-"]) {
             [url setObject:@"" forKey:@"ip"];
@@ -128,6 +133,7 @@ Boolean flag;
 #pragma mark - Dismiss View
 
 - (IBAction)dismissView:(id)sender {
+    [spinner stopAnimating];
     [self dismissViewControllerAnimated:YES completion:nil];
     settings.view.alpha = 1.0f;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && flag)

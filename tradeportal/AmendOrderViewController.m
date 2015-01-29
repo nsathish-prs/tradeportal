@@ -22,7 +22,7 @@
 @end
 
 @implementation AmendOrderViewController
-@synthesize orderPrice,orderQty,matchQty,nQty,nPrice,spinner,buffer,parser,parseURL,conn,order,orderBook,amendView,orderBookDetails;
+@synthesize orderPrice,orderQty,matchQty,nQty,nPrice,spinner,buffer,parser,parseURL,conn,order,orderBook,amendView,orderBookDetails,saveChanges;
 DataModel *dm;
 NSInteger qty ;
 NSInteger y ;
@@ -48,9 +48,9 @@ NSUserDefaults *getOrder;
     
     self.view.backgroundColor=[UIColor clearColor];
     orderBookDetails.view.alpha=0.5f;
-    spinner.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height/2);
-    UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
-    [mainWindow addSubview:spinner];
+    //    spinner.center= CGPointMake( [UIScreen mainScreen].bounds.size.width/2,[UIScreen mainScreen].bounds.size.height/2);
+    //    UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
+    //    [mainWindow addSubview:spinner];
     
     orderQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[order.orderQty intValue]]];
     orderPrice.text = [priceFormatter stringFromNumber:[NSNumber numberWithDouble:[order.orderPrice doubleValue]]];
@@ -73,10 +73,15 @@ NSUserDefaults *getOrder;
     orderBookDetails.view.alpha = 1.0f;
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.view endEditing:YES];
+    return YES;
+}
 
 #pragma mark - Invoke Amend Service
 
 - (IBAction)confirmAmend:(id)sender {
+    saveChanges.enabled = false;
     qty = [nQty.text integerValue];
     price = [nPrice.text floatValue];
     NSString *qFilled = [matchQty.text stringByReplacingOccurrencesOfString:@"," withString:@""];
@@ -121,7 +126,7 @@ NSUserDefaults *getOrder;
                              "</GetOrderStatus>"
                              "</soap:Body>"
                              "</soap:Envelope>", dm.sessionID,[order.refNo intValue]];
-//        NSLog(@"SoapRequest is %@" , soapRequest);
+//    NSLog(@"SoapRequest is %@" , soapRequest);
     NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetOrderStatus"];
     NSURL *url =[NSURL URLWithString:urls];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -169,15 +174,15 @@ NSUserDefaults *getOrder;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-        NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
     [parser parse];
-    [spinner stopAnimating];
+   
 }
 
-#pragma mark - XML Parser 
+#pragma mark - XML Parser
 
 -(void) parser:(NSXMLParser *) parser didStartElement:(NSString *) elementName
   namespaceURI:(NSString *) namespaceURI qualifiedName:(NSString *) qName attributes:(NSDictionary *) attributeDict {
@@ -198,6 +203,7 @@ NSUserDefaults *getOrder;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [toast dismissWithClickedButtonIndex:0 animated:YES];
             });
+            [spinner stopAnimating];
         }
     }else if ([parseURL isEqualToString:@"checkStatus"]){
         if([elementName isEqualToString:@"GetOrderStatusResult"]){
@@ -211,11 +217,14 @@ NSUserDefaults *getOrder;
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
                 [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
                 NSString *currentdate = [dateFormatter stringFromDate:[NSDate date]];
+                [dateFormatter setDateFormat:@"yyyyMMdd"];
+                NSString *expDate = [dateFormatter stringFromDate:[NSDate date]];
+
                 NSString *type;
                 if ([order.orderType isEqualToString:@"LIM"]) {
                     type = @"2";
                 }
-                NSString *data = [NSString stringWithFormat:@"OrderSize=%ld~OrderPrice=%f~ExpireDate=20141119~OrderType=LIM~TimeInForce=%@~LastUpdateTime=%@~RecID=%@~UpdateBy=%@~VoiceLog=~",(long)qty,price,currentdate,currentdate,order.refNo,dm.userID];
+                NSString *data = [NSString stringWithFormat:@"OrderSize=%ld~OrderPrice=%f~ExpireDate=%@~OrderType=%@~TimeInForce=%@~LastUpdateTime=%@~RecID=%@~UpdateBy=%@~VoiceLog=~",(long)qty,price,expDate,type,@"0",currentdate,order.refNo,dm.userID];
                 NSString *soapRequest = [NSString stringWithFormat:
                                          @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                                          "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
@@ -227,7 +236,7 @@ NSUserDefaults *getOrder;
                                          "</AmendOrderFixIncome>"
                                          "</soap:Body>"
                                          "</soap:Envelope>", dm.sessionID,data,0];
-                NSLog(@"SoapRequest is %@" , soapRequest);
+//                                NSLog(@"SoapRequest is %@" , soapRequest);
                 NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=AmendOrderFixIncome"];
                 NSURL *url =[NSURL URLWithString:urls];
                 NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -265,6 +274,15 @@ NSUserDefaults *getOrder;
             [[orderBookDetails navigationController]popToRootViewControllerAnimated:YES];
             flag=TRUE;
         }
+        else if([string isEqualToString:@"E E  Insert record to DB failed "]){
+            //NSLog(@"E error");
+            msg = @"Request Failed...\nPlease Try Again..!";
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [orderBookDetails.navigationController popViewControllerAnimated:YES];
+            [orderBook reloadTableData];
+            [orderBook.view setNeedsDisplay];
+            flag=TRUE;
+        }
         if (flag) {
             
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
@@ -275,6 +293,7 @@ NSUserDefaults *getOrder;
             });
             
         }
+        [spinner stopAnimating];
         resultFound=YES;
     }
 }

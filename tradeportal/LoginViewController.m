@@ -3,7 +3,7 @@
 //  tradeportal
 //
 //  Created by Nagarajan Sathish on 8/10/14.
-//  Copyright (c) 2014 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2014 IFIS Asia Pte Ltd. All rights reserved.
 //
 
 #import "LoginViewController.h"
@@ -19,6 +19,8 @@
     NSString *name;
     NSString *password;
     NSString *sessionID;
+    NSMutableArray *channels;
+    
 }
 
 
@@ -27,7 +29,7 @@
 @implementation LoginViewController
 
 DataModel *dm;
-@synthesize uname1,upwd,buffer,parser,conn,error,spinner1,parseURL;
+@synthesize uname1,upwd,buffer,parser,conn,spinner1,parseURL;
 
 #pragma mark - View Delegates
 
@@ -37,13 +39,12 @@ DataModel *dm;
     dm.accountList = [[NSMutableArray alloc]init];
     dm.accountDict = [[NSMutableDictionary alloc]init];
     
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     self.view.alpha = 1.0f;
     [super viewWillAppear:animated];
-    
+    [dm.currentInstallation fetch];
 }
 
 #pragma mark - TextField Delegate
@@ -53,6 +54,11 @@ DataModel *dm;
     [upwd resignFirstResponder];
     return YES;
 }
+
+-(IBAction)hideKeyboard:(id)sender{
+    [self.view endEditing:YES];
+}
+
 
 #pragma mark - Invoke Login Service
 
@@ -111,7 +117,7 @@ DataModel *dm;
         if (conn) {
             buffer = [NSMutableData data];
         }
-
+        
     }
 }
 
@@ -178,7 +184,7 @@ DataModel *dm;
     [theXML replaceOccurrencesOfString:@"&gt;"
                             withString:@">" options:0
                                  range:NSMakeRange(0, [theXML length])];
-    //    NSLog(@"\n\nSoap Response is %@",theXML);
+//    NSLog(@"\n\nSoap Response is %@",theXML);
     [buffer setData:[theXML dataUsingEncoding:NSUTF8StringEncoding]];
     self.parser =[[NSXMLParser alloc]initWithData:buffer];
     [parser setDelegate:self];
@@ -202,16 +208,21 @@ DataModel *dm;
         }
         
     }
+    else if([parseURL isEqualToString:@"InsertUserDeviceInfoResult"]){
+        if([elementName isEqualToString:@"InsertUserDeviceInfoResult"]){
+            ////NSLog(@"%@",[attributeDict description]);
+            resultFound=NO;
+        }
+    }
     else{
-        
         
         if([elementName isEqualToString:@"AuthenticateUserResult"]){
             ////NSLog(@"%@",[attributeDict description]);
             resultFound=NO;
         }
         if ([elementName isEqualToString:@"z:row"]) {
-//            NSString* result = [attributeDict objectForKey:@"RESULT"];
-//            NSLog(@"%@",result);
+            //            NSString* result = [attributeDict objectForKey:@"RESULT"];
+            //            NSLog(@"%@",result);
             resultFound=YES;
             dm.userID=name;
             dm.password=password;
@@ -220,13 +231,102 @@ DataModel *dm;
             dm.accountList = [[NSMutableArray alloc]init];
             dm.accountDict = [[NSMutableDictionary alloc]init];
             [self loadAccountListfor:dm.userID withSession:dm.sessionID];
-            dm.currentInstallation.channels = @[ @"" , dm.userID ];
-            [dm.currentInstallation saveInBackground];
+            dm.TR_Code = [attributeDict objectForKey:@"TR_CODE"];
+            
+            if (![dm.deviceDict objectForKey:dm.TR_Code]) {
+                dm.parseDeviceList = [PFObject objectWithClassName:@"DeviceList"];
+                dm.parseDeviceList[@"TR_Code"] = dm.TR_Code;
+                dm.parseDeviceList[@"deviceRegId"] = [[NSArray alloc]init];
+                dm.parseDeviceList[@"deviceList"] = [[NSArray alloc]init];
+                [dm.parseDeviceList saveInBackground];
+                
+                PFQuery *query1 = [PFQuery queryWithClassName:@"DeviceList"];
+                [query1 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (!error) {
+//                        NSLog(@"Successfully retrieved %lu.", (unsigned long)objects.count);
+                        for (PFObject *object in objects) {
+                            [dm.deviceDict setObject:object.objectId forKey:object[@"TR_Code"]];
+                        }
+                    }
+                }];
+            }
+            UIAlertView* notify = [[UIAlertView alloc] init];
+            notify.alertViewStyle = UIAlertViewStyleDefault;
+            [notify setDelegate:self];
+            [notify setTag:0];
+            [notify setMessage:@"Register this device for Notification"];
+            [notify addButtonWithTitle:@"Yes"];
+            [notify addButtonWithTitle:@"No"];
+//            NSLog(@"%@",dm.currentInstallation.channels);
+            if (dm.currentInstallation.channels.count > 1) {
+                if (![[dm.currentInstallation.channels objectAtIndex:1] isEqualToString:dm.TR_Code]) {
+                    [notify show];
+                }
+            }
+            else{
+                [notify show];
+            }
             [self performSegueWithIdentifier:@"ifisPortal" sender:self];
         }
     }
+}
+
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 0) {
+        PFQuery *query = [PFQuery queryWithClassName:@"DeviceList"];
+        [query getObjectInBackgroundWithId:[dm.deviceDict objectForKey:dm.TR_Code] block:^(PFObject *userObject, NSError *error) {
+            dm.parseDeviceList = userObject;
+            NSMutableArray *deviceList = [[NSMutableArray alloc]initWithArray:dm.parseDeviceList[@"deviceList"]];
+            NSMutableArray *deviceRegId = [[NSMutableArray alloc]initWithArray:dm.parseDeviceList[@"deviceRegId"]];
+            if (![deviceList containsObject:[[UIDevice currentDevice]name]]) {
+                [deviceList addObject:[[UIDevice currentDevice]name]];
+                dm.parseDeviceList[@"deviceList"] = deviceList;
+                [deviceRegId addObject:dm.currentInstallation.objectId];
+                dm.parseDeviceList[@"deviceRegId"] = deviceRegId;
+                [dm.parseDeviceList saveInBackground];
+            }
+            }];
+                if (buttonIndex == 0) {
+                    PFQuery *query = [PFQuery queryWithClassName:@"DeviceList"];
+                    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+                     {
+                         if (!error) {
+//                             NSLog(@"Successfully retrieved %lu.", (unsigned long)objects.count);
+                             for (PFObject *object in objects) {
+                                 if (![object.objectId isEqual:[dm.deviceDict objectForKey:dm.TR_Code]]) {
+                                     dm.parseDeviceList = object;
+                                     NSMutableArray *deviceList = [[NSMutableArray alloc]initWithArray:dm.parseDeviceList[@"deviceList"]];
+                                     NSMutableArray *deviceRegId = [[NSMutableArray alloc]initWithArray:dm.parseDeviceList[@"deviceRegId"]];
+                                     if ([deviceRegId containsObject:dm.currentInstallation.objectId]) {
+                                         [deviceList removeObject:[[UIDevice currentDevice]name]];
+                                         dm.parseDeviceList[@"deviceList"] = deviceList;
+                                         [deviceRegId removeObject:dm.currentInstallation.objectId];
+                                         dm.parseDeviceList[@"deviceRegId"] = deviceRegId;
+                                         [dm.parseDeviceList saveInBackground];
+                                     }
+                                 }
+                                 //                                 NSLog(@"%@", object);
+                             }
+                         } else {
+                             NSLog(@"Error: %@ %@", error, [error userInfo]);
+                         }
+                     }];
+                    dm.currentInstallation.channels = [NSArray arrayWithObjects:@"",dm.TR_Code, nil];
+                    [dm.currentInstallation saveInBackground];
+                }
+                else {
+//                    NSLog(@"Device already registered");
+                }
+                
+            }
+            else{
+                
+            }
     
 }
+
 
 - (void) parser:(NSXMLParser *) parser foundCharacters:(NSString *) string {
     NSString *msg;
@@ -242,8 +342,12 @@ DataModel *dm;
             msg = @"Connection Error";
             flag=TRUE;
         }
+        else if([[string substringToIndex:1] isEqualToString:@"S"]){
+            //NSLog(@"E error");
+            msg = @"User Registered Successfully";
+            flag=TRUE;
+        }
         if (flag) {
-            
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [toast show];
             int duration = 1.5;
@@ -251,7 +355,6 @@ DataModel *dm;
                 [toast dismissWithClickedButtonIndex:0 animated:YES];
             });
             [spinner1 stopAnimating];
-            
         }
         resultFound=YES;
     }
@@ -264,6 +367,7 @@ DataModel *dm;
 -(void)dismissView{
     
 }
+
 #pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

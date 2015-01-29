@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *ip;
 @property (weak, nonatomic) IBOutlet UITextField *domain;
 @property (weak, nonatomic) IBOutlet UITextField *service;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property(strong,nonatomic)IBOutlet UIViewController *settings;
 

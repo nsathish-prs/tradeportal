@@ -3,7 +3,7 @@
 //  tradeportal
 //
 //  Created by Nagarajan Sathish on 8/10/14.
-//  Copyright (c) 2014 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2014 IFIS Asia Pte Ltd. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -21,7 +21,6 @@
 @property (strong, nonatomic) NSString *parseURL;
 @property (strong, nonatomic) NSXMLParser *parser;
 @property (strong, nonatomic) NSURLConnection *conn;
-@property(strong,nonatomic)IBOutlet UILabel *error;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner1;
 
 

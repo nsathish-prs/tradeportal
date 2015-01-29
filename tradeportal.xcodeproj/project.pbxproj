@@ -24,6 +24,7 @@
 		EC2DA0951A038B94008A40BE /* IFIS_Logo_2014_new_launch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EC2DA0931A038B93008A40BE /* IFIS_Logo_2014_new_launch.jpg */; };
 		EC2DA0AA1A086EF7008A40BE /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2DA0A81A086EF7008A40BE /* ChangePasswordViewController.m */; };
 		EC2DA0B01A087151008A40BE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC2DA0AF1A087151008A40BE /* CoreData.framework */; };
+		EC30CDB71A79DB0000381574 /* OrderEntryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC30CDB61A79DB0000381574 /* OrderEntryModel.m */; };
 		EC43B26319E4F7EB0014DDA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26219E4F7EB0014DDA5 /* UIKit.framework */; };
 		EC43B26519E4F7EB0014DDA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26419E4F7EB0014DDA5 /* Foundation.framework */; };
 		EC43B26719E4F7EB0014DDA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC43B26619E4F7EB0014DDA5 /* CoreGraphics.framework */; };
@@ -53,6 +54,10 @@
 		EC490A021A37F9D5007B0C62 /* IFIS_Logo_2014_new_launch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909F71A37F9D5007B0C62 /* IFIS_Logo_2014_new_launch@2x.png */; };
 		EC490A031A37F9D5007B0C62 /* order-history.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4909F91A37F9D5007B0C62 /* order-history.png */; };
 		EC490A071A37FAE9007B0C62 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC490A061A37FAE9007B0C62 /* Images.xcassets */; };
+		EC4ABCF41A68BF7400085BAD /* icon_down_sort_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4ABCF21A68BF7400085BAD /* icon_down_sort_arrow.png */; };
+		EC4ABCF71A691EF800085BAD /* icon_up_sort_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4ABCF61A691EF800085BAD /* icon_up_sort_arrow.png */; };
+		EC4AE19B1A70F7A700227048 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4AE19A1A70F7A700227048 /* NotificationViewController.m */; };
+		EC4AE19E1A71027C00227048 /* NotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4AE19D1A71027C00227048 /* NotificationTableViewCell.m */; };
 		EC502D9B1A14A051004ED0DA /* AmendOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC502D9A1A14A051004ED0DA /* AmendOrderViewController.m */; };
 		EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6B8F9919F669B800AA17B8 /* DataModel.m */; };
 		EC6C8E711A0A330D00A778D7 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = EC6C8E731A0A330D00A778D7 /* Search.png */; };
@@ -69,6 +74,7 @@
 		ECA6BBDD1A35B2DF00814734 /* ChangeServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */; };
 		ECBA60461A3E9FBF00B670BA /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBA60451A3E9FBF00B670BA /* DetailViewController.m */; };
 		ECBC4BDD1A2DACFA00CD6E60 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */; };
+		ECC868591A76481000774BC3 /* ClientAccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC868581A76481000774BC3 /* ClientAccountTableViewCell.m */; };
 		ECCA18AC1A4D559F00FC7A8F /* Icon-120-i3.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA18A91A4D559F00FC7A8F /* Icon-120-i3.png */; };
 		ECCA18AD1A4D559F00FC7A8F /* Icon-120-i2.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA18AA1A4D559F00FC7A8F /* Icon-120-i2.png */; };
 		ECCA18AE1A4D559F00FC7A8F /* Icon-120-i1.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCA18AB1A4D559F00FC7A8F /* Icon-120-i1.png */; };
@@ -131,6 +137,8 @@
 		EC2DA0A71A086EF7008A40BE /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		EC2DA0A81A086EF7008A40BE /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		EC2DA0AF1A087151008A40BE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		EC30CDB51A79DB0000381574 /* OrderEntryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderEntryModel.h; sourceTree = "<group>"; };
+		EC30CDB61A79DB0000381574 /* OrderEntryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderEntryModel.m; sourceTree = "<group>"; };
 		EC43B25E19E4F7EB0014DDA5 /* tradeportal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeportal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC43B26219E4F7EB0014DDA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EC43B26419E4F7EB0014DDA5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -168,6 +176,12 @@
 		EC4909F81A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/IFIS_Logo_2014_new_launch@2x.png"; sourceTree = "<group>"; };
 		EC4909FA1A37F9D5007B0C62 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/order-history.png"; sourceTree = "<group>"; };
 		EC490A061A37FAE9007B0C62 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = tradeportal/Images.xcassets; sourceTree = "<group>"; };
+		EC4ABCF21A68BF7400085BAD /* icon_down_sort_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_down_sort_arrow.png; sourceTree = "<group>"; };
+		EC4ABCF61A691EF800085BAD /* icon_up_sort_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_up_sort_arrow.png; sourceTree = "<group>"; };
+		EC4AE1991A70F7A700227048 /* NotificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		EC4AE19A1A70F7A700227048 /* NotificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
+		EC4AE19C1A71027C00227048 /* NotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationTableViewCell.h; sourceTree = "<group>"; };
+		EC4AE19D1A71027C00227048 /* NotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationTableViewCell.m; sourceTree = "<group>"; };
 		EC502D991A14A051004ED0DA /* AmendOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmendOrderViewController.h; sourceTree = "<group>"; };
 		EC502D9A1A14A051004ED0DA /* AmendOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmendOrderViewController.m; sourceTree = "<group>"; };
 		EC6B8F9819F669B800AA17B8 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
@@ -193,6 +207,8 @@
 		ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeServiceViewController.m; sourceTree = "<group>"; };
 		ECBA60441A3E9FBF00B670BA /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		ECBA60451A3E9FBF00B670BA /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		ECC868571A76481000774BC3 /* ClientAccountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientAccountTableViewCell.h; sourceTree = "<group>"; };
+		ECC868581A76481000774BC3 /* ClientAccountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientAccountTableViewCell.m; sourceTree = "<group>"; };
 		ECCA18A91A4D559F00FC7A8F /* Icon-120-i3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-i3.png"; sourceTree = "<group>"; };
 		ECCA18AA1A4D559F00FC7A8F /* Icon-120-i2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-i2.png"; sourceTree = "<group>"; };
 		ECCA18AB1A4D559F00FC7A8F /* Icon-120-i1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-i1.png"; sourceTree = "<group>"; };
@@ -269,6 +285,8 @@
 				EC73C08119E7B4FF00C45DB8 /* orderEntryViewController.m */,
 				EC03041D19F4B28A00868028 /* orderConfirmationViewController.h */,
 				EC03041E19F4B28A00868028 /* orderConfirmationViewController.m */,
+				EC30CDB51A79DB0000381574 /* OrderEntryModel.h */,
+				EC30CDB61A79DB0000381574 /* OrderEntryModel.m */,
 			);
 			name = Trade;
 			sourceTree = "<group>";
@@ -423,6 +441,10 @@
 				ECA6BBDC1A35B2DF00814734 /* ChangeServiceViewController.m */,
 				ECBA60441A3E9FBF00B670BA /* DetailViewController.h */,
 				ECBA60451A3E9FBF00B670BA /* DetailViewController.m */,
+				EC4AE1991A70F7A700227048 /* NotificationViewController.h */,
+				EC4AE19A1A70F7A700227048 /* NotificationViewController.m */,
+				EC4AE19C1A71027C00227048 /* NotificationTableViewCell.h */,
+				EC4AE19D1A71027C00227048 /* NotificationTableViewCell.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -438,6 +460,8 @@
 				EC9DA9521A10B0C700615ACF /* StockHoldingsDataModel.m */,
 				ECA6BBD81A35458600814734 /* ClientAccountViewController.h */,
 				ECA6BBD91A35458600814734 /* ClientAccountViewController.m */,
+				ECC868571A76481000774BC3 /* ClientAccountTableViewCell.h */,
+				ECC868581A76481000774BC3 /* ClientAccountTableViewCell.m */,
 			);
 			name = StockHoldings;
 			sourceTree = "<group>";
@@ -445,6 +469,8 @@
 		ECF9F66F19E54C4D005B56A3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EC4ABCF61A691EF800085BAD /* icon_up_sort_arrow.png */,
+				EC4ABCF21A68BF7400085BAD /* icon_down_sort_arrow.png */,
 				EC4720831A53A9E000DC7665 /* Accounts.png */,
 				EC47207F1A53A77300DC7665 /* Stock-icon.png */,
 				EC4720791A53A30800DC7665 /* Stock-icons.png */,
@@ -561,6 +587,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC4ABCF41A68BF7400085BAD /* icon_down_sort_arrow.png in Resources */,
 				ECCA883A1A3AC2430071859D /* MainStoryboard_iPad.storyboard in Resources */,
 				ECCA18AD1A4D559F00FC7A8F /* Icon-120-i2.png in Resources */,
 				ECF46A6A19EB6E5700A053CB /* RadioButton-Unselected.png in Resources */,
@@ -602,6 +629,7 @@
 				ECCA88361A39476F0071859D /* Launch Screen.xib in Resources */,
 				EC490A011A37F9D5007B0C62 /* IFIS_Logo_2014_new copy@2x.png in Resources */,
 				EC27EFA41A03411D00464E27 /* IFIS_Logo_2014_new.jpg in Resources */,
+				EC4ABCF71A691EF800085BAD /* icon_up_sort_arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,12 +670,15 @@
 				EC9DA94D1A10AD7F00615ACF /* StockHoldingsViewController.m in Sources */,
 				EC43B26F19E4F7EB0014DDA5 /* main.m in Sources */,
 				EC47208A1A5BDBC300DC7665 /* OrderDetailsModel.m in Sources */,
+				EC4AE19B1A70F7A700227048 /* NotificationViewController.m in Sources */,
 				EC9DA9531A10B0C700615ACF /* StockHoldingsDataModel.m in Sources */,
 				EC27EF8019FDE78600464E27 /* OrderBookDetailsViewController.m in Sources */,
 				EC27EF8319FE438000464E27 /* OrderBookTableViewCell.m in Sources */,
 				ECD39DDE1A08E0C20084A30D /* SettingsViewController.m in Sources */,
+				ECC868591A76481000774BC3 /* ClientAccountTableViewCell.m in Sources */,
 				EC27EF7D19F90B0100464E27 /* OrderBookViewController.m in Sources */,
 				EC4720871A5BD55800DC7665 /* OrderDetailsTableViewCell.m in Sources */,
+				EC30CDB71A79DB0000381574 /* OrderEntryModel.m in Sources */,
 				EC43B27319E4F7EB0014DDA5 /* AppDelegate.m in Sources */,
 				EC43B27C19E4F7EB0014DDA5 /* LoginViewController.m in Sources */,
 				EC6B8F9A19F669B800AA17B8 /* DataModel.m in Sources */,
@@ -658,6 +689,7 @@
 				EC03041F19F4B28A00868028 /* orderConfirmationViewController.m in Sources */,
 				EC27EF8A19FF3A8900464E27 /* OrderBookModel.m in Sources */,
 				ECA6BBDA1A35458600814734 /* ClientAccountViewController.m in Sources */,
+				EC4AE19E1A71027C00227048 /* NotificationTableViewCell.m in Sources */,
 				ECF46A6619EB6AAA00A053CB /* RadioButton.m in Sources */,
 				ECBA60461A3E9FBF00B670BA /* DetailViewController.m in Sources */,
 			);

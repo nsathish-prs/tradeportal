@@ -12,6 +12,7 @@
 #import "RadioButton.h"
 #import "DataModel.h"
 #import "ClientAccountViewController.h"
+#import "OrderEntryModel.h"
 
 @interface orderEntryViewController ()
 
@@ -36,6 +37,8 @@
 @synthesize lastPrice,change,shortName,lotSize,askPrice,bidPrice,price,quantity,exchange,buffer,conn,parser,parseURL,submit,marketEx,spinner,btnSelect,container,flag,originalView;
 
 DataModel *dm;
+OrderEntryModel *em;
+
 UIButton *label1, *label2;
 RadioButton *rb1, *rb2;
 CGRect newFrame;
@@ -107,7 +110,19 @@ CGRect newFrame;
     self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
     [self.view setNeedsDisplay];
     [super viewWillAppear:animated];
-    
+    if(em.flag){
+        [self loadStockFor:em.searchStock];
+        quantity.text = @"";
+        price.text =@"";
+        [btnSelect setTitle:em.accountNumber forState:UIControlStateNormal];
+//        quantity.text = em.quantity;
+//        if ([em.action isEqualToString:@"BUY"]) {
+//            [rb1 handleButtonTap:self];
+//        } else {
+//            [rb2 handleButtonTap:self];
+//        }
+        em.flag = false;
+    }
     if (flag) {
         [[[[[self tabBarController]tabBar]items]objectAtIndex:1] setBadgeValue:[NSString stringWithFormat:@"%d", [[[[[[self tabBarController]tabBar]items]objectAtIndex:1]badgeValue]intValue]+1]];
         
@@ -204,9 +219,7 @@ CGRect newFrame;
             return NO;
         }
     }
-    
     return YES;
-    
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField{
@@ -295,39 +308,45 @@ CGRect newFrame;
         //        NSLog(@"Selected Row Index Path : %@",indexPath);
         parseURL = @"";
         self.stockCode = searchText;
-        NSString *soapRequest = [NSString stringWithFormat:
-                                 @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-                                 "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-                                 "<soap:Body>"
-                                 "<GetRicInfoFromDatabase xmlns=\"http://OMS/\">"
-                                 "<RicCode>%@</RicCode>"
-                                 "</GetRicInfoFromDatabase>"
-                                 "</soap:Body>"
-                                 "</soap:Envelope>", searchText];
-        //        NSLog(@"SoapRequest is %@" , soapRequest);
-        
-        NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetRicInfoFromDatabase"];
-        NSURL *url =[NSURL URLWithString:urls];
-        NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
-        [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-        [req addValue:@"http://OMS/GetRicInfoFromDatabase" forHTTPHeaderField:@"SOAPAction"];
-        NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
-        [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
-        [req setHTTPMethod:@"POST"];
-        [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
-        [self.searchStockList removeAllObjects];
-        [self.searchStockNameList removeAllObjects];
-        
-        conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-        spinner.hidesWhenStopped=YES;
-        [spinner startAnimating];
-        if (conn) {
-            buffer = [NSMutableData data];
-        }
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            self.view = originalView;
-        }
+        [self loadStockFor:searchText];
+    }
+}
+
+
+- (void) loadStockFor:(NSString*)searchText{
+    self.stockCode = searchText;
+    NSString *soapRequest = [NSString stringWithFormat:
+                             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                             "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+                             "<soap:Body>"
+                             "<GetRicInfoFromDatabase xmlns=\"http://OMS/\">"
+                             "<RicCode>%@</RicCode>"
+                             "</GetRicInfoFromDatabase>"
+                             "</soap:Body>"
+                             "</soap:Envelope>", searchText];
+    //        NSLog(@"SoapRequest is %@" , soapRequest);
+    
+    NSString *urls = [NSString stringWithFormat:@"%@%s",dm.serviceURL,"op=GetRicInfoFromDatabase"];
+    NSURL *url =[NSURL URLWithString:urls];
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req addValue:@"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [req addValue:@"http://OMS/GetRicInfoFromDatabase" forHTTPHeaderField:@"SOAPAction"];
+    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapRequest length]];
+    [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    [self.searchStockList removeAllObjects];
+    [self.searchStockNameList removeAllObjects];
+    
+    conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    spinner.hidesWhenStopped=YES;
+    [spinner startAnimating];
+    if (conn) {
+        buffer = [NSMutableData data];
+    }
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        self.view = originalView;
     }
 }
 

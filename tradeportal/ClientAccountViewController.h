@@ -10,7 +10,7 @@
 #import "StockHoldingsViewController.h"
 #import "orderEntryViewController.h"
 
-@interface ClientAccountViewController : UIViewController<NSXMLParserDelegate,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
+@interface ClientAccountViewController : UIViewController<NSXMLParserDelegate,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,UITextFieldDelegate>
 
 @property(nonatomic,strong)IBOutlet StockHoldingsViewController *clientAccountStock;
 @property(nonatomic,strong)IBOutlet orderEntryViewController *clientAccountOrder;

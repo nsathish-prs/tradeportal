@@ -7,6 +7,7 @@
 //
 
 #import "ClientAccountViewController.h"
+#import "ClientAccountTableViewCell.h"
 #import "DataModel.h"
 
 @interface ClientAccountViewController (){
@@ -73,22 +74,38 @@ DataModel *dm;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if ([dm.accountList count]==0) {
+        return 4;
+    }
+
     return [dm.accountList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    UITableViewCell *cell = [tableView
+    ClientAccountTableViewCell *cell = [tableView
                              dequeueReusableCellWithIdentifier:@"Cell"];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]
+        cell = [[ClientAccountTableViewCell alloc]
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:@"Cell"];
     }
-    
+    if([dm.accountList count]>0){
     // Configure the cell.
-    cell.textLabel.text = [dm.accountList objectAtIndex:indexPath.row];
+    cell.accountNumber.text = [dm.accountList objectAtIndex:indexPath.row];
+        if (indexPath.row==3) {
+            cell.noResults.hidden=true;
+        }
+    }
+    else{
+        [[cell accountNumber] setText:@" "];
+        if (indexPath.row==3) {
+            cell.noResults.hidden=false;
+            cell.userInteractionEnabled=NO;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    }
     return cell;
 }
 

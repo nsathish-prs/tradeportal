@@ -20,7 +20,7 @@
 @implementation SettingsViewController
 
 DataModel *dm;
-@synthesize detailViewController;
+@synthesize detailViewController,notifiSwitch;
 
 #pragma mark - View Delegates
 
@@ -69,8 +69,43 @@ DataModel *dm;
     }
 }
 
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0)
+        return 1;
+    else if (section ==1)
+        return 2;
+    else
+        return 2;
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+
+    NSUInteger section = [indexPath section];
+    NSUInteger row = [indexPath row];
+
+    switch (section)
+    {
+        case 2:
+            if (row == 0)
+            {
+                cell.detailTextLabel.text = dm.wifi;
+            }
+            break;
+
+    }
+    return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //    NSLog(@"%ld",(long)indexPath.section);
     if (indexPath.section == 0){
@@ -80,9 +115,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                 [self showAction];
             }
             else{
+                [tableView deselectRowAtIndexPath:indexPath animated:NO];
                 UIAlertView* logout = [[UIAlertView alloc] init];
                 logout.alertViewStyle = UIAlertViewStyleDefault;
                 [logout setDelegate:self];
+                [logout setTag:0];
                 [logout setMessage:@"Confirm to Logout"];
                 [logout addButtonWithTitle:@"Confirm"];
                 [logout addButtonWithTitle:@"Cancel"];
@@ -92,19 +129,42 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     }
     else if (indexPath.section == 1){
         if(indexPath.row == 0 ){
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
             [self performSegueWithIdentifier:@"changePass" sender:self];
         }
         else if(indexPath.row == 1 ){
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
             [self performSegueWithIdentifier:@"changeService" sender:self];
+        }
+    }
+    else if (indexPath.section == 2){
+        if(indexPath.row == 0 ){
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
+//            [self performSegueWithIdentifier:@"notify" sender:self];
         }
     }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) {
-        //confirm
-        [self dismissView];
+    if (alertView.tag == 0) {
+        if (buttonIndex == 0) {
+            //confirm
+            [self dismissView];
+            
+        }
+        //    } else {
+        //        if (buttonIndex == 0) {
+        //            dm.currentInstallation.channels = [NSArray arrayWithObjects:@"",nil];
+        //            [dm.currentInstallation saveInBackground];
+        //            UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        //            [toast show];
+        //            int duration = 1.5;
+        //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //                [toast dismissWithClickedButtonIndex:0 animated:YES];
+        //            });
+        //        }
     }
+    
 }
 
 #pragma mark - TextField Delegates
@@ -132,4 +192,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     }
 }
 
+
+
 @end
+
+

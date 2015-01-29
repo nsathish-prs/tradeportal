@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
 -(IBAction)dismissView;
+@property (weak, nonatomic) IBOutlet UISwitch *notifiSwitch;
 
 @end

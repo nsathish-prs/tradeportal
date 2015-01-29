@@ -10,6 +10,7 @@
 #import "orderEntryViewController.h"
 #import "DataModel.h"
 #import "OrderBookViewController.h"
+#import "OrderEntryModel.h"
 
 @interface orderConfirmationViewController ()
 
@@ -26,6 +27,7 @@
 @synthesize conn,parser,buffer,parseURL,orderEntry,orderPrice,clientAccount,shortName,stockCode,qty,totalAmount,currency,type,routeDest,orderPriceValue,clientAccountValue,shortNameValue,stockCodeValue,qtyValue,totalAmountValue,currencyValue,typeValue,routeDestValue,side,exchange,orderType,exchangeRate,timeInForce,currencyCode,spinner,amt,cells;
 
 DataModel *dm;
+OrderEntryModel *em;
 NSString *userID;
 
 #pragma mark - View Delegates
@@ -41,14 +43,15 @@ NSString *userID;
     currency.text = currencyValue;
     type.text = typeValue;
     routeDest.text = routeDestValue;
-    orderType=@"1";
+    orderType=@"2";
     timeInForce=@"0";
     currencyCode=@"SGD";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldShouldReturn:) name:UIKeyboardWillHideNotification object:nil];
-    amt = [orderPriceValue floatValue]*[qtyValue integerValue];
+    amt = [orderPriceValue floatValue]*[[qtyValue stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     NSNumberFormatter *fmt = [[NSNumberFormatter alloc]init];
     [fmt setMaximumFractionDigits:2];
     [fmt setMinimumIntegerDigits:1];
+    [fmt setMinimumFractionDigits:2];
     totalAmount.text = [fmt stringFromNumber:[NSNumber numberWithFloat:amt]];
     if ([typeValue isEqualToString:@"BUY"]) {
         type.textColor = iGREEN;
@@ -58,6 +61,12 @@ NSString *userID;
     self.password.delegate = self;
 }
 
+
+- (void) viewWillAppear:(BOOL)animated{
+    if (em.flag) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 #pragma mark - TextField Delegates
 
@@ -278,7 +287,10 @@ NSString *userID;
 
 -(void)newOrder{
     qtyValue = [qtyValue stringByReplacingOccurrencesOfString:@"," withString:@""];
-    NSString *data = [NSString stringWithFormat:@"AlgoStartTime=~Exchange=%@~FI_PriceCode=7~ExchangeRate=1~AlPercent=~OrderSize=%@~VoiceLog=~UpdateBy=%@~SecCode=%@~ClientAccID=%@~SpecialInstruction=~FI_NumberAgent=5~ExtraCare=0~AlgoWouldQty=~FI_TaxPercent=2~BuySell=%@~Yield=0~ForceOrderStatus=%@~AlgoEndTime=~SecurityType=STOCK~OrderType=%@~FI_TaxType=CHAR~AltSymbol=~StockLocation=~TimeInForce=DAY~NumberOfDaysAccuredInterest=1~OrderPrice=%@~SettCurr=%@~FI_TotalNetCashAmount=4~FI_TaxAmount=3~FI_TotalAccuredInterst=8~TradeCurrency=%@~tradeOfficer=%@~AlgoWouldPrice=~FI_PriceType=6~ExpireDate=20150101~FI_TradeAmount=9~AlAuction=~AlgoStrategy=0~AlRelLimit=~AlBenchMark=~",exchange,qtyValue,userID,stockCodeValue,clientAccountValue,side,@"0",orderType,orderPriceValue,currencyCode,currencyCode,userID];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    NSString *currentdate = [dateFormatter stringFromDate:[NSDate date]];
+    NSString *data = [NSString stringWithFormat:@"AlgoStartTime=~Exchange=%@~FI_PriceCode=7~ExchangeRate=1~AlPercent=~OrderSize=%@~VoiceLog=~UpdateBy=%@~SecCode=%@~ClientAccID=%@~SpecialInstruction=~FI_NumberAgent=5~ExtraCare=0~AlgoWouldQty=~FI_TaxPercent=2~BuySell=%@~Yield=0~ForceOrderStatus=%@~AlgoEndTime=~SecurityType=STOCK~OrderType=%@~FI_TaxType=CHAR~AltSymbol=~StockLocation=~TimeInForce=%@~NumberOfDaysAccuredInterest=1~OrderPrice=%@~SettCurr=%@~FI_TotalNetCashAmount=4~FI_TaxAmount=3~FI_TotalAccuredInterst=8~TradeCurrency=%@~tradeOfficer=%@~AlgoWouldPrice=~FI_PriceType=6~ExpireDate=%@~FI_TradeAmount=9~AlAuction=~AlgoStrategy=0~AlRelLimit=~AlBenchMark=~",exchange,qtyValue,userID,stockCodeValue,clientAccountValue,side,@"0",orderType,timeInForce,orderPriceValue,currencyCode,currencyCode,userID,currentdate];
     NSString *soapRequest = [NSString stringWithFormat:
                              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                              "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"

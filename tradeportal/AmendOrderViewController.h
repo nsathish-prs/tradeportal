@@ -24,8 +24,8 @@
 @property(strong,nonatomic)OrderBookModel *order;
 @property(nonatomic,strong)IBOutlet OrderBookDetailsViewController *orderBookDetails;
 @property(nonatomic,strong)IBOutlet OrderBookViewController *orderBook;
-
 @property (weak, nonatomic) IBOutlet UIView *amendView;
+@property (weak, nonatomic) IBOutlet UIButton *saveChanges;
 
 - (IBAction)cancelAmend:(id)sender;
 - (IBAction)confirmAmend:(id)sender;

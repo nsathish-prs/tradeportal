@@ -3,7 +3,7 @@
 //  tradeportal
 //
 //  Created by Nagarajan Sathish on 8/10/14.
-//  Copyright (c) 2014 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2014 IFIS Asia Pte Ltd. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -27,7 +27,24 @@ UIImageView *imageView;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     dm = [[DataModel alloc]init];
+    [Parse setApplicationId:@"2mVs11lyRGq8ysIeCsMUGu9NQNyfZih9kkcNEOQQ"
+                  clientKey:@"uwwZohVdr9XUBu7fWad3s6U6gYxyGXbEAFAytJiK"];
+    
 
+    //Device List
+    dm.deviceDict = [[NSMutableDictionary alloc]init];
+    
+    PFQuery *query1 = [PFQuery queryWithClassName:@"DeviceList"];
+    [query1 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+//            NSLog(@"Successfully retrieved %lu.", (unsigned long)objects.count);
+            for (PFObject *object in objects) {
+                [dm.deviceDict setObject:object.objectId forKey:[NSString stringWithFormat:@"%@",object[@"TR_Code"]]];
+            }
+
+        }
+    }];
+    
     //Notification
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                     UIUserNotificationTypeBadge |
@@ -37,8 +54,7 @@ UIImageView *imageView;
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
     
-    [Parse setApplicationId:@"WCdgYZ0jg3EezFCYu0XwvnsTcZnZIsABhA0ZTAaJ"
-                  clientKey:@"KuRknPFqUfogoQySWgbuy1ja1v3RhWI78KddWB52"];
+    
     // Network     //Change the host name here to change the server you want to monitor.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     NSString *remoteHostName = @"www.google.com";
@@ -85,13 +101,13 @@ UIImageView *imageView;
         [[userInfo objectForKey:@"id"]intValue];
     }
     if ([userInfo objectForKey:@"aps"]) {
-        NSString *msg = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
-        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-        [toast show];
-        int duration = 1.5;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [toast dismissWithClickedButtonIndex:0 animated:YES];
-        });
+//        NSString *msg = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+//        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//        [toast show];
+//        int duration = 1.5;
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [toast dismissWithClickedButtonIndex:0 animated:YES];
+//        });
     }
     if ([[userInfo objectForKey:@"id"]intValue]==1){
         //    NSLog(@"SelectedIndex: %lu",(unsigned long)((UITabBarController*)dm.tabBarController).selectedIndex);
@@ -116,6 +132,11 @@ UIImageView *imageView;
     [imageView setImage:[UIImage imageNamed:@"IFIS_Logo_2014_new_launch"]];
     UIWindow *mainWindow = [[[UIApplication sharedApplication] windows] lastObject];
     [mainWindow addSubview:imageView];
+    [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:NULL];
+    
+    application.applicationIconBadgeNumber = 0;
+    dm.currentInstallation.badge=0;
+    [dm.currentInstallation saveInBackground];
 //    [self.window addSubview:imageView];
 }
 
@@ -136,17 +157,22 @@ UIImageView *imageView;
     else{
         self.window.rootViewController = [[UIStoryboard storyboardWithName:@"MainStoryboard_iPad" bundle:nil]instantiateInitialViewController];
     }
-    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:NULL];
     
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    if (!application.applicationIconBadgeNumber == 0) {
+        [[[[[tabbar tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:[NSString stringWithFormat:@"%ld",(long)application.applicationIconBadgeNumber]];
+    }
+    application.applicationIconBadgeNumber = 0;
+    dm.currentInstallation.badge=0;
+    [dm.currentInstallation saveInBackground];
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -158,9 +184,6 @@ UIImageView *imageView;
     }
     self.window.hidden = NO;
     [timer invalidate];
-    application.applicationIconBadgeNumber = 0;
-    dm.currentInstallation.badge=0;
-    [dm.currentInstallation saveInBackground];
 }
 
 - (void) reachabilityChanged:(NSNotification *)note
@@ -197,9 +220,11 @@ UIImageView *imageView;
         case ReachableViaWiFi:        {
             
             //            NSLog(@"Reachable WIFI");
-            msg = [NSString stringWithFormat:@"Connected to %@",[self fetchSSIDInfo]];
+            dm.wifi = [[NSString alloc]init];
+            dm.wifi = [self fetchSSIDInfo];
+            msg = [NSString stringWithFormat:@"Connected to %@",dm.wifi];
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-            [toast show];
+//            [toast show];
             int duration = 1.5;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [toast dismissWithClickedButtonIndex:0 animated:YES];
@@ -213,11 +238,18 @@ UIImageView *imageView;
 {
     NSArray *ifs = (__bridge NSArray *)(CNCopySupportedInterfaces());
     id info = nil;
+    BOOL flag=false;
     for (NSString *ifnam in ifs) {
         info = (__bridge id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
-        //        NSLog(@"%@",[info objectForKey:@"SSID"]);
+//        NSLog(@"%@",[info objectForKey:@"SSID"]);
+        flag=true;
     }
-    return [info objectForKey:@"SSID"];
+    if (flag) {
+        return [info objectForKey:@"SSID"];
+    } else {
+        return @"SIM";
+    }
+    
 }
 
 

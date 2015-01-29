@@ -18,17 +18,20 @@
 @property (strong, nonatomic) NSXMLParser *parser;
 @property (strong, nonatomic) NSString *parseURL;
 @property (strong, nonatomic) NSURLConnection *conn;
-@property(strong,nonatomic)NSDictionary *statusDict;
-
+@property (strong, nonatomic) NSDictionary *statusDict;
+@property (strong, nonatomic) NSString *sortedBy;
+@property (assign, nonatomic) Boolean isAscending;
 
 @end
 
 @implementation OrderBookViewController
 
 
-@synthesize orders = _orders,buffer,parseURL,parser,conn,orderList=_orderList,statusDict, searchBar,searchBtn,exeOrderList;
+@synthesize orders = _orders,buffer,parseURL,parser,conn,orderList=_orderList,statusDict, searchBar,searchBtn,exeOrderList,sortedBy,isAscending;
 OrderBookModel *obm;
 DataModel *dm;
+OrderBookTableViewCell *header;
+
 
 #pragma mark - View Delegates
 
@@ -63,6 +66,8 @@ DataModel *dm;
     [self searchBar].hidden = TRUE;
     [self reloadTableData];
     [super viewDidLoad];
+    header = [self.tableView dequeueReusableCellWithIdentifier:@"tableHeader"];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -72,6 +77,9 @@ DataModel *dm;
     [self.tableView reloadData];
     [[self segmentedControl]setSelectedSegmentIndex:0];
     [super viewWillAppear:animated];
+    sortedBy = @"";
+    isAscending = false;
+    [self clearSortingFor:@""];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -79,7 +87,6 @@ DataModel *dm;
     if (([[[[[[self tabBarController]tabBar]items]objectAtIndex:1]badgeValue]intValue ]> 0 )) {
         [self reloadTableData];
         [[[[[self tabBarController]tabBar]items]objectAtIndex:1]setBadgeValue:NULL];
-        
     }
     [super viewDidAppear:animated];
 }
@@ -87,19 +94,26 @@ DataModel *dm;
 #pragma mark - Reload Order List
 
 -(void)reloadTableData{
+    //    [self.tableView setUserInteractionEnabled:NO];
     [self loadOrders];
+}
+
+- (IBAction)capitalize:(UITextField *)textField {
+    textField.text = [textField.text uppercaseString];
 }
 
 #pragma mark - TextField Delegate
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self hideSearch:self];
+    [[self searchBar]resignFirstResponder];
     return YES;
 }
 
 #pragma mark - Search
 
 - (IBAction)stockSearch:(id)sender {
+    [self searchBar].text = @"";
     [self.segmentedControl setSelectedSegmentIndex:0];
     [orders removeAllObjects];
     [orders addObjectsFromArray:orderList];
@@ -117,10 +131,8 @@ DataModel *dm;
     if ([[self searchBar].text isEqualToString:@""]) {
         [[self segmentedControl]setSelectedSegmentIndex:0];
     } else {
-        [[self segmentedControl]setSelectedSegmentIndex:-1];
+        [[self segmentedControl]setSelectedSegmentIndex:UISegmentedControlNoSegment];
     }
-    [self searchBar].text = @"";
-    [self.navigationController.navigationBar endEditing:YES];
 }
 
 -(IBAction)searchOrderList:(id)sender
@@ -181,6 +193,7 @@ DataModel *dm;
         }
         NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:stock];
         [string addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(stock.length-2, 1)];
+        [string addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14.0f] range:NSMakeRange(stock.length-2, 1)];
         
         [[cell account] setText:[[orders objectAtIndex:[indexPath row]]clientAccount]];
         [[cell stockCode] setAttributedText:string];
@@ -223,30 +236,107 @@ DataModel *dm;
             [cell setBackgroundColor:iBackColorGreen];
         }
         else if (![[[dummy objectAtIndex:0]status] isEqualToString:[[orders objectAtIndex:[indexPath row]]status]]) {
-            if ([[[orders objectAtIndex:[indexPath row]]status] rangeOfString:@"Cancel"].location == NSNotFound) {
-                [cell setBackgroundColor:iBackColorGreen];
+            if (![[[orders objectAtIndex:[indexPath row]]status] rangeOfString:@"Cancel"].location == NSNotFound) {
+                [cell setBackgroundColor:iBackColorRed];
+            }
+            else if (![[[orders objectAtIndex:[indexPath row]]status] rangeOfString:@"Reject"].location == NSNotFound) {
+                [cell setBackgroundColor:iBackColorRed];
             }
             else{
-                [cell setBackgroundColor:iBackColorRed];
+                [cell setBackgroundColor:iBackColorGreen];
             }
         }
         else{
             [cell setBackgroundColor:[UIColor clearColor]];
         }
     }
-    if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row){
-        [exeOrderList removeAllObjects];
-    }
+    //    if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row){
+    //        [exeOrderList removeAllObjects];
+    //    }
 }
 
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UITableViewCell *header = [tableView dequeueReusableCellWithIdentifier:@"tableHeader"];
+    UIButton *refNo = [[UIButton alloc]init];
+    refNo.tag = 1;
+    refNo.hidden = NO;
+    [refNo setBackgroundColor:[UIColor clearColor]];
+    [refNo addTarget:self action:@selector(sort:) forControlEvents:UIControlEventTouchDown];
+    [header addSubview:refNo];
+    
+    UIButton *stockCode = [[UIButton alloc]init];
+    stockCode.tag = 2;
+    stockCode.hidden = NO;
+    [stockCode setBackgroundColor:[UIColor clearColor]];
+    [stockCode addTarget:self action:@selector(sort:) forControlEvents:UIControlEventTouchDown];
+    [header addSubview:stockCode];
+    
+    UIButton *account = [[UIButton alloc]init];
+    account.tag = 3;
+    account.hidden = NO;
+    [account setBackgroundColor:[UIColor clearColor]];
+    [account addTarget:self action:@selector(sort:) forControlEvents:UIControlEventTouchDown];
+    [header addSubview:account];
+    
+    UIButton *orderDate = [[UIButton alloc]init];
+    orderDate.tag = 4;
+    orderDate.hidden = NO;
+    [orderDate setBackgroundColor:[UIColor clearColor]];
+    [orderDate addTarget:self action:@selector(sort:) forControlEvents:UIControlEventTouchDown];
+    [header addSubview:orderDate];
+    
+    UIButton *price = [[UIButton alloc]init];
+    price.tag = 5;
+    price.hidden = NO;
+    [price setBackgroundColor:[UIColor clearColor]];
+    [price addTarget:self action:@selector(sort:) forControlEvents:UIControlEventTouchDown];
+    [header addSubview:price];
+    
+    UIButton *quantity = [[UIButton alloc]init];
+    quantity.tag = 6;
+    quantity.hidden = NO;
+    [quantity setBackgroundColor:[UIColor clearColor]];
+    [quantity addTarget:self action:@selector(sort:) forControlEvents:UIControlEventTouchDown];
+    [header addSubview:quantity];
+    
+    UIButton *qtyFilled = [[UIButton alloc]init];
+    qtyFilled.tag = 7;
+    qtyFilled.hidden = NO;
+    [qtyFilled setBackgroundColor:[UIColor clearColor]];
+    [qtyFilled addTarget:self action:@selector(sort:) forControlEvents:UIControlEventTouchDown];
+    [header addSubview:qtyFilled];
+    
+    UIButton *status = [[UIButton alloc]init];
+    status.tag = 8;
+    status.hidden = NO;
+    [status setBackgroundColor:[UIColor clearColor]];
+    [status addTarget:self action:@selector(sort:) forControlEvents:UIControlEventTouchDown];
+    [header addSubview:status];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        [stockCode setFrame:CGRectMake(5.0, 5.0, 110.0, 20.0)];
+        [account setFrame:CGRectMake(5.0, 25.0, 100.0, 15.0)];
+        [price setFrame:CGRectMake(170, 5.0, 60.0, 20.0)];
+        [quantity setFrame:CGRectMake(170, 25.0, 60.0, 15.0)];
+        [qtyFilled setFrame:CGRectMake(270.0, 25.0, 80.0, 15.0)];
+        [status setFrame:CGRectMake(270.0, 5.0, 65.0, 20.0)];
+    }
+    else {
+        [refNo setFrame:CGRectMake(5.0, 5.0, 90.0, 30.0)];
+        [stockCode setFrame:CGRectMake(125.0, 5.0, 110.0, 30.0)];
+        [account setFrame:CGRectMake(260.0, 5.0, 100.0, 30.0)];
+        [orderDate setFrame:CGRectMake(400, 5.0, 95.0, 30.0)];
+        [price setFrame:CGRectMake(540, 5.0, 70.0, 30.0)];
+        [quantity setFrame:CGRectMake(650, 5.0, 90.0, 30.0)];
+        [qtyFilled setFrame:CGRectMake(760, 5.0, 120.0, 30.0)];
+        [status setFrame:CGRectMake(900, 5.0, 65.0, 30.0)];
+        
+    }
     return header;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 38.0;
+    return 48.0;
 }
 
 
@@ -275,9 +365,10 @@ DataModel *dm;
     [req addValue:msgLength forHTTPHeaderField:@"Content-Length"];
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:[soapRequest dataUsingEncoding:NSUTF8StringEncoding]];
+    [exeOrderList removeAllObjects];
     [exeOrderList addObjectsFromArray:orderList];
-    [orders removeAllObjects];
-    [orderList removeAllObjects];
+    
+    
     conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     if (conn) {
         buffer = [NSMutableData data];
@@ -331,9 +422,6 @@ DataModel *dm;
     
     //parse the data
     if ([parseURL isEqualToString:@"getOrders"]) {
-        if([elementName isEqualToString:@"GetOrderByUserIDResult"]){
-            resultFound=NO;
-        }
         if ([elementName isEqualToString:@"z:row"]) {
             resultFound=YES;
             OrderBookModel *order = [[OrderBookModel alloc]init];
@@ -356,37 +444,44 @@ DataModel *dm;
             //Add arrribute value to array
             [orderList addObject:order];
             [orders addObject:order];
-            [self.tableView reloadData];
+            
         }
         [self.refreshControl endRefreshing];
+        [self clearSortingFor:@""];
         [self.segmentedControl setSelectedSegmentIndex:0];
+        
     }
 }
 
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
+    if ([elementName isEqualToString:@"GetOrderByUserIDResult"]) {
+        [self.tableView reloadData];
+    }
+    //        [self.tableView setUserInteractionEnabled:YES];
+}
 
 - (void) parser:(NSXMLParser *) parser foundCharacters:(NSString *) string {
     NSString *msg;
     BOOL flag=FALSE;
-    if(!resultFound){
-        if([[string substringToIndex:1] isEqualToString:@"R"]){
-            msg = @"Some Technical Error...\nPlease Try again...";
-            flag=TRUE;
-        }
-        else if([[string substringToIndex:1] isEqualToString:@"E"]){
+    if([[string substringToIndex:1] isEqualToString:@"R"]){
+        msg = @"Some Technical Error...\nPlease Try again...";
+        flag=TRUE;
+    }
+    else if([string length]>1){
+        if([string isEqualToString:@"E  No permission to access "]){
             msg = @"User has logged on elsewhere!";
             [self dismissViewControllerAnimated:YES completion:nil];
             [[self navigationController]popToRootViewControllerAnimated:YES];
             flag=TRUE;
         }
-        if (flag) {
-            UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-            [toast show];
-            int duration = 1.5;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [toast dismissWithClickedButtonIndex:0 animated:YES];
-            });
-        }
-        resultFound=YES;
+    }
+    if (flag) {
+        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [toast show];
+        int duration = 1.5;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [toast dismissWithClickedButtonIndex:0 animated:YES];
+        });
     }
 }
 
@@ -424,6 +519,198 @@ DataModel *dm;
             break;
     }
 }
+
+
+
+#pragma mark - Sort
+
+- (IBAction)sort:(UIButton *)sender{
+    //    NSLog(@"%d",sender.tag);
+    NSSortDescriptor *sortDescriptor;
+    NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+    NSAttributedString *attachmentString;
+    NSMutableAttributedString *myString;
+    NSArray *tempArray = [[NSArray alloc]initWithArray:orders];
+    [orders removeAllObjects];
+    switch (sender.tag) {
+        case 1:
+            [self clearSortingFor:@"refNo"];
+            myString= [[NSMutableAttributedString alloc] initWithString:header.refNo.text];
+            if (!isAscending) {
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"refNo" ascending:YES];
+                attachment.image = [UIImage imageNamed:@"icon_up_sort_arrow.png"];
+                isAscending = true;
+            }
+            else{
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"refNo" ascending:NO];
+                attachment.image = [UIImage imageNamed:@"icon_down_sort_arrow.png"];
+                isAscending = false;
+            }
+            attachmentString= [NSAttributedString attributedStringWithAttachment:attachment];
+            [myString appendAttributedString:attachmentString];
+            header.refNo.attributedText = myString;
+            sortedBy = @"refNo";
+            break;
+        case 2:
+            [self clearSortingFor:@"stockCode"];
+            myString= [[NSMutableAttributedString alloc] initWithString:header.stockCode.text];
+            if (!isAscending) {
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"stockCode" ascending:YES];
+                attachment.image = [UIImage imageNamed:@"icon_up_sort_arrow.png"];
+                isAscending = true;
+            }
+            else{
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"stockCode" ascending:NO];
+                attachment.image = [UIImage imageNamed:@"icon_down_sort_arrow.png"];
+                isAscending = false;
+            }
+            attachmentString= [NSAttributedString attributedStringWithAttachment:attachment];
+            [myString appendAttributedString:attachmentString];
+            header.stockCode.attributedText = myString;
+            sortedBy = @"stockCode";
+            break;
+        case 3:
+            [self clearSortingFor:@"account"];
+            myString= [[NSMutableAttributedString alloc] initWithString:header.account.text];
+            if (!isAscending) {
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"clientAccount" ascending:YES];
+                attachment.image = [UIImage imageNamed:@"icon_up_sort_arrow.png"];
+                isAscending = true;
+            }
+            else{
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"clientAccount" ascending:NO];
+                attachment.image = [UIImage imageNamed:@"icon_down_sort_arrow.png"];
+                isAscending = false;
+            }
+            attachmentString= [NSAttributedString attributedStringWithAttachment:attachment];
+            [myString appendAttributedString:attachmentString];
+            header.account.attributedText = myString;
+            sortedBy = @"account";
+            break;
+        case 4:
+            [self clearSortingFor:@"orderDate"];
+            myString= [[NSMutableAttributedString alloc] initWithString:header.orderDate.text];
+            if (!isAscending) {
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderDate" ascending:YES];
+                attachment.image = [UIImage imageNamed:@"icon_up_sort_arrow.png"];
+                isAscending = true;
+            }
+            else{
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderDate" ascending:NO];
+                attachment.image = [UIImage imageNamed:@"icon_down_sort_arrow.png"];
+                isAscending = false;
+            }
+            attachmentString= [NSAttributedString attributedStringWithAttachment:attachment];
+            [myString appendAttributedString:attachmentString];
+            header.orderDate.attributedText = myString;
+            sortedBy = @"orderDate";
+            break;
+        case 5:
+            [self clearSortingFor:@"price"];
+            myString= [[NSMutableAttributedString alloc] initWithString:header.price.text];
+            if (!isAscending) {
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderPrice" ascending:YES];
+                attachment.image = [UIImage imageNamed:@"icon_up_sort_arrow.png"];
+                isAscending = true;
+            }
+            else{
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderPrice" ascending:NO];
+                attachment.image = [UIImage imageNamed:@"icon_down_sort_arrow.png"];
+                isAscending = false;
+            }
+            attachmentString= [NSAttributedString attributedStringWithAttachment:attachment];
+            [myString appendAttributedString:attachmentString];
+            header.price.attributedText = myString;
+            sortedBy = @"price";
+            break;
+        case 6:
+            [self clearSortingFor:@"quantity"];
+            myString= [[NSMutableAttributedString alloc] initWithString:header.quantity.text];
+            if (!isAscending) {
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderQty" ascending:YES selector:@selector(localizedStandardCompare:)];
+                attachment.image = [UIImage imageNamed:@"icon_up_sort_arrow.png"];
+                isAscending = true;
+            }
+            else{
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderQty" ascending:NO selector:@selector(localizedStandardCompare:)];
+                attachment.image = [UIImage imageNamed:@"icon_down_sort_arrow.png"];
+                isAscending = false;
+            }
+            attachmentString= [NSAttributedString attributedStringWithAttachment:attachment];
+            [myString appendAttributedString:attachmentString];
+            header.quantity.attributedText = myString;
+            sortedBy = @"quantity";
+            break;
+        case 7:
+            [self clearSortingFor:@"qtyFilled"];
+            myString= [[NSMutableAttributedString alloc] initWithString:header.qtyFilled.text];
+            if (!isAscending) {
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"qtyFilled" ascending:YES selector:@selector(localizedStandardCompare:)];
+                attachment.image = [UIImage imageNamed:@"icon_up_sort_arrow.png"];
+                isAscending = true;
+            }
+            else{
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"qtyFilled" ascending:NO selector:@selector(localizedStandardCompare:)];
+                attachment.image = [UIImage imageNamed:@"icon_down_sort_arrow.png"];
+                isAscending = false;
+            }
+            attachmentString= [NSAttributedString attributedStringWithAttachment:attachment];
+            [myString appendAttributedString:attachmentString];
+            header.qtyFilled.attributedText = myString;
+            sortedBy = @"qtyFilled";
+            break;
+        case 8:
+            [self clearSortingFor:@"status"];
+            myString= [[NSMutableAttributedString alloc] initWithString:header.status.text];
+            if (!isAscending) {
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"status" ascending:YES];
+                attachment.image = [UIImage imageNamed:@"icon_up_sort_arrow.png"];
+                isAscending = true;
+            }
+            else{
+                sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"status" ascending:NO];
+                attachment.image = [UIImage imageNamed:@"icon_down_sort_arrow.png"];
+                isAscending = false;
+            }
+            attachmentString= [NSAttributedString attributedStringWithAttachment:attachment];
+            [myString appendAttributedString:attachmentString];
+            header.status.attributedText = myString;
+            sortedBy = @"status";
+            break;
+            
+        default:
+            break;
+    }
+    NSMutableArray *sortDescriptors = [NSMutableArray arrayWithObject:sortDescriptor];
+    [orders addObjectsFromArray:[tempArray sortedArrayUsingDescriptors:sortDescriptors]];
+    
+    [header setNeedsDisplay];
+    [self.tableView reloadData];
+    
+}
+
+
+- (void) clearSortingFor:(NSString*)column{
+    if (![column isEqualToString:sortedBy]) {
+        isAscending = false;
+    }
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        header.quantity.text = @"Qty.";
+        header.qtyFilled.text = @"Qty. Filled";
+    }
+    else {
+        header.quantity.text = @"Quantity";
+        header.qtyFilled.text = @"Quantity Filled";
+    }
+    header.refNo.text = @"# Order ref.";
+    header.stockCode.text = @"Stock (Action)";
+    header.account.text = @"Account No.";
+    header.orderDate.text = @"Order Date";
+    header.price.text = @"Price";
+    header.status.text = @"Status";
+}
+
 
 #pragma mark - Segue
 

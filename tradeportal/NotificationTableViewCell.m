@@ -1,14 +1,18 @@
 //
-//  OrderDetailsTableViewCell.m
+//  NotificationTableViewCell.m
 //  TradePortal
 //
-//  Created by Nagarajan Sathish on 6/1/15.
+//  Created by intern on 22/1/15.
 //
 //
 
-#import "OrderDetailsTableViewCell.h"
+#import "NotificationTableViewCell.h"
+#import "DataModel.h"
 
-@implementation OrderDetailsTableViewCell
+@implementation NotificationTableViewCell
+
+@synthesize notifySwitch,deviceName;
+DataModel *dm;
 
 - (void)awakeFromNib {
     // Initialization code
@@ -19,5 +23,6 @@
 
     // Configure the view for the selected state
 }
+
 
 @end
