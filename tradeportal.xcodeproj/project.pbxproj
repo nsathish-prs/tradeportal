@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EC03041F19F4B28A00868028 /* orderConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC03041E19F4B28A00868028 /* orderConfirmationViewController.m */; };
 		EC1185841A43C15100278C02 /* Icon-120-4.png in Resources */ = {isa = PBXBuildFile; fileRef = EC1185831A43C15100278C02 /* Icon-120-4.png */; };
+		EC17E7E01A7B8FA50042051B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC17E7DF1A7B8FA50042051B /* CoreTelephony.framework */; };
 		EC27EF7D19F90B0100464E27 /* OrderBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */; };
 		EC27EF8019FDE78600464E27 /* OrderBookDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF7F19FDE78500464E27 /* OrderBookDetailsViewController.m */; };
 		EC27EF8319FE438000464E27 /* OrderBookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EC27EF8219FE438000464E27 /* OrderBookTableViewCell.m */; };
@@ -117,6 +118,7 @@
 		EC03041D19F4B28A00868028 /* orderConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderConfirmationViewController.h; sourceTree = "<group>"; };
 		EC03041E19F4B28A00868028 /* orderConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = orderConfirmationViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EC1185831A43C15100278C02 /* Icon-120-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120-4.png"; sourceTree = "<group>"; };
+		EC17E7DF1A7B8FA50042051B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		EC27EF7B19F90B0100464E27 /* OrderBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = OrderBookViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EC27EF7C19F90B0100464E27 /* OrderBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OrderBookViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EC27EF7E19FDE78500464E27 /* OrderBookDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderBookDetailsViewController.h; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC17E7E01A7B8FA50042051B /* CoreTelephony.framework in Frameworks */,
 				ECCA18C41A4D71D400FC7A8F /* Bolts.framework in Frameworks */,
 				ECCA18BE1A4D716100FC7A8F /* libz.dylib in Frameworks */,
 				ECCA18C71A4D71D400FC7A8F /* ParseFacebookUtils.framework in Frameworks */,
@@ -291,7 +294,7 @@
 			name = Trade;
 			sourceTree = "<group>";
 		};
-		EC27EF8519FF328500464E27 /* Common */ = {
+		EC27EF8519FF328500464E27 /* General */ = {
 			isa = PBXGroup;
 			children = (
 				ECCA88351A39476E0071859D /* Launch Screen.xib */,
@@ -304,7 +307,7 @@
 				EC6B8F9819F669B800AA17B8 /* DataModel.h */,
 				EC6B8F9919F669B800AA17B8 /* DataModel.m */,
 			);
-			name = Common;
+			name = General;
 			sourceTree = "<group>";
 		};
 		EC27EF8619FF32F800464E27 /* OrderBook */ = {
@@ -360,6 +363,7 @@
 		EC43B26119E4F7EB0014DDA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC17E7DF1A7B8FA50042051B /* CoreTelephony.framework */,
 				ECCA18BF1A4D71D400FC7A8F /* Bolts.framework */,
 				ECCA18C01A4D71D400FC7A8F /* Parse.framework */,
 				ECCA18C11A4D71D400FC7A8F /* ParseCrashReporting.framework */,
@@ -388,7 +392,7 @@
 			children = (
 				ECCA88391A3AC2430071859D /* MainStoryboard_iPad.storyboard */,
 				EC43B27419E4F7EB0014DDA5 /* MainStoryboard_iPhone.storyboard */,
-				EC27EF8519FF328500464E27 /* Common */,
+				EC27EF8519FF328500464E27 /* General */,
 				EC27EF8719FF331F00464E27 /* Login */,
 				EC27EF8419FF324D00464E27 /* Trade */,
 				EC27EF8619FF32F800464E27 /* OrderBook */,

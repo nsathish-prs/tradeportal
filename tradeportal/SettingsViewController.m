@@ -27,6 +27,7 @@ DataModel *dm;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tabBarController setDelegate:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshView:) name:@"refreshView" object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -35,6 +36,9 @@ DataModel *dm;
     
 }
 
+-(void)refreshView:(NSNotification *) notification{
+    [self.tableView reloadData];
+}
 -(IBAction)dismissView{
     dm.sessionID=@"";
     dm.password=@"";

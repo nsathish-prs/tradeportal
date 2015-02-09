@@ -238,7 +238,7 @@ DataModel *dm;
                 dm.parseDeviceList[@"TR_Code"] = dm.TR_Code;
                 dm.parseDeviceList[@"deviceRegId"] = [[NSArray alloc]init];
                 dm.parseDeviceList[@"deviceList"] = [[NSArray alloc]init];
-                [dm.parseDeviceList saveInBackground];
+                [dm.parseDeviceList save];
                 
                 PFQuery *query1 = [PFQuery queryWithClassName:@"DeviceList"];
                 [query1 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

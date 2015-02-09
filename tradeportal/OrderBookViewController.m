@@ -314,22 +314,22 @@ OrderBookTableViewCell *header;
     [header addSubview:status];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-        [stockCode setFrame:CGRectMake(5.0, 5.0, 110.0, 20.0)];
-        [account setFrame:CGRectMake(5.0, 25.0, 100.0, 15.0)];
-        [price setFrame:CGRectMake(170, 5.0, 60.0, 20.0)];
-        [quantity setFrame:CGRectMake(170, 25.0, 60.0, 15.0)];
-        [qtyFilled setFrame:CGRectMake(270.0, 25.0, 80.0, 15.0)];
-        [status setFrame:CGRectMake(270.0, 5.0, 65.0, 20.0)];
+        [stockCode setFrame:header.stockCode.frame];
+        [account setFrame:header.account.frame];
+        [price setFrame:header.price.frame];
+        [quantity setFrame:header.quantity.frame];
+        [qtyFilled setFrame:header.qtyFilled.frame];
+        [status setFrame:header.status.frame];
     }
     else {
-        [refNo setFrame:CGRectMake(5.0, 5.0, 90.0, 30.0)];
-        [stockCode setFrame:CGRectMake(125.0, 5.0, 110.0, 30.0)];
-        [account setFrame:CGRectMake(260.0, 5.0, 100.0, 30.0)];
-        [orderDate setFrame:CGRectMake(400, 5.0, 95.0, 30.0)];
-        [price setFrame:CGRectMake(540, 5.0, 70.0, 30.0)];
-        [quantity setFrame:CGRectMake(650, 5.0, 90.0, 30.0)];
-        [qtyFilled setFrame:CGRectMake(760, 5.0, 120.0, 30.0)];
-        [status setFrame:CGRectMake(900, 5.0, 65.0, 30.0)];
+        [stockCode setFrame:header.stockCode.frame];
+        [account setFrame:header.account.frame];
+        [price setFrame:header.price.frame];
+        [quantity setFrame:header.quantity.frame];
+        [qtyFilled setFrame:header.qtyFilled.frame];
+        [status setFrame:header.status.frame];
+        [refNo setFrame:header.refNo.frame];
+        [orderDate setFrame:header.orderDate.frame];
         
     }
     return header;
@@ -525,7 +525,7 @@ OrderBookTableViewCell *header;
 #pragma mark - Sort
 
 - (IBAction)sort:(UIButton *)sender{
-    //    NSLog(@"%d",sender.tag);
+        NSLog(@"%ld",(long)sender.tag);
     NSSortDescriptor *sortDescriptor;
     NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
     NSAttributedString *attachmentString;

@@ -35,6 +35,7 @@ OrderEntryModel *em;
     [super viewDidLoad];
     stockArray = [[NSMutableArray alloc]init];
     stockList = [[NSMutableArray alloc]init];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldShouldReturn:) name:UIKeyboardWillHideNotification object:nil];
 }
 
@@ -57,9 +58,11 @@ OrderEntryModel *em;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([stockList count]==0) {
+    if ([stockArray count]==0) {
+        stockCode.enabled = NO;
         return 4;
     }
+    stockCode.enabled = YES;
     return [stockList count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -280,10 +283,10 @@ OrderEntryModel *em;
 
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if (!([self.tableView numberOfRowsInSection:0]>0)) {
-        return NO;
+    if (stockArray.count > 0) {
+        return YES;
     }
-    return YES;
+    return NO;
 }
 
 

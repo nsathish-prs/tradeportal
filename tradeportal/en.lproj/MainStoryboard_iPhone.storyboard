@@ -75,9 +75,6 @@
                                         <color key="value" red="0.0" green="0.0" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="46" y="268" width="308" height="40"/>
-                                </variation>
                                 <variation key="heightClass=compact-widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="46" y="268" width="308" height="40"/>
                                 </variation>
@@ -108,9 +105,6 @@
                                         <color key="value" red="0.0" green="0.0" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="46" y="315" width="308" height="39"/>
-                                </variation>
                                 <variation key="heightClass=compact-widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="46" y="315" width="308" height="39"/>
                                 </variation>
@@ -265,6 +259,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLk-DY-qkM">
                                         <rect key="frame" x="272" y="0.0" width="30" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title=" X ">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -839,6 +834,9 @@
                                         <exclude reference="aMp-9E-NGq"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <exclude reference="nUd-Yy-QTW"/>
+                                        <exclude reference="eah-Rt-tGN"/>
+                                        <exclude reference="pGE-r5-zNZ"/>
                                         <exclude reference="NHe-mD-oJX"/>
                                         <exclude reference="ZjD-yL-Kpy"/>
                                         <exclude reference="poM-K0-yBN"/>
@@ -846,20 +844,17 @@
                                         <exclude reference="gcq-wh-K4J"/>
                                         <exclude reference="9xE-1w-rwi"/>
                                         <exclude reference="SSx-5H-8zw"/>
+                                        <exclude reference="QWn-Px-oNv"/>
+                                        <exclude reference="5Gq-eB-Bvu"/>
+                                        <exclude reference="PFb-rx-7V3"/>
                                         <exclude reference="eAD-wP-Qab"/>
                                         <exclude reference="hZu-Wk-oMx"/>
                                         <exclude reference="heD-w7-TyF"/>
-                                        <exclude reference="nUd-Yy-QTW"/>
-                                        <exclude reference="QWn-Px-oNv"/>
+                                        <exclude reference="vOo-IR-GaX"/>
                                         <exclude reference="hiH-fY-2jR"/>
-                                        <exclude reference="eah-Rt-tGN"/>
-                                        <exclude reference="pGE-r5-zNZ"/>
                                         <exclude reference="xrN-Zl-QzX"/>
-                                        <exclude reference="5Gq-eB-Bvu"/>
-                                        <exclude reference="PFb-rx-7V3"/>
                                         <exclude reference="DkO-HO-Avb"/>
                                         <exclude reference="Uv1-j7-6xK"/>
-                                        <exclude reference="vOo-IR-GaX"/>
                                         <exclude reference="EkE-AG-spD"/>
                                         <exclude reference="Nkd-EK-ZsY"/>
                                         <exclude reference="1go-3t-AlD"/>
@@ -886,6 +881,9 @@
                                         <include reference="aMp-9E-NGq"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <include reference="nUd-Yy-QTW"/>
+                                        <include reference="eah-Rt-tGN"/>
+                                        <include reference="pGE-r5-zNZ"/>
                                         <include reference="NHe-mD-oJX"/>
                                         <include reference="ZjD-yL-Kpy"/>
                                         <include reference="poM-K0-yBN"/>
@@ -893,20 +891,17 @@
                                         <include reference="gcq-wh-K4J"/>
                                         <include reference="9xE-1w-rwi"/>
                                         <include reference="SSx-5H-8zw"/>
+                                        <include reference="QWn-Px-oNv"/>
+                                        <include reference="5Gq-eB-Bvu"/>
+                                        <include reference="PFb-rx-7V3"/>
                                         <include reference="eAD-wP-Qab"/>
                                         <include reference="hZu-Wk-oMx"/>
                                         <include reference="heD-w7-TyF"/>
-                                        <include reference="nUd-Yy-QTW"/>
-                                        <include reference="QWn-Px-oNv"/>
+                                        <include reference="vOo-IR-GaX"/>
                                         <include reference="hiH-fY-2jR"/>
-                                        <include reference="eah-Rt-tGN"/>
-                                        <include reference="pGE-r5-zNZ"/>
                                         <include reference="xrN-Zl-QzX"/>
-                                        <include reference="5Gq-eB-Bvu"/>
-                                        <include reference="PFb-rx-7V3"/>
                                         <include reference="DkO-HO-Avb"/>
                                         <include reference="Uv1-j7-6xK"/>
-                                        <include reference="vOo-IR-GaX"/>
                                         <include reference="EkE-AG-spD"/>
                                         <include reference="Nkd-EK-ZsY"/>
                                         <include reference="1go-3t-AlD"/>
@@ -2130,6 +2125,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1c-Uj-dFb">
                                         <rect key="frame" x="272" y="0.0" width="30" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="X">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2141,11 +2137,17 @@
                                         <rect key="frame" x="26" y="133" width="250" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="xFq-GB-WLJ" id="vTQ-qr-G0q"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Order Qty." adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSc-Ep-FbQ">
                                         <rect key="frame" x="26" y="171" width="250" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="xFq-GB-WLJ" id="ITR-5C-0BF"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gk0-nb-NTw">
                                         <rect key="frame" x="70" y="213" width="162" height="30"/>
@@ -2370,6 +2372,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ugj-eY-upk">
                                         <rect key="frame" x="272" y="0.0" width="30" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title=" X ">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -3585,9 +3588,6 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
-                                                            <variation key="widthClass=compact" misplaced="YES">
-                                                                <rect key="frame" x="118" y="11" width="84" height="21"/>
-                                                            </variation>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
@@ -3773,7 +3773,7 @@
         <image name="trade-icons.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1Mc-8a-tad"/>
+        <segue reference="qbV-ih-y85"/>
         <segue reference="1TF-F4-7TG"/>
     </inferredMetricsTieBreakers>
 </document>

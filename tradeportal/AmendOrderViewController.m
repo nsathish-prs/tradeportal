@@ -59,10 +59,59 @@ NSUserDefaults *getOrder;
     UITapGestureRecognizer *singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapGesture:)];
     singleTapGestureRecognizer.cancelsTouchesInView = NO;
     [self.amendView addGestureRecognizer:singleTapGestureRecognizer];
+    [self.view addGestureRecognizer:singleTapGestureRecognizer];
 }
 
 -(void)handleSingleTapGesture:(UITapGestureRecognizer *)tapGestureRecognizer{
     [self.view endEditing:YES];
+}
+
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    
+    NSCharacterSet* numberCharSet;
+    if (textField == nPrice) {
+        numberCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
+        NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        NSArray  *arrayOfString = [newString componentsSeparatedByString:@"."];
+        if ([arrayOfString count] > 2 )
+            return NO;
+    }
+    else{
+        numberCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    }
+    for (int i = 0; i < [string length]; ++i)
+    {
+        unichar c = [string characterAtIndex:i];
+        if (![numberCharSet characterIsMember:c])
+        {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setGroupingSeparator:@","];
+    [numberFormatter setGroupingSize:3];
+    [numberFormatter setUsesGroupingSeparator:YES];
+    
+    NSNumberFormatter *priceFormatter = [[NSNumberFormatter alloc] init];
+    [priceFormatter setGroupingSeparator:@","];
+    [priceFormatter setGroupingSize:3];
+    [priceFormatter setDecimalSeparator:@"."];
+    [priceFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [priceFormatter setMaximumFractionDigits:3];
+    [priceFormatter setMinimumFractionDigits:3];
+    
+    if (textField == nQty) {
+        nQty.text = [numberFormatter stringFromNumber:[NSNumber numberWithInt:[[nQty.text stringByReplacingOccurrencesOfString:@"," withString:@""]intValue]]];
+    }
+    if (textField == nPrice) {
+        nPrice.text = [priceFormatter stringFromNumber:[NSNumber numberWithDouble:[nPrice.text doubleValue]]];
+    }
 }
 
 #pragma mark - Dismiss View
@@ -82,8 +131,8 @@ NSUserDefaults *getOrder;
 
 - (IBAction)confirmAmend:(id)sender {
     saveChanges.enabled = false;
-    qty = [nQty.text integerValue];
-    price = [nPrice.text floatValue];
+    qty = [[nQty.text stringByReplacingOccurrencesOfString:@"," withString:@"" ] integerValue];
+    price = [[nPrice.text stringByReplacingOccurrencesOfString:@"," withString:@""]floatValue];
     NSString *qFilled = [matchQty.text stringByReplacingOccurrencesOfString:@"," withString:@""];
     NSString *oQty = [orderQty.text stringByReplacingOccurrencesOfString:@"," withString:@""];
     if (!(qty == 0 && price == 0.0)) {
@@ -99,6 +148,7 @@ NSUserDefaults *getOrder;
         else{
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:@"Invalid Quantity" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [toast show];
+            saveChanges.enabled = YES;
             int duration = 1.5;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [toast dismissWithClickedButtonIndex:0 animated:YES];

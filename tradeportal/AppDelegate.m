@@ -13,6 +13,8 @@
 #import "Reachability.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <Parse/Parse.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <CoreTelephony/CTCarrier.h>
 
 @implementation AppDelegate{
     UIViewController *rootView;
@@ -30,20 +32,17 @@ UIImageView *imageView;
     [Parse setApplicationId:@"2mVs11lyRGq8ysIeCsMUGu9NQNyfZih9kkcNEOQQ"
                   clientKey:@"uwwZohVdr9XUBu7fWad3s6U6gYxyGXbEAFAytJiK"];
     
-
+    
     //Device List
     dm.deviceDict = [[NSMutableDictionary alloc]init];
     
     PFQuery *query1 = [PFQuery queryWithClassName:@"DeviceList"];
-    [query1 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-//            NSLog(@"Successfully retrieved %lu.", (unsigned long)objects.count);
-            for (PFObject *object in objects) {
-                [dm.deviceDict setObject:object.objectId forKey:[NSString stringWithFormat:@"%@",object[@"TR_Code"]]];
-            }
-
-        }
-    }];
+    NSArray *objects = [query1 findObjects];
+    for (PFObject *object in objects) {
+        [dm.deviceDict setObject:object.objectId forKey:[NSString stringWithFormat:@"%@",object[@"TR_Code"]]];
+    }
+    
+    
     
     //Notification
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
@@ -101,13 +100,13 @@ UIImageView *imageView;
         [[userInfo objectForKey:@"id"]intValue];
     }
     if ([userInfo objectForKey:@"aps"]) {
-//        NSString *msg = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
-//        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-//        [toast show];
-//        int duration = 1.5;
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [toast dismissWithClickedButtonIndex:0 animated:YES];
-//        });
+        //        NSString *msg = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+        //        UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        //        [toast show];
+        //        int duration = 1.5;
+        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //            [toast dismissWithClickedButtonIndex:0 animated:YES];
+        //        });
     }
     if ([[userInfo objectForKey:@"id"]intValue]==1){
         //    NSLog(@"SelectedIndex: %lu",(unsigned long)((UITabBarController*)dm.tabBarController).selectedIndex);
@@ -120,7 +119,7 @@ UIImageView *imageView;
             [tabbar.viewControllers[0] reloadTableData];
         }
     }
-        //    [PFPush handlePush:userInfo];
+    //    [PFPush handlePush:userInfo];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -137,7 +136,7 @@ UIImageView *imageView;
     application.applicationIconBadgeNumber = 0;
     dm.currentInstallation.badge=0;
     [dm.currentInstallation saveInBackground];
-//    [self.window addSubview:imageView];
+    //    [self.window addSubview:imageView];
 }
 
 - (void)reset{
@@ -172,7 +171,7 @@ UIImageView *imageView;
     application.applicationIconBadgeNumber = 0;
     dm.currentInstallation.badge=0;
     [dm.currentInstallation saveInBackground];
-
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -198,23 +197,31 @@ UIImageView *imageView;
 {
     NetworkStatus netStatus = [reachability currentReachabilityStatus];
     NSString *msg;
+    //    NSLog(@"%d",netStatus);
     switch (netStatus)
     {
         case NotReachable:
         {
-            msg = @"No Network Access";
+            msg = @"No Network";
             UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [toast show];
             int duration = 1.5;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [toast dismissWithClickedButtonIndex:0 animated:YES];
             });
+            dm.wifi = @"No Network";
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshView" object:nil];
             //            NSLog(@"No Access");
             break;
         }
             
         case ReachableViaWWAN:        {
-            //            NSLog(@"Reachable WWAN");
+            //                        NSLog(@"Reachable WWAN");
+            CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
+            CTCarrier *carrier = [netinfo subscriberCellularProvider];
+            //            NSLog(@"Carrier Name: %@", [carrier carrierName]);
+            dm.wifi = [carrier carrierName];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshView" object:nil];
             break;
         }
         case ReachableViaWiFi:        {
@@ -223,12 +230,14 @@ UIImageView *imageView;
             dm.wifi = [[NSString alloc]init];
             dm.wifi = [self fetchSSIDInfo];
             msg = [NSString stringWithFormat:@"Connected to %@",dm.wifi];
-            UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
-//            [toast show];
-            int duration = 1.5;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [toast dismissWithClickedButtonIndex:0 animated:YES];
-            });
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshView" object:nil];
+            
+            //            UIAlertView *toast = [[UIAlertView alloc]initWithTitle:nil message:msg delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            //            [toast show];
+            //            int duration = 1.5;
+            //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //                [toast dismissWithClickedButtonIndex:0 animated:YES];
+            //            });
             break;
         }
     }
@@ -241,7 +250,7 @@ UIImageView *imageView;
     BOOL flag=false;
     for (NSString *ifnam in ifs) {
         info = (__bridge id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
-//        NSLog(@"%@",[info objectForKey:@"SSID"]);
+        //        NSLog(@"%@",[info objectForKey:@"SSID"]);
         flag=true;
     }
     if (flag) {
